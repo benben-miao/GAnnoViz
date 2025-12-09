@@ -1,11 +1,11 @@
 #' @title Extract Exons ranges from GFF or GTF
-#' @description Extract Exons ranges from GFF or GTF.
+#' @description Extract \bold{\emph{Exons}} ranges from GFF or GTF.
 #' @author benben-miao
 #'
-#' @return A \emph{GRanges} object.
-#' @param gff_file Genomic structural annotation GFF3/GTF file path.
-#' @param format Format of GFF3/GTF file. (\emph{"auto"}, "gff3", "gtf").
-#' @param exon_info Exon information. (\emph{"all"}, "chrom_id", "exon_range").
+#' @return A \bold{\emph{GRanges}} object.
+#' @param gff_file Genomic structural annotation \bold{\file{GFF3/GTF}} file path.
+#' @param format Format of GFF3/GTF file. (\bold{\emph{"auto"}}, "gff3", "gtf").
+#' @param exon_info Exon information. (\bold{\emph{"all"}}, "chrom_id", "exon_range").
 #'
 #' @export
 #'
@@ -34,6 +34,7 @@ extract_exons <- function(
 		gff_file,
 		format = "auto",
 		exon_info = "all") {
+
   # GFF3/GTF -> TXDB
   txdb <- suppressWarnings(txdbmaker::makeTxDbFromGFF(
   	file = gff_file,

@@ -1,11 +1,11 @@
 #' @title Extract genes information from GFF or GTF
-#' @description Extract genes information from GFF or GTF.
+#' @description Extract \bold{\emph{genes}} information from GFF or GTF.
 #' @author benben-miao
 #'
-#' @return A \emph{GRanges} object.
-#' @param gff_file Genomic structural annotation GFF3/GTF file path.
-#' @param format Format of GFF3/GTF file. (\emph{"auto"}, "gff3", "gtf").
-#' @param gene_info Gene information. (\emph{"all"}, "chrom_id", "gene_id", "gene_range").
+#' @return A \bold{\emph{GRanges}} object.
+#' @param gff_file Genomic structural annotation \bold{\file{GFF3/GTF}} file path.
+#' @param format Format of GFF3/GTF file. (\bold{\emph{"auto"}}, "gff3", "gtf").
+#' @param gene_info Gene information. (\bold{\emph{"all"}}, "chrom_id", "gene_id", "gene_range").
 #'
 #' @export
 #'
@@ -41,6 +41,7 @@ extract_genes <- function(
 		gff_file,
 		format = "auto",
 		gene_info = "all") {
+
   # GFF3/GTF -> TXDB
   txdb <- suppressWarnings(txdbmaker::makeTxDbFromGFF(
   	file = gff_file,

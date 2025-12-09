@@ -7,17 +7,17 @@
 extract_exons(gff_file, format = "auto", exon_info = "all")
 }
 \arguments{
-\item{gff_file}{Genomic structural annotation GFF3/GTF file path.}
+\item{gff_file}{Genomic structural annotation \bold{\file{GFF3/GTF}} file path.}
 
-\item{format}{Format of GFF3/GTF file. (\emph{"auto"}, "gff3", "gtf").}
+\item{format}{Format of GFF3/GTF file. (\bold{\emph{"auto"}}, "gff3", "gtf").}
 
-\item{exon_info}{Exon information. (\emph{"all"}, "chrom_id", "exon_range").}
+\item{exon_info}{Exon information. (\bold{\emph{"all"}}, "chrom_id", "exon_range").}
 }
 \value{
-A \emph{GRanges} object.
+A \bold{\emph{GRanges}} object.
 }
 \description{
-Extract Exons ranges from GFF or GTF.
+Extract \bold{\emph{Exons}} ranges from GFF or GTF.
 }
 \examples{
 # Example GFF3 file in SlideAnno

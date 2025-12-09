@@ -1,11 +1,11 @@
 #' @title Extract mRNA transcripts from GFF or GTF
-#' @description Extract mRNA transcripts from GFF or GTF.
+#' @description Extract \bold{\emph{mRNA}} transcripts from GFF or GTF.
 #' @author benben-miao
 #'
-#' @return A \emph{GRanges} object.
-#' @param gff_file Genomic structural annotation GFF3/GTF file path.
-#' @param format Format of GFF3/GTF file. (\emph{"auto"}, "gff3", "gtf").
-#' @param mrna_info mRNA information. (\emph{"all"}, "chrom_id", "mrna_id", "mrna_range").
+#' @return A \bold{\emph{GRanges}} object.
+#' @param gff_file Genomic structural annotation \bold{\file{GFF3/GTF}} file path.
+#' @param format Format of GFF3/GTF file. (\bold{\emph{"auto"}}, "gff3", "gtf").
+#' @param mrna_info mRNA information. (\bold{\emph{"all"}}, "chrom_id", "mrna_id", "mrna_range").
 #'
 #' @export
 #'
@@ -41,6 +41,7 @@ extract_mrnas <- function(
 		gff_file,
 		format = "auto",
 		mrna_info = "all") {
+
   # GFF3/GTF -> TXDB
   txdb <- suppressWarnings(txdbmaker::makeTxDbFromGFF(
   	file = gff_file,

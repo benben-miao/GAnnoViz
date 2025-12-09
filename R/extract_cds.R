@@ -1,11 +1,11 @@
 #' @title Extract CDS ranges from GFF or GTF
-#' @description Extract CDS ranges from GFF or GTF.
+#' @description Extract \bold{\emph{CDS}} ranges from GFF or GTF.
 #' @author benben-miao
 #'
-#' @return A \emph{GRanges} object.
-#' @param gff_file Genomic structural annotation GFF3/GTF file path.
-#' @param format Format of GFF3/GTF file. (\emph{"auto"}, "gff3", "gtf").
-#' @param cds_info CDS information. (\emph{"all"}, "chrom_id", "cds_range").
+#' @return A \bold{\emph{GRanges}} object.
+#' @param gff_file Genomic structural annotation \bold{\file{GFF3/GTF}} file path.
+#' @param format Format of GFF3/GTF file. (\bold{\emph{"auto"}}, "gff3", "gtf").
+#' @param cds_info CDS information. (\bold{\emph{"all"}}, "chrom_id", "cds_range").
 #'
 #' @export
 #'
@@ -34,6 +34,7 @@ extract_cds <- function(
 		gff_file,
 		format = "auto",
 		cds_info = "all") {
+
   # GFF3/GTF -> TXDB
   txdb <- suppressWarnings(txdbmaker::makeTxDbFromGFF(
   	file = gff_file,

@@ -7,17 +7,17 @@
 extract_genes(gff_file, format = "auto", gene_info = "all")
 }
 \arguments{
-\item{gff_file}{Genomic structural annotation GFF3/GTF file path.}
+\item{gff_file}{Genomic structural annotation \bold{\file{GFF3/GTF}} file path.}
 
-\item{format}{Format of GFF3/GTF file. (\emph{"auto"}, "gff3", "gtf").}
+\item{format}{Format of GFF3/GTF file. (\bold{\emph{"auto"}}, "gff3", "gtf").}
 
-\item{gene_info}{Gene information. (\emph{"all"}, "chrom_id", "gene_id", "gene_range").}
+\item{gene_info}{Gene information. (\bold{\emph{"all"}}, "chrom_id", "gene_id", "gene_range").}
 }
 \value{
-A \emph{GRanges} object.
+A \bold{\emph{GRanges}} object.
 }
 \description{
-Extract genes information from GFF or GTF.
+Extract \bold{\emph{genes}} information from GFF or GTF.
 }
 \examples{
 # Example GFF3 file in SlideAnno

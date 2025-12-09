@@ -1,13 +1,12 @@
 #' @title Publication-ready ggplot theme
-#' @description Consistent theme used across SeuratVisPro plots with optional grid removal.
+#' @description Publication-ready \bold{\emph{ggplot theme}}.
 #' @author benben-miao
 #'
-#' @return A `ggplot2` theme object.
-#' @param grid Logical; if `FALSE`, removes panel grid.
+#' @return A \bold{\emph{ggplot theme}} object.
 #'
 #' @keywords internal
 #'
-svpp_theme <- function() {
+my_theme <- function() {
   family <- "Arial"
   psfonts <- names(grDevices::postscriptFonts())
   if (!is.null(psfonts) && !(family %in% psfonts))

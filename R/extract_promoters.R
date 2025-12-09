@@ -1,13 +1,13 @@
 #' @title Extract promoter ranges from GFF or GTF
-#' @description Extract promoter ranges from GFF or GTF.
+#' @description Extract \bold{\emph{promoter}} ranges from GFF or GTF.
 #' @author benben-miao
 #'
-#' @return A \emph{GRanges} object.
-#' @param gff_file Genomic structural annotation GFF3/GTF file path.
-#' @param format Format of GFF3/GTF file. (\emph{"auto"}, "gff3", "gtf").
-#' @param upstream Promoter upstream (bp). (\emph{2000}).
-#' @param downstream Promoter downstream (bp). (\emph{200}).
-#' @param promoter_info Promoter information. (\emph{"all"}, "chrom_id", "promoter_id", "promoter_range").
+#' @return A \bold{\emph{GRanges}} object.
+#' @param gff_file Genomic structural annotation \bold{\file{GFF3/GTF}} file path.
+#' @param format Format of GFF3/GTF file. (\bold{\emph{"auto"}}, "gff3", "gtf").
+#' @param upstream Promoter upstream (bp). (\bold{\emph{2000}}).
+#' @param downstream Promoter downstream (bp). (\bold{\emph{200}}).
+#' @param promoter_info Promoter information. (\bold{\emph{"all"}}, "chrom_id", "promoter_id", "promoter_range").
 #'
 #' @export
 #'
@@ -51,6 +51,7 @@ extract_promoters <- function(
 		upstream = 2000,
 		downstream = 200,
 		promoter_info = "all") {
+
   # GFF3/GTF -> TXDB
   txdb <- suppressWarnings(txdbmaker::makeTxDbFromGFF(
   	file = gff_file,

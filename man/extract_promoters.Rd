@@ -13,21 +13,21 @@ extract_promoters(
 )
 }
 \arguments{
-\item{gff_file}{Genomic structural annotation GFF3/GTF file path.}
+\item{gff_file}{Genomic structural annotation \bold{\file{GFF3/GTF}} file path.}
 
-\item{format}{Format of GFF3/GTF file. (\emph{"auto"}, "gff3", "gtf").}
+\item{format}{Format of GFF3/GTF file. (\bold{\emph{"auto"}}, "gff3", "gtf").}
 
-\item{upstream}{Promoter upstream (bp). (\emph{2000}).}
+\item{upstream}{Promoter upstream (bp). (\bold{\emph{2000}}).}
 
-\item{downstream}{Promoter downstream (bp). (\emph{200}).}
+\item{downstream}{Promoter downstream (bp). (\bold{\emph{200}}).}
 
-\item{promoter_info}{Promoter information. (\emph{"all"}, "chrom_id", "promoter_id", "promoter_range").}
+\item{promoter_info}{Promoter information. (\bold{\emph{"all"}}, "chrom_id", "promoter_id", "promoter_range").}
 }
 \value{
-A \emph{GRanges} object.
+A \bold{\emph{GRanges}} object.
 }
 \description{
-Extract promoter ranges from GFF or GTF.
+Extract \bold{\emph{promoter}} ranges from GFF or GTF.
 }
 \examples{
 # Example GFF3 file in SlideAnno

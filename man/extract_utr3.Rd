@@ -7,17 +7,17 @@
 extract_utr3(gff_file, format = "auto", utr3_info = "all")
 }
 \arguments{
-\item{gff_file}{Genomic structural annotation GFF3/GTF file path.}
+\item{gff_file}{Genomic structural annotation \bold{\file{GFF3/GTF}} file path.}
 
-\item{format}{Format of GFF3/GTF file. (\emph{"auto"}, "gff3", "gtf").}
+\item{format}{Format of GFF3/GTF file. (\bold{\emph{"auto"}}, "gff3", "gtf").}
 
-\item{utr3_info}{mRNA information. (\emph{"all"}, "chrom_id", "utr3_id", "utr3_range").}
+\item{utr3_info}{mRNA information. (\bold{\emph{"all"}}, "chrom_id", "utr3_id", "utr3_range").}
 }
 \value{
-A \emph{GRanges} object.
+A \bold{\emph{GRanges}} object.
 }
 \description{
-Extract 3'UTR ranges from GFF or GTF.
+Extract \bold{\emph{3'UTR}} ranges from GFF or GTF.
 }
 \examples{
 # Example GFF3 file in SlideAnno

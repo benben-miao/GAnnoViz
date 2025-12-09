@@ -7,17 +7,17 @@
 extract_cds(gff_file, format = "auto", cds_info = "all")
 }
 \arguments{
-\item{gff_file}{Genomic structural annotation GFF3/GTF file path.}
+\item{gff_file}{Genomic structural annotation \bold{\file{GFF3/GTF}} file path.}
 
-\item{format}{Format of GFF3/GTF file. (\emph{"auto"}, "gff3", "gtf").}
+\item{format}{Format of GFF3/GTF file. (\bold{\emph{"auto"}}, "gff3", "gtf").}
 
-\item{cds_info}{CDS information. (\emph{"all"}, "chrom_id", "cds_range").}
+\item{cds_info}{CDS information. (\bold{\emph{"all"}}, "chrom_id", "cds_range").}
 }
 \value{
-A \emph{GRanges} object.
+A \bold{\emph{GRanges}} object.
 }
 \description{
-Extract CDS ranges from GFF or GTF.
+Extract \bold{\emph{CDS}} ranges from GFF or GTF.
 }
 \examples{
 # Example GFF3 file in SlideAnno

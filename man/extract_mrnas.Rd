@@ -7,17 +7,17 @@
 extract_mrnas(gff_file, format = "auto", mrna_info = "all")
 }
 \arguments{
-\item{gff_file}{Genomic structural annotation GFF3/GTF file path.}
+\item{gff_file}{Genomic structural annotation \bold{\file{GFF3/GTF}} file path.}
 
-\item{format}{Format of GFF3/GTF file. (\emph{"auto"}, "gff3", "gtf").}
+\item{format}{Format of GFF3/GTF file. (\bold{\emph{"auto"}}, "gff3", "gtf").}
 
-\item{mrna_info}{mRNA information. (\emph{"all"}, "chrom_id", "mrna_id", "mrna_range").}
+\item{mrna_info}{mRNA information. (\bold{\emph{"all"}}, "chrom_id", "mrna_id", "mrna_range").}
 }
 \value{
-A \emph{GRanges} object.
+A \bold{\emph{GRanges}} object.
 }
 \description{
-Extract mRNA transcripts from GFF or GTF.
+Extract \bold{\emph{mRNA}} transcripts from GFF or GTF.
 }
 \examples{
 # Example GFF3 file in SlideAnno
