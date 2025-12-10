@@ -27,19 +27,15 @@
 #'     bar_color = "#0055ff55",
 #'     lable_size = 3)
 #'
-plot_gene_stats <- function(
-		gff_file,
-		format = "auto",
-		bar_width = 0.7,
-		bar_color = "#0055ff55",
-		lable_size = 3) {
-
+plot_gene_stats <- function(gff_file,
+							format = "auto",
+							bar_width = 0.7,
+							bar_color = "#0055ff55",
+							lable_size = 3) {
 	# Extract genes
-	genes <- extract_genes(
-		gff_file = gff_file,
-		format = format,
-		gene_info = "all"
-	)
+	genes <- extract_genes(gff_file = gff_file,
+						   format = format,
+						   gene_info = "all")
 
 	# Chrom <- Seqnames
 	chrom_raw <- as.character(GenomicRanges::seqnames(genes))
@@ -53,11 +49,7 @@ plot_gene_stats <- function(
 	suppressWarnings({
 		chrom_num <- as.numeric(chrom_num)
 	})
-	order_index <- order(
-		is.na(chrom_num),
-		chrom_num,
-		chrom_chr
-	)
+	order_index <- order(is.na(chrom_num), chrom_num, chrom_chr)
 	chrom_levels <- unique(chrom_chr[order_index])
 	chrom_factor <- factor(chrom_chr, levels = chrom_levels)
 
@@ -66,10 +58,9 @@ plot_gene_stats <- function(
 
 	# Plot
 	ggplot2::ggplot(df, ggplot2::aes(x = chrom, y = n)) +
-		ggplot2::geom_col(
-			na.rm = FALSE,
-			width = bar_width,
-			fill = bar_color) +
+		ggplot2::geom_col(na.rm = FALSE,
+						  width = bar_width,
+						  fill = bar_color) +
 		ggplot2::geom_text(
 			ggplot2::aes(label = n),
 			size = lable_size,
