@@ -1,5 +1,5 @@
-#' @title Plot DEGs hyper/hypo distributions by chromosome
-#' @description Plot DEGs \bold{\emph{hyper/hypo distributions}} by chromosomes.
+#' @title Plot differentially expressed genes (DEGs) hyper/hypo distributions by chromosome
+#' @description Plot \bold{\emph{differentially expressed genes (DEGs)}} hyper/hypo distributions by chromosomes.
 #'
 #' @return A \bold{\emph{ggplot object}} of chromosome-wise DEG distributions.
 #' @param deg_file DEG table from \bold{\emph{DESeq2}} analysis.
@@ -8,6 +8,7 @@
 #' @param id_col Gene IDs column name. (\bold{\emph{"GeneID"}}).
 #' @param fc_col Log2(fold change) column name. (\bold{\emph{"log2FoldChange"}}).
 #' @param violin_scale Violin scale mode. (\bold{\emph{"count"}}, "area", "width").
+#' @param violin_border Violin border width. (\bold{\emph{0.5}}).
 #' @param point_shape Points shape (0-25). (\bold{\emph{16}}).
 #' @param point_size Point size. (\bold{\emph{2}}).
 #' @param jitter_width Horizontal jitter width. (\bold{\emph{0.2}}).
@@ -38,6 +39,7 @@
 #'   id_col = "GeneID",
 #'   fc_col = "log2FoldChange",
 #'   violin_scale = "count",
+#'   violin_border = 0.5,
 #'   point_shape = 16,
 #'   point_size = 2,
 #'   jitter_width = 0.2,
@@ -51,6 +53,7 @@ plot_chrom_deg <- function(deg_file,
 						   id_col = "GeneID",
 						   fc_col = "log2FoldChange",
 						   violin_scale = "count",
+						   violin_border = 0.5,
 						   point_shape = 16,
 						   point_size = 2,
 						   jitter_width = 0.2,
@@ -118,7 +121,8 @@ plot_chrom_deg <- function(deg_file,
 			inherit.aes = TRUE,
 			width = 1,
 			fill = "white",
-			color = "black"
+			color = "black",
+			linewidth = violin_border
 		) +
 		ggplot2::geom_point(
 			ggplot2::aes(color = log2fc > 0),

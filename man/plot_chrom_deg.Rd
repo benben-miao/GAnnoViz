@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_chrom_deg.R
 \name{plot_chrom_deg}
 \alias{plot_chrom_deg}
-\title{Plot DEGs hyper/hypo distributions by chromosome}
+\title{Plot differentially expressed genes (DEGs) hyper/hypo distributions by chromosome}
 \usage{
 plot_chrom_deg(
   deg_file,
@@ -11,6 +11,7 @@ plot_chrom_deg(
   id_col = "GeneID",
   fc_col = "log2FoldChange",
   violin_scale = "count",
+  violin_border = 0.5,
   point_shape = 16,
   point_size = 2,
   jitter_width = 0.2,
@@ -31,6 +32,8 @@ plot_chrom_deg(
 
 \item{violin_scale}{Violin scale mode. (\bold{\emph{"count"}}, "area", "width").}
 
+\item{violin_border}{Violin border width. (\bold{\emph{0.5}}).}
+
 \item{point_shape}{Points shape (0-25). (\bold{\emph{16}}).}
 
 \item{point_size}{Point size. (\bold{\emph{2}}).}
@@ -45,7 +48,7 @@ plot_chrom_deg(
 A \bold{\emph{ggplot object}} of chromosome-wise DEG distributions.
 }
 \description{
-Plot DEGs \bold{\emph{hyper/hypo distributions}} by chromosomes.
+Plot \bold{\emph{differentially expressed genes (DEGs)}} hyper/hypo distributions by chromosomes.
 }
 \examples{
 # DEG results from DESeq2
@@ -68,6 +71,7 @@ plot_chrom_deg(
   id_col = "GeneID",
   fc_col = "log2FoldChange",
   violin_scale = "count",
+  violin_border = 0.5,
   point_shape = 16,
   point_size = 2,
   jitter_width = 0.2,
