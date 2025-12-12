@@ -8,11 +8,8 @@ template:
     highlight: dracula
   bslib:
     code_font: {google: "JetBrains Mono"}
-  assets:
-    - inst/pkgdown/assets/style.css
-    - inst/pkgdown/extra.css
 
-url: https://github.com/benben-miao/SeuratVisPro
+url: https://github.com/benben-miao/GAnnoViz
 destination: docs
 
 navbar:
@@ -32,30 +29,43 @@ navbar:
       text: Articles
       icon: fa-file-code
       menu:
-        - text: Tutorials
-        - text: Tutorials
+        - text: Tutorial
           icon: fa-file-code
           href: articles/Tutorial.html
         - text: -------
         - text: Blog
 
 reference:
-  - title: Core functions
+  - title: Extract Features
     contents:
-      - VisQCPanel
-      - VisClusterStability
-      - VisMarkerAtlas
-      - VisBatchAlign
-      - VisGeneTrend
-      - VisLigRec
-      - VisClusterTree
-      - VisSpatialOverlay
-      - VisMetaFeature
-      - VisCellCycle
-      - SeuratVisProExample
-      - launchSeuratVisPro
-      - VisEmbeddingContour
-      - VisGeneCoexpHive
-      - VisHexEntropy
-      - VisLocalMoran
-      - VisClusterFlowGraph
+      - extract_promoters
+      - extract_utr5
+      - extract_genes
+      - extract_mrnas
+      - extract_cds
+      - extract_exons
+      - extract_utr3
+  - title: Plot Structure
+    contents:
+      - plot_gene_stats
+      - plot_gene_structure
+      - plot_interval_structure
+      - plot_interval_flank
+      - plot_chrom_structure
+      - plot_chrom_genes
+      - plot_chrom_heatmap
+  - title: DEG Anno & Viz
+    contents:
+      - anno_deg_chrom
+      - plot_chrom_deg
+  - title: SNP Anno & Plot
+    contents:
+      - anno_fst_dmr
+      - plot_snp_density
+      - plot_snp_fst
+      - plot_snp_anno
+  - title: DMG Anno & Plot
+    contents:
+      - anno_fst_dmr
+      - plot_dmg_chrom
+      - plot_dmg_trend

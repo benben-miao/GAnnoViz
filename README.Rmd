@@ -28,6 +28,27 @@ knitr::opts_chunk$set(
 
 GAnnoViz: a R package for genomic annotation and visualization.
 
+### Key features
+
+- Comprehensive GFF/GTF parsing into tidy GRanges workflows
+- Publication-grade genomic visualizations: gene structure, interval structure, and chromosome layouts
+- Signal overlays for population and epigenetic analyses (FST, DMR) with robust window aggregation
+- Innovative genome-wide density maps and circos-style rings for exploratory analysis
+- Modular API with consistent theming for reproducible, high-quality figures
+
+### Typical inputs
+
+- Structural annotations: GFF3/GTF
+- Population genetics: sliding-window FST tables
+- Epigenetics: methylKit-derived DMR tables
+- Differential expression: DESeq2-style DEG tables
+
+### Design principles
+
+- Consistent chromosome ordering and coordinate handling across functions
+- Overlap-length weighted aggregation for window-based statistics
+- Publication-ready defaults, minimal external dependencies, reproducible outputs
+
 ## 2. Installation
 
 ```{r echo=FALSE}
@@ -45,7 +66,7 @@ library(ggplot2)
 # GAnnoVizApp()
 ```
 
-## 4. Usages
+## 4. Extract Features
 
 ### Extract Genes
 
@@ -129,6 +150,8 @@ utr5_range <- extract_utr5(
 head(utr5_range)
 ```
 
+## 5. Plot Structure
+
 ### Plot gene stats for chromosomes
 
 ```{r plot_gene_stats, fig.width=10, fig.height=7}
@@ -191,6 +214,27 @@ plot_interval_structure(
 )
 ```
 
+### Plot interval flank structure around a focal gene
+
+```{r plot_interval_flank, fig.width=10, fig.height=7}
+# Neighborhood around a focal gene on its chromosome
+plot_interval_flank(
+  gff_file = gff_file,
+  format = "auto",
+  gene_id = "HdF029609",
+  flank_upstream = 200000,
+  flank_downstream = 200000,
+  show_promoters = TRUE,
+  upstream = 2000,
+  downstream = 200,
+  arrow_length = 5,
+  arrow_unit = "pt",
+  gene_color = "#0088ff",
+  promoter_color = "#ff8800",
+  label_size = 3
+)
+```
+
 ### Plot chromosome structures and gene stats
 
 ```{r plot_chrom_structure, fig.width=10, fig.height=7}
@@ -224,6 +268,7 @@ plot_chrom_genes(
   orientation = "vertical")
 ```
 
+## 6. DEG Anno & Viz
 
 ### Annotate differentially expressed genes (DEGs) with chromosome positions
 
@@ -292,6 +337,8 @@ plot_chrom_deg(
   hypo_color = "#00880088"
 )
 ```
+
+## 7. SNP Anno & Plot
 
 ### Annotate FST slide windows with genomic features
 
@@ -410,6 +457,8 @@ plot_snp_anno(
   gap_frac = 0.05
 )
 ```
+
+## 8. DMG Anno & Plot
 
 ### Plot differentially methylated regions (DMRs) hyper/hypo distributions by chromosome
 

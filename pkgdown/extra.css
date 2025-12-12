@@ -18,7 +18,7 @@ code.sourceCode {
   border: 1px solid #2a2a2a !important;
   border-radius: 10px !important;
 }
-pre.sourceCode { padding: 1rem !important; overflow-x: auto !important; }
+pre.sourceCode { overflow-x: auto !important; }
 
 /* Token colors */
 pre.sourceCode .kw { color: #c792ea !important; }

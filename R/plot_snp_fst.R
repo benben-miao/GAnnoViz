@@ -124,7 +124,7 @@ plot_snp_fst <- function(fst_file,
   p <- ggplot2::ggplot(df_bin, ggplot2::aes(x = center, y = factor(chrom, levels = chrom_levels))) +
     ggplot2::geom_tile(ggplot2::aes(
       width = end - start,
-      height = 0.9,
+      height = 0.5,
       fill = value
     ),
     alpha = alpha) +
