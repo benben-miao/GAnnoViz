@@ -304,6 +304,23 @@ head(res)
 #> 6 chr14 15455652 15456778 HdF000106 -6.085891      *
 ```
 
+### Plot genomic feature density heatmap
+
+``` r
+# Gene density heatmap
+plot_chrom_heatmap(
+  gff_file = gff_file,
+  format = "auto",
+  feature = "gene",
+  bin_size = 1e6,
+  orientation = "horizontal",
+  palette = c("#ffffff", "#0055aa"),
+  alpha = 0.9
+)
+```
+
+<img src="man/figures/README-plot_chrom_heatmap-1.png" style="display: block; margin: auto;" />
+
 ### Plot differentially expressed genes (DEGs) hyper/hypo distributions by chromosome
 
 ``` r
@@ -442,7 +459,7 @@ head(res)
 
 ``` r
 # Plot SNP density
-plot_chrom_snp(
+plot_snp_density(
   fst_file = fst_table,
   LOG10 = FALSE,
   bin_size = 1e6,
@@ -450,13 +467,53 @@ plot_chrom_snp(
 )
 ```
 
-<img src="man/figures/README-plot_chrom_snp-1.png" style="display: block; margin: auto;" />
+<img src="man/figures/README-plot_snp_density-1.png" style="display: block; margin: auto;" />
+
+### Plot genomic weighted FST heatmap
+
+``` r
+# Plot weighted FST
+plot_snp_fst(
+  fst_file = fst_table,
+  bin_size = 1e6,
+  metric = "fst_mean",
+  orientation = "horizontal",
+  palette = c("#ffffff", "#aa00aa"),
+  alpha = 0.9
+)
+```
+
+<img src="man/figures/README-plot_snp_fst-1.png" style="display: block; margin: auto;" />
+
+### Plot genomic FST with Top-N gene annotations
+
+``` r
+# Chromosome FST with Top-20 gene annotations on chr11
+plot_snp_anno(
+  fst_file = fst_table,
+  gff_file = gff_file,
+  format = "auto",
+  chrom_id = "chr2",
+  top_n = 20,
+  orientation = "vertical",
+  smooth_span = 0.5,
+  fst_color = "#0088ff",
+  point_size = 1,
+  point_alpha = 0.3,
+  label_size = 3,
+  connector_dx1 = 2e4,
+  connector_dx2 = 4e4,
+  gap_frac = 0.05
+)
+```
+
+<img src="man/figures/README-plot_snp_anno-1.png" style="display: block; margin: auto;" />
 
 ### Plot differentially methylated regions (DMRs) hyper/hypo distributions by chromosome
 
 ``` r
 # Plot chrom DMRs
-plot_chrom_dmr(
+plot_dmg_chrom(
   dmr_file = dmr_table,
   violin_scale = "count",
   violin_border = 0.5,
@@ -469,3 +526,20 @@ plot_chrom_dmr(
 ```
 
 <img src="man/figures/README-plot_chrom_dmr-1.png" style="display: block; margin: auto;" />
+
+### Plot chromosomal DMGs trend
+
+``` r
+# Plot DMR trend
+plot_dmg_trend(
+  chrom_id = "chr1",
+  dmr_file = dmr_table,
+  smooth_span = 0.1,
+  hyper_color = "#ff0000",
+  hypo_color = "#008800",
+  point_size = 3,
+  point_alpha = 0.5
+)
+```
+
+<img src="man/figures/README-plot_dmg_trend-1.png" style="display: block; margin: auto;" />

@@ -22,7 +22,7 @@
 #'     package = "SlideAnno")
 #'
 #' # Plot
-#' plot_chrom_dmr(
+#' plot_dmg_chrom(
 #'   dmr_file = dmr_file,
 #'   violin_scale = "count",
 #'   violin_border = 0.5,
@@ -33,7 +33,7 @@
 #'   hypo_color = "#0088ff88"
 #' )
 #'
-plot_chrom_dmr <- function(dmr_file,
+plot_dmg_chrom <- function(dmr_file,
 						   violin_scale = "count",
 						   violin_border = 0.5,
 						   point_shape = 8,

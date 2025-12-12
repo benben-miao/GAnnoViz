@@ -258,6 +258,21 @@ res <- anno_deg_chrom(
 head(res)
 ```
 
+### Plot genomic feature density heatmap
+
+```{r plot_chrom_heatmap, fig.width=10, fig.height=7}
+# Gene density heatmap
+plot_chrom_heatmap(
+  gff_file = gff_file,
+  format = "auto",
+  feature = "gene",
+  bin_size = 1e6,
+  orientation = "horizontal",
+  palette = c("#ffffff", "#0055aa"),
+  alpha = 0.9
+)
+```
+
 ### Plot differentially expressed genes (DEGs) hyper/hypo distributions by chromosome
 
 ```{r plot_chrom_deg, fig.width=10, fig.height=7}
@@ -350,9 +365,9 @@ head(res)
 
 ### Plot SNP density at chromosome level
 
-```{r plot_chrom_snp, fig.width=10, fig.height=7}
+```{r plot_snp_density, fig.width=10, fig.height=7}
 # Plot SNP density
-plot_chrom_snp(
+plot_snp_density(
   fst_file = fst_table,
   LOG10 = FALSE,
   bin_size = 1e6,
@@ -360,11 +375,47 @@ plot_chrom_snp(
 )
 ```
 
+### Plot genomic weighted FST heatmap
+
+```{r plot_snp_fst, fig.width=10, fig.height=7}
+# Plot weighted FST
+plot_snp_fst(
+  fst_file = fst_table,
+  bin_size = 1e6,
+  metric = "fst_mean",
+  orientation = "horizontal",
+  palette = c("#ffffff", "#aa00aa"),
+  alpha = 0.9
+)
+```
+
+### Plot genomic FST with Top-N gene annotations
+
+```{r plot_snp_anno, fig.width=10, fig.height=7}
+# Chromosome FST with Top-20 gene annotations on chr11
+plot_snp_anno(
+  fst_file = fst_table,
+  gff_file = gff_file,
+  format = "auto",
+  chrom_id = "chr2",
+  top_n = 20,
+  orientation = "vertical",
+  smooth_span = 0.5,
+  fst_color = "#0088ff",
+  point_size = 1,
+  point_alpha = 0.3,
+  label_size = 3,
+  connector_dx1 = 2e4,
+  connector_dx2 = 4e4,
+  gap_frac = 0.05
+)
+```
+
 ### Plot differentially methylated regions (DMRs) hyper/hypo distributions by chromosome
 
 ```{r plot_chrom_dmr, fig.width=10, fig.height=7}
 # Plot chrom DMRs
-plot_chrom_dmr(
+plot_dmg_chrom(
   dmr_file = dmr_table,
   violin_scale = "count",
   violin_border = 0.5,
@@ -373,5 +424,20 @@ plot_chrom_dmr(
   jitter_width = 0.2,
   hyper_color = "#ff880088",
   hypo_color = "#0088ff88"
+)
+```
+
+### Plot chromosomal DMGs trend
+
+```{r plot_dmg_trend, fig.width=10, fig.height=7}
+# Plot DMR trend
+plot_dmg_trend(
+  chrom_id = "chr1",
+  dmr_file = dmr_table,
+  smooth_span = 0.1,
+  hyper_color = "#ff0000",
+  hypo_color = "#008800",
+  point_size = 3,
+  point_alpha = 0.5
 )
 ```
