@@ -23,13 +23,13 @@
 #' deg_file <- system.file(
 #'     "extdata",
 #'     "example.deg",
-#'     package = "SlideAnno")
+#'     package = "GAnnoViz")
 #'
 #' # Genomic structure annotation
 #' gff_file <- system.file(
 #'     "extdata",
 #'     "example.gff",
-#'     package = "SlideAnno")
+#'     package = "GAnnoViz")
 #'
 #' # Plot
 #' plot_chrom_deg(

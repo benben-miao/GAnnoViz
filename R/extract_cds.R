@@ -10,11 +10,11 @@
 #' @export
 #'
 #' @examples
-#' # Example GFF3 file in SlideAnno
+#' # Example GFF3 file in GAnnoViz
 #' gff_file <- system.file(
 #'   "extdata",
 #'   "example.gff",
-#'   package = "SlideAnno")
+#'   package = "GAnnoViz")
 #'
 #' # Extract CDS
 #' cds <- extract_cds(
@@ -36,9 +36,10 @@ extract_cds <- function(
 		cds_info = "all") {
 
   # GFF3/GTF -> TXDB
+  fmt <- resolve_gff_format(gff_file, format)
   txdb <- suppressWarnings(txdbmaker::makeTxDbFromGFF(
   	file = gff_file,
-  	format = format))
+  	format = fmt))
 
   # Extract CDS
   cds <- suppressWarnings(GenomicFeatures::cds(txdb))

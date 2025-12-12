@@ -17,17 +17,17 @@
 #' @export
 #'
 #' @examples
-#' # Example GFF3 file in SlideAnno
+#' # Example GFF3 file in GAnnoViz
 #' gff_file <- system.file(
 #'   "extdata",
 #'   "example.gff",
-#'   package = "SlideAnno")
+#'   package = "GAnnoViz")
 #'
 #' # Annotate FST
 #' fst_table <- system.file(
 #'     "extdata",
 #'     "example.fst",
-#'     package = "SlideAnno")
+#'     package = "GAnnoViz")
 #'
 #' res <- anno_fst_dmr(
 #'   gff_file = gff_file,
@@ -47,7 +47,7 @@
 #' dmr_table <- system.file(
 #'     "extdata",
 #'     "example.dmr",
-#'     package = "SlideAnno")
+#'     package = "GAnnoViz")
 #'
 #' res <- anno_fst_dmr(
 #'   gff_file = gff_file,
@@ -74,7 +74,8 @@ anno_fst_dmr <- function(gff_file,
 						 ignore_strand = TRUE,
 						 features = c("promoter", "UTR5", "gene", "exon", "intron", "CDS", "UTR3", "intergenic")) {
 	# TXDB
-	txdb <- suppressWarnings(txdbmaker::makeTxDbFromGFF(file = gff_file, format = format))
+	fmt <- resolve_gff_format(gff_file, format)
+	txdb <- suppressWarnings(txdbmaker::makeTxDbFromGFF(file = gff_file, format = fmt))
 
 	# Features
 	promoter <- if ("promoter" %in% features)

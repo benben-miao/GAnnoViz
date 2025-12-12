@@ -32,8 +32,6 @@ navbar:
         - text: Tutorial
           icon: fa-file-code
           href: articles/Tutorial.html
-        - text: -------
-        - text: Blog
 
 reference:
   - title: Extract Features

@@ -15,11 +15,11 @@
 #' @export
 #'
 #' @examples
-#' # DMR restuls from Methylkit
+#' # DMR results from Methylkit
 #' dmr_file <- system.file(
 #'     "extdata",
 #'     "example.dmr",
-#'     package = "SlideAnno")
+#'     package = "GAnnoViz")
 #'
 #' # Plot
 #' plot_dmg_chrom(

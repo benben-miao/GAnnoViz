@@ -24,11 +24,11 @@
 #' @export
 #'
 #' @examples
-#' # Example GFF3 file in SlideAnno
+#' # Example GFF3 file in GAnnoViz
 #' gff_file <- system.file(
 #'   "extdata",
 #'   "example.gff",
-#'   package = "SlideAnno")
+#'   package = "GAnnoViz")
 #'
 #' # Plot gene structure
 #' plot_gene_structure(
@@ -67,7 +67,8 @@ plot_gene_structure <- function(gff_file,
 								exon_color = "#0033ff",
 								intron_color = "#333333") {
 	# TXDB
-	txdb <- suppressWarnings(txdbmaker::makeTxDbFromGFF(file = gff_file, format = format))
+	fmt <- resolve_gff_format(gff_file, format)
+	txdb <- suppressWarnings(txdbmaker::makeTxDbFromGFF(file = gff_file, format = fmt))
 
 	# Genes
 	genes <- suppressWarnings(GenomicFeatures::genes(txdb))

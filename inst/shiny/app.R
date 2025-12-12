@@ -22,58 +22,175 @@ ui <- bs4DashPage(
     minified = TRUE,
     expandOnHover = TRUE,
     fixed = TRUE,
+    width = "300px",
     bs4SidebarMenu(
+      bs4SidebarUserPanel(name = "GAnnoViz", image = "logo.png"),
+      bs4SidebarHeader(title = "GAnnoViz"),
       bs4SidebarMenuItem(
         text = "Extract Features",
-        icon = icon("download"),
-        startExpanded = FALSE,
-        bs4SidebarMenuSubItem(text = "extract_promoters", tabName = "extract_promoters"),
-        bs4SidebarMenuSubItem(text = "extract_utr5", tabName = "extract_utr5"),
-        bs4SidebarMenuSubItem(text = "extract_genes", tabName = "extract_genes"),
-        bs4SidebarMenuSubItem(text = "extract_mrnas", tabName = "extract_mrnas"),
-        bs4SidebarMenuSubItem(text = "extract_cds", tabName = "extract_cds"),
-        bs4SidebarMenuSubItem(text = "extract_exons", tabName = "extract_exons"),
-        bs4SidebarMenuSubItem(text = "extract_utr3", tabName = "extract_utr3")
+        icon = icon("database"),
+        startExpanded = TRUE,
+        bs4SidebarMenuSubItem(
+          text = "extract_promoters",
+          icon = icon("r-project"),
+          tabName = "extract_promoters"
+        ),
+        bs4SidebarMenuSubItem(
+          text = "extract_utr5",
+          icon = icon("r-project"),
+          tabName = "extract_utr5"
+        ),
+        bs4SidebarMenuSubItem(
+          text = "extract_genes",
+          icon = icon("r-project"),
+          tabName = "extract_genes"
+        ),
+        bs4SidebarMenuSubItem(
+          text = "extract_mrnas",
+          icon = icon("r-project"),
+          tabName = "extract_mrnas"
+        ),
+        bs4SidebarMenuSubItem(
+          text = "extract_cds",
+          icon = icon("r-project"),
+          tabName = "extract_cds"
+        ),
+        bs4SidebarMenuSubItem(
+          text = "extract_exons",
+          icon = icon("r-project"),
+          tabName = "extract_exons"
+        ),
+        bs4SidebarMenuSubItem(
+          text = "extract_utr3",
+          icon = icon("r-project"),
+          tabName = "extract_utr3"
+        )
       ),
       bs4SidebarMenuItem(
         text = "Plot Structure",
-        icon = icon("chart-line"),
-        startExpanded = FALSE,
-        bs4SidebarMenuSubItem(text = "plot_gene_stats", tabName = "plot_gene_stats"),
-        bs4SidebarMenuSubItem(text = "plot_gene_structure", tabName = "plot_gene_structure"),
-        bs4SidebarMenuSubItem(text = "plot_interval_structure", tabName = "plot_interval_structure"),
-        bs4SidebarMenuSubItem(text = "plot_interval_flank", tabName = "plot_interval_flank"),
-        bs4SidebarMenuSubItem(text = "plot_chrom_structure", tabName = "plot_chrom_structure"),
-        bs4SidebarMenuSubItem(text = "plot_chrom_genes", tabName = "plot_chrom_genes"),
-        bs4SidebarMenuSubItem(text = "plot_chrom_heatmap", tabName = "plot_chrom_heatmap")
+        icon = icon("circle-nodes"),
+        startExpanded = TRUE,
+        bs4SidebarMenuSubItem(
+          text = "plot_gene_stats",
+          icon = icon("r-project"),
+          tabName = "plot_gene_stats"
+        ),
+        bs4SidebarMenuSubItem(
+          text = "plot_gene_structure",
+          icon = icon("r-project"),
+          tabName = "plot_gene_structure"
+        ),
+        bs4SidebarMenuSubItem(
+          text = "plot_interval_structure",
+          icon = icon("r-project"),
+          tabName = "plot_interval_structure"
+        ),
+        bs4SidebarMenuSubItem(
+          text = "plot_interval_flank",
+          icon = icon("r-project"),
+          tabName = "plot_interval_flank"
+        ),
+        bs4SidebarMenuSubItem(
+          text = "plot_chrom_structure",
+          icon = icon("r-project"),
+          tabName = "plot_chrom_structure"
+        ),
+        bs4SidebarMenuSubItem(
+          text = "plot_chrom_genes",
+          icon = icon("r-project"),
+          tabName = "plot_chrom_genes"
+        ),
+        bs4SidebarMenuSubItem(
+          text = "plot_chrom_heatmap",
+          icon = icon("r-project"),
+          tabName = "plot_chrom_heatmap"
+        )
       ),
       bs4SidebarMenuItem(
         text = "DEG Anno & Viz",
-        icon = icon("chart-bar"),
-        startExpanded = FALSE,
-        bs4SidebarMenuSubItem(text = "anno_deg_chrom", tabName = "anno_deg_chrom"),
-        bs4SidebarMenuSubItem(text = "plot_chrom_deg", tabName = "plot_chrom_deg")
+        icon = icon("chart-simple"),
+        startExpanded = TRUE,
+        bs4SidebarMenuSubItem(
+          text = "anno_deg_chrom",
+          icon = icon("r-project"),
+          tabName = "anno_deg_chrom"
+        ),
+        bs4SidebarMenuSubItem(
+          text = "plot_chrom_deg",
+          icon = icon("r-project"),
+          tabName = "plot_chrom_deg"
+        )
       ),
       bs4SidebarMenuItem(
         text = "SNP Anno & Plot",
-        icon = icon("dna"),
-        startExpanded = FALSE,
-        bs4SidebarMenuSubItem(text = "plot_snp_density", tabName = "plot_snp_density"),
-        bs4SidebarMenuSubItem(text = "plot_snp_fst", tabName = "plot_snp_fst"),
-        bs4SidebarMenuSubItem(text = "plot_snp_anno", tabName = "plot_snp_anno")
+        icon = icon("arrows-to-dot"),
+        startExpanded = TRUE,
+        bs4SidebarMenuSubItem(
+          text = "plot_snp_density",
+          icon = icon("r-project"),
+          tabName = "plot_snp_density"
+        ),
+        bs4SidebarMenuSubItem(
+          text = "plot_snp_fst",
+          icon = icon("r-project"),
+          tabName = "plot_snp_fst"
+        ),
+        bs4SidebarMenuSubItem(
+          text = "plot_snp_anno",
+          icon = icon("r-project"),
+          tabName = "plot_snp_anno"
+        )
       ),
       bs4SidebarMenuItem(
         text = "DMG Anno & Plot",
-        icon = icon("dot-circle"),
-        startExpanded = FALSE,
-        bs4SidebarMenuSubItem(text = "anno_fst_dmr", tabName = "anno_fst_dmr"),
-        bs4SidebarMenuSubItem(text = "plot_dmg_chrom", tabName = "plot_dmg_chrom"),
-        bs4SidebarMenuSubItem(text = "plot_dmg_trend", tabName = "plot_dmg_trend")
+        icon = icon("atom"),
+        startExpanded = TRUE,
+        bs4SidebarMenuSubItem(
+          text = "anno_fst_dmr",
+          icon = icon("r-project"),
+          tabName = "anno_fst_dmr"
+        ),
+        bs4SidebarMenuSubItem(
+          text = "plot_dmg_chrom",
+          icon = icon("r-project"),
+          tabName = "plot_dmg_chrom"
+        ),
+        bs4SidebarMenuSubItem(
+          text = "plot_dmg_trend",
+          icon = icon("r-project"),
+          tabName = "plot_dmg_trend"
+        )
       )
     )
   ),
   body = bs4DashBody(
-    tags$head(tags$link(rel = "stylesheet", href = "style.css")),
+    tags$head(
+      tags$link(rel = "stylesheet", href = "style.css"),
+      tags$style(
+        HTML(
+          "
+            .card-body {
+              max-height: 800px;
+              overflow-y: auto;
+              scrollbar-width: thin;
+            }
+            .action-button {
+            	width: 100%;
+            	background-color: #ff880088;
+            	border-radius: 10px;
+            	color: #333333;
+            	font-weight: bold;
+            }
+            .shiny-input-number {
+              border-radius: 10px;
+            }
+            .shiny-input-select {
+              border-radius: 10px;
+            }
+          "
+        )
+      )
+    ),
     bs4TabItems(
       bs4TabItem(tabName = "plot_gene_structure", fluidRow(
         column(
@@ -83,26 +200,109 @@ ui <- bs4DashPage(
             status = "info",
             solidHeader = TRUE,
             width = 12,
-            fileInput("gff_file_gene", "GFF/GTF file"),
-            selectInput("gff_format_gene", "Format", choices = c("auto","gff3","gtf"), selected = "auto"),
-            textInput("gene_id", "Gene ID", value = "HdF029609"),
-            numericInput("upstream", "Promoter upstream", value = 2000, min = 0, step = 100),
-            numericInput("downstream", "Promoter downstream", value = 200, min = 0, step = 50),
-            sliderInput("feature_alpha", "Feature alpha", min = 0, max = 1, value = 0.8, step = 0.05),
-            numericInput("intron_width", "Intron width", value = 1, min = 0, step = 0.5),
-            numericInput("x_breaks", "X breaks", value = 10, min = 2, step = 1),
-            numericInput("arrow_length", "Arrow length", value = 5, min = 1, step = 1),
-            numericInput("arrow_count", "Arrow count", value = 1, min = 0, step = 1),
-            selectInput("arrow_unit", "Arrow unit", choices = c("pt","mm","cm","inches"), selected = "pt"),
-            textInput("promoter_color", "Promoter color", value = "#ff8800"),
-            textInput("utr5_color", "5'UTR color", value = "#008833"),
-            textInput("utr3_color", "3'UTR color", value = "#ff0033"),
-            textInput("exon_color", "Exon color", value = "#0033ff"),
-            textInput("intron_color", "Intron color", value = "#333333"),
-            actionButton("run_plot_gene_structure", "Run")
+            actionButton(
+              inputId = "run_plot_gene_structure",
+              label = "Run",
+              icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            br(),
+            fileInput(inputId = "gff_file_gene", label = "GFF/GTF file"),
+            selectInput(
+              inputId = "gff_format_gene",
+              label = "Format",
+              choices = c("auto", "gff3", "gtf"),
+              selected = "auto"
+            ),
+            textInput(
+              inputId = "gene_id",
+              label = "Gene ID",
+              value = "HdF029609"
+            ),
+            numericInput(
+              inputId = "upstream",
+              label = "Promoter upstream",
+              value = 2000,
+              min = 0,
+              step = 100
+            ),
+            numericInput(
+              inputId = "downstream",
+              label = "Promoter downstream",
+              value = 200,
+              min = 0,
+              step = 50
+            ),
+            sliderInput(
+              inputId = "feature_alpha",
+              label = "Feature alpha",
+              min = 0,
+              max = 1,
+              value = 0.8,
+              step = 0.05
+            ),
+            numericInput(
+              inputId = "intron_width",
+              label = "Intron width",
+              value = 1,
+              min = 0,
+              step = 0.5
+            ),
+            numericInput(
+              inputId = "x_breaks",
+              label = "X breaks",
+              value = 10,
+              min = 2,
+              step = 1
+            ),
+            numericInput(
+              inputId = "arrow_length",
+              label = "Arrow length",
+              value = 5,
+              min = 1,
+              step = 1
+            ),
+            numericInput(
+              inputId = "arrow_count",
+              label = "Arrow count",
+              value = 1,
+              min = 0,
+              step = 1
+            ),
+            selectInput(
+              inputId = "arrow_unit",
+              label = "Arrow unit",
+              choices = c("pt", "mm", "cm", "inches"),
+              selected = "pt"
+            ),
+            textInput(
+              inputId = "promoter_color",
+              label = "Promoter color",
+              value = "#ff8800"
+            ),
+            textInput(
+              inputId = "utr5_color",
+              label = "5'UTR color",
+              value = "#008833"
+            ),
+            textInput(
+              inputId = "utr3_color",
+              label = "3'UTR color",
+              value = "#ff0033"
+            ),
+            textInput(
+              inputId = "exon_color",
+              label = "Exon color",
+              value = "#0033ff"
+            ),
+            textInput(
+              inputId = "intron_color",
+              label = "Intron color",
+              value = "#333333"
+            )
           )
-        ),
-        column(
+        ), column(
           width = 9,
           bs4Card(
             title = "Plot",
@@ -123,17 +323,54 @@ ui <- bs4DashPage(
             status = "info",
             solidHeader = TRUE,
             width = 12,
-            fileInput("dmr_file_trend", "DMR table"),
-            textInput("chrom_id_trend", "Chrom ID", value = "chr1"),
-            sliderInput("smooth_span_trend", "Smooth span", min = 0.05, max = 1, value = 0.1, step = 0.05),
-            textInput("hyper_color_trend", "Hyper color", value = "#ff000055"),
-            textInput("hypo_color_trend", "Hypo color", value = "#00880055"),
-            numericInput("point_size_trend", "Point size", value = 3, min = 0.5, step = 0.5),
-            sliderInput("point_alpha_trend", "Point alpha", min = 0, max = 1, value = 0.5, step = 0.05),
-            actionButton("run_plot_dmg_trend", "Run")
+            actionButton(
+              inputId = "run_plot_dmg_trend",
+              label = "Run",
+              icon = icon("circle-play"),
+              class = "btn-block"
+            ),
+            br(),
+            fileInput(inputId = "dmr_file_trend", label = "DMR table"),
+            textInput(
+              inputId = "chrom_id_trend",
+              label = "Chrom ID",
+              value = "chr1"
+            ),
+            sliderInput(
+              inputId = "smooth_span_trend",
+              label = "Smooth span",
+              min = 0.05,
+              max = 1,
+              value = 0.1,
+              step = 0.05
+            ),
+            textInput(
+              inputId = "hyper_color_trend",
+              label = "Hyper color",
+              value = "#ff000055"
+            ),
+            textInput(
+              inputId = "hypo_color_trend",
+              label = "Hypo color",
+              value = "#00880055"
+            ),
+            numericInput(
+              inputId = "point_size_trend",
+              label = "Point size",
+              value = 3,
+              min = 0.5,
+              step = 0.5
+            ),
+            sliderInput(
+              inputId = "point_alpha_trend",
+              label = "Point alpha",
+              min = 0,
+              max = 1,
+              value = 0.5,
+              step = 0.05
+            )
           )
-        ),
-        column(
+        ), column(
           width = 9,
           bs4Card(
             title = "Plot",
@@ -154,28 +391,123 @@ ui <- bs4DashPage(
             status = "info",
             solidHeader = TRUE,
             width = 12,
-            fileInput("gff_file_interval", "GFF/GTF file"),
-            selectInput("gff_format_interval", "Format", choices = c("auto","gff3","gtf"), selected = "auto"),
-            textInput("chrom_id", "Chrom ID", value = "chr1"),
-            numericInput("win_start", "Start", value = 950000, min = 0, step = 1000),
-            numericInput("win_end", "End", value = 1180000, min = 0, step = 1000),
-            numericInput("x_breaks_interval", "X breaks", value = 10, min = 2, step = 1),
-            numericInput("upstream_interval", "Promoter upstream", value = 2000, min = 0, step = 100),
-            numericInput("downstream_interval", "Promoter downstream", value = 200, min = 0, step = 50),
-            sliderInput("feature_alpha_interval", "Feature alpha", min = 0, max = 1, value = 0.8, step = 0.05),
-            numericInput("intron_width_interval", "Intron width", value = 1, min = 0, step = 0.5),
-            numericInput("arrow_length_interval", "Arrow length", value = 5, min = 1, step = 1),
-            numericInput("arrow_count_interval", "Arrow count", value = 1, min = 0, step = 1),
-            selectInput("arrow_unit_interval", "Arrow unit", choices = c("pt","mm","cm","inches"), selected = "pt"),
-            textInput("promoter_color_interval", "Promoter color", value = "#ff8800"),
-            textInput("utr5_color_interval", "5'UTR color", value = "#008833"),
-            textInput("utr3_color_interval", "3'UTR color", value = "#ff0033"),
-            textInput("exon_color_interval", "Exon color", value = "#0033ff"),
-            textInput("intron_color_interval", "Intron color", value = "#333333"),
-            actionButton("run_plot_interval_structure", "Run")
+            actionButton(
+              inputId = "run_plot_interval_structure",
+              label = "Run",
+              icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            br(),
+            fileInput(inputId = "gff_file_interval", label = "GFF/GTF file"),
+            selectInput(
+              inputId = "gff_format_interval",
+              label = "Format",
+              choices = c("auto", "gff3", "gtf"),
+              selected = "auto"
+            ),
+            textInput(
+              inputId = "chrom_id",
+              label = "Chrom ID",
+              value = "chr1"
+            ),
+            numericInput(
+              inputId = "win_start",
+              label = "Start",
+              value = 950000,
+              min = 0,
+              step = 1000
+            ),
+            numericInput(
+              inputId = "win_end",
+              label = "End",
+              value = 1180000,
+              min = 0,
+              step = 1000
+            ),
+            numericInput(
+              inputId = "x_breaks_interval",
+              label = "X breaks",
+              value = 10,
+              min = 2,
+              step = 1
+            ),
+            numericInput(
+              inputId = "upstream_interval",
+              label = "Promoter upstream",
+              value = 2000,
+              min = 0,
+              step = 100
+            ),
+            numericInput(
+              inputId = "downstream_interval",
+              label = "Promoter downstream",
+              value = 200,
+              min = 0,
+              step = 50
+            ),
+            sliderInput(
+              inputId = "feature_alpha_interval",
+              label = "Feature alpha",
+              min = 0,
+              max = 1,
+              value = 0.8,
+              step = 0.05
+            ),
+            numericInput(
+              inputId = "intron_width_interval",
+              label = "Intron width",
+              value = 1,
+              min = 0,
+              step = 0.5
+            ),
+            numericInput(
+              inputId = "arrow_length_interval",
+              label = "Arrow length",
+              value = 5,
+              min = 1,
+              step = 1
+            ),
+            numericInput(
+              inputId = "arrow_count_interval",
+              label = "Arrow count",
+              value = 1,
+              min = 0,
+              step = 1
+            ),
+            selectInput(
+              inputId = "arrow_unit_interval",
+              label = "Arrow unit",
+              choices = c("pt", "mm", "cm", "inches"),
+              selected = "pt"
+            ),
+            textInput(
+              inputId = "promoter_color_interval",
+              label = "Promoter color",
+              value = "#ff8800"
+            ),
+            textInput(
+              inputId = "utr5_color_interval",
+              label = "5'UTR color",
+              value = "#008833"
+            ),
+            textInput(
+              inputId = "utr3_color_interval",
+              label = "3'UTR color",
+              value = "#ff0033"
+            ),
+            textInput(
+              inputId = "exon_color_interval",
+              label = "Exon color",
+              value = "#0033ff"
+            ),
+            textInput(
+              inputId = "intron_color_interval",
+              label = "Intron color",
+              value = "#333333"
+            )
           )
-        ),
-        column(
+        ), column(
           width = 9,
           bs4Card(
             title = "Plot",
@@ -196,23 +528,91 @@ ui <- bs4DashPage(
             status = "info",
             solidHeader = TRUE,
             width = 12,
-            fileInput("gff_file_flank", "GFF/GTF file"),
-            selectInput("gff_format_flank", "Format", choices = c("auto","gff3","gtf"), selected = "auto"),
-            textInput("flank_gene_id", "Gene ID", value = "HdF029609"),
-            numericInput("flank_upstream", "Flank upstream", value = 200000, min = 0, step = 1000),
-            numericInput("flank_downstream", "Flank downstream", value = 200000, min = 0, step = 1000),
-            checkboxInput("show_promoters", "Show promoters", value = TRUE),
-            numericInput("upstream_flank", "Promoter upstream", value = 2000, min = 0, step = 100),
-            numericInput("downstream_flank", "Promoter downstream", value = 200, min = 0, step = 50),
-            numericInput("arrow_length_flank", "Arrow length", value = 5, min = 1, step = 1),
-            selectInput("arrow_unit_flank", "Arrow unit", choices = c("pt","mm","cm","inches"), selected = "pt"),
-            textInput("gene_color_flank", "Gene color", value = "#0088ff"),
-            textInput("promoter_color_flank", "Promoter color", value = "#ff8800"),
-            numericInput("label_size_flank", "Label size", value = 3, min = 1, step = 1),
-            actionButton("run_plot_interval_flank", "Run")
+            actionButton(
+              inputId = "run_plot_interval_flank",
+              label = "Run",
+              icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            br(),
+            fileInput(inputId = "gff_file_flank", label = "GFF/GTF file"),
+            selectInput(
+              inputId = "gff_format_flank",
+              label = "Format",
+              choices = c("auto", "gff3", "gtf"),
+              selected = "auto"
+            ),
+            textInput(
+              inputId = "flank_gene_id",
+              label = "Gene ID",
+              value = "HdF029609"
+            ),
+            numericInput(
+              inputId = "flank_upstream",
+              label = "Flank upstream",
+              value = 200000,
+              min = 0,
+              step = 1000
+            ),
+            numericInput(
+              inputId = "flank_downstream",
+              label = "Flank downstream",
+              value = 200000,
+              min = 0,
+              step = 1000
+            ),
+            checkboxInput(
+              inputId = "show_promoters",
+              label = "Show promoters",
+              value = TRUE
+            ),
+            numericInput(
+              inputId = "upstream_flank",
+              label = "Promoter upstream",
+              value = 2000,
+              min = 0,
+              step = 100
+            ),
+            numericInput(
+              inputId = "downstream_flank",
+              label = "Promoter downstream",
+              value = 200,
+              min = 0,
+              step = 50
+            ),
+            numericInput(
+              inputId = "arrow_length_flank",
+              label = "Arrow length",
+              value = 5,
+              min = 1,
+              step = 1
+            ),
+            selectInput(
+              inputId = "arrow_unit_flank",
+              label = "Arrow unit",
+              choices = c("pt", "mm", "cm", "inches"),
+              selected = "pt"
+            ),
+            textInput(
+              inputId = "gene_color_flank",
+              label = "Gene color",
+              value = "#0088ff"
+            ),
+            textInput(
+              inputId = "promoter_color_flank",
+              label = "Promoter color",
+              value = "#ff8800"
+            ),
+            numericInput(
+              inputId = "label_size_flank",
+              label = "Label size",
+              value = 3,
+              min = 1,
+              step = 1
+            )
           )
-        ),
-        column(
+        ), column(
           width = 9,
           bs4Card(
             title = "Plot",
@@ -233,20 +633,75 @@ ui <- bs4DashPage(
             status = "info",
             solidHeader = TRUE,
             width = 12,
-            fileInput("gff_file_chrom", "GFF/GTF file"),
-            selectInput("gff_format_chrom", "Format", choices = c("auto","gff3","gtf"), selected = "auto"),
-            selectInput("chrom_orientation", "Orientation", choices = c("vertical","horizontal"), selected = "vertical"),
-            sliderInput("bar_width", "Bar width", min = 0.1, max = 1, value = 0.6, step = 0.05),
-            sliderInput("chrom_alpha", "Chrom alpha", min = 0, max = 1, value = 0.1, step = 0.05),
-            sliderInput("gene_width", "Gene width", min = 0.1, max = 1, value = 0.5, step = 0.05),
-            textInput("chrom_color", "Chrom color", value = "#008888"),
-            textInput("gene_color_chrom", "Gene color", value = "#0088ff"),
-            textInput("telomere_color", "Telomere color", value = "#ff0000"),
-            numericInput("label_size_chrom", "Label size", value = 3, min = 1, step = 1),
-            actionButton("run_plot_chrom_structure", "Run")
+            actionButton(
+              inputId = "run_plot_chrom_structure",
+              label = "Run",
+              icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            br(),
+            fileInput(inputId = "gff_file_chrom", label = "GFF/GTF file"),
+            selectInput(
+              inputId = "gff_format_chrom",
+              label = "Format",
+              choices = c("auto", "gff3", "gtf"),
+              selected = "auto"
+            ),
+            selectInput(
+              inputId = "chrom_orientation",
+              label = "Orientation",
+              choices = c("vertical", "horizontal"),
+              selected = "vertical"
+            ),
+            sliderInput(
+              inputId = "bar_width",
+              label = "Bar width",
+              min = 0.1,
+              max = 1,
+              value = 0.6,
+              step = 0.05
+            ),
+            sliderInput(
+              inputId = "chrom_alpha",
+              label = "Chrom alpha",
+              min = 0,
+              max = 1,
+              value = 0.1,
+              step = 0.05
+            ),
+            sliderInput(
+              inputId = "gene_width",
+              label = "Gene width",
+              min = 0.1,
+              max = 1,
+              value = 0.5,
+              step = 0.05
+            ),
+            textInput(
+              inputId = "chrom_color",
+              label = "Chrom color",
+              value = "#008888"
+            ),
+            textInput(
+              inputId = "gene_color_chrom",
+              label = "Gene color",
+              value = "#0088ff"
+            ),
+            textInput(
+              inputId = "telomere_color",
+              label = "Telomere color",
+              value = "#ff0000"
+            ),
+            numericInput(
+              inputId = "label_size_chrom",
+              label = "Label size",
+              value = 3,
+              min = 1,
+              step = 1
+            )
           )
-        ),
-        column(
+        ), column(
           width = 9,
           bs4Card(
             title = "Plot",
@@ -267,25 +722,104 @@ ui <- bs4DashPage(
             status = "info",
             solidHeader = TRUE,
             width = 12,
-            fileInput("gff_file_chrom_genes", "GFF/GTF file"),
-            selectInput("gff_format_chrom_genes", "Format", choices = c("auto","gff3","gtf"), selected = "auto"),
-            fileInput("gene_table_file", "Gene table (2 cols: id,name)"),
-            selectInput("annotate_mode", "Annotate", choices = c("id","name"), selected = "id"),
-            selectInput("chrom_genes_orientation", "Orientation", choices = c("vertical","horizontal"), selected = "vertical"),
-            sliderInput("min_gap_frac", "Min gap frac", min = 0.005, max = 0.1, value = 0.02, step = 0.005),
-            sliderInput("bar_width_genes", "Bar width", min = 0.1, max = 1, value = 0.6, step = 0.05),
-            sliderInput("chrom_alpha_genes", "Chrom alpha", min = 0, max = 1, value = 0.1, step = 0.05),
-            sliderInput("gene_width_genes", "Gene width", min = 0.1, max = 1, value = 0.5, step = 0.05),
-            textInput("chrom_color_genes", "Chrom color", value = "#008888"),
-            textInput("gene_color_genes", "Gene color", value = "#0088ff"),
-            textInput("telomere_color_genes", "Telomere color", value = "#ff0000"),
-            numericInput("label_size_genes", "Label size", value = 3, min = 1, step = 1),
-            numericInput("connector_dx1_genes", "Connector dx1", value = 0.2, min = 0, step = 0.05),
-            numericInput("connector_dx2_genes", "Connector dx2", value = 0.2, min = 0, step = 0.05),
-            actionButton("run_plot_chrom_genes", "Run")
+            actionButton(
+              inputId = "run_plot_chrom_genes",
+              label = "Run",
+              icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            br(),
+            fileInput(inputId = "gff_file_chrom_genes", label = "GFF/GTF file"),
+            selectInput(
+              inputId = "gff_format_chrom_genes",
+              label = "Format",
+              choices = c("auto", "gff3", "gtf"),
+              selected = "auto"
+            ),
+            fileInput(inputId = "gene_table_file", label = "Gene table (2 cols: id,name)"),
+            selectInput(
+              inputId = "annotate_mode",
+              label = "Annotate",
+              choices = c("id", "name"),
+              selected = "id"
+            ),
+            selectInput(
+              inputId = "chrom_genes_orientation",
+              label = "Orientation",
+              choices = c("vertical", "horizontal"),
+              selected = "vertical"
+            ),
+            sliderInput(
+              inputId = "min_gap_frac",
+              label = "Min gap frac",
+              min = 0.005,
+              max = 0.1,
+              value = 0.02,
+              step = 0.005
+            ),
+            sliderInput(
+              inputId = "bar_width_genes",
+              label = "Bar width",
+              min = 0.1,
+              max = 1,
+              value = 0.6,
+              step = 0.05
+            ),
+            sliderInput(
+              inputId = "chrom_alpha_genes",
+              label = "Chrom alpha",
+              min = 0,
+              max = 1,
+              value = 0.1,
+              step = 0.05
+            ),
+            sliderInput(
+              inputId = "gene_width_genes",
+              label = "Gene width",
+              min = 0.1,
+              max = 1,
+              value = 0.5,
+              step = 0.05
+            ),
+            textInput(
+              inputId = "chrom_color_genes",
+              label = "Chrom color",
+              value = "#008888"
+            ),
+            textInput(
+              inputId = "gene_color_genes",
+              label = "Gene color",
+              value = "#0088ff"
+            ),
+            textInput(
+              inputId = "telomere_color_genes",
+              label = "Telomere color",
+              value = "#ff0000"
+            ),
+            numericInput(
+              inputId = "label_size_genes",
+              label = "Label size",
+              value = 3,
+              min = 1,
+              step = 1
+            ),
+            numericInput(
+              inputId = "connector_dx1_genes",
+              label = "Connector dx1",
+              value = 0.2,
+              min = 0,
+              step = 0.05
+            ),
+            numericInput(
+              inputId = "connector_dx2_genes",
+              label = "Connector dx2",
+              value = 0.2,
+              min = 0,
+              step = 0.05
+            )
           )
-        ),
-        column(
+        ), column(
           width = 9,
           bs4Card(
             title = "Plot",
@@ -306,18 +840,60 @@ ui <- bs4DashPage(
             status = "info",
             solidHeader = TRUE,
             width = 12,
-            fileInput("gff_file_heatmap", "GFF/GTF file"),
-            selectInput("gff_format_heatmap", "Format", choices = c("auto","gff3","gtf"), selected = "auto"),
-            selectInput("feature_type", "Feature", choices = c("gene","exon","CDS","promoter"), selected = "gene"),
-            numericInput("bin_size_heatmap", "Bin size", value = 1e6, min = 1e4, step = 1e5),
-            selectInput("orientation_heatmap", "Orientation", choices = c("horizontal","vertical"), selected = "horizontal"),
-            textInput("palette_start", "Palette start", value = "#ffffff"),
-            textInput("palette_end", "Palette end", value = "#0055aa"),
-            sliderInput("alpha_heatmap", "Alpha", min = 0, max = 1, value = 0.9, step = 0.05),
-            actionButton("run_plot_chrom_heatmap", "Run")
+            actionButton(
+              inputId = "run_plot_chrom_heatmap",
+              label = "Run",
+              icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            br(),
+            fileInput(inputId = "gff_file_heatmap", label = "GFF/GTF file"),
+            selectInput(
+              inputId = "gff_format_heatmap",
+              label = "Format",
+              choices = c("auto", "gff3", "gtf"),
+              selected = "auto"
+            ),
+            selectInput(
+              inputId = "feature_type",
+              label = "Feature",
+              choices = c("gene", "exon", "CDS", "promoter"),
+              selected = "gene"
+            ),
+            numericInput(
+              inputId = "bin_size_heatmap",
+              label = "Bin size",
+              value = 1e6,
+              min = 1e4,
+              step = 1e5
+            ),
+            selectInput(
+              inputId = "orientation_heatmap",
+              label = "Orientation",
+              choices = c("horizontal", "vertical"),
+              selected = "horizontal"
+            ),
+            textInput(
+              inputId = "palette_start",
+              label = "Palette start",
+              value = "#ffffff"
+            ),
+            textInput(
+              inputId = "palette_end",
+              label = "Palette end",
+              value = "#0055aa"
+            ),
+            sliderInput(
+              inputId = "alpha_heatmap",
+              label = "Alpha",
+              min = 0,
+              max = 1,
+              value = 0.9,
+              step = 0.05
+            )
           )
-        ),
-        column(
+        ), column(
           width = 9,
           bs4Card(
             title = "Plot",
@@ -338,22 +914,80 @@ ui <- bs4DashPage(
             status = "info",
             solidHeader = TRUE,
             width = 12,
-            fileInput("deg_file", "DEG table"),
-            fileInput("gff_file_deg", "GFF/GTF file"),
-            selectInput("gff_format_deg", "Format", choices = c("auto","gff3","gtf"), selected = "auto"),
-            textInput("id_col", "ID column", value = "GeneID"),
-            textInput("fc_col", "FC column", value = "log2FoldChange"),
-            selectInput("violin_scale", "Violin scale", choices = c("count","area","width"), selected = "count"),
-            sliderInput("violin_border", "Violin border", min = 0, max = 2, value = 0.5, step = 0.1),
-            numericInput("point_shape_deg", "Point shape", value = 16, min = 0, step = 1),
-            numericInput("point_size_deg", "Point size", value = 2, min = 0.5, step = 0.5),
-            sliderInput("jitter_width_deg", "Jitter width", min = 0, max = 1, value = 0.2, step = 0.05),
-            textInput("hyper_color_deg", "Hyper color", value = "#ff000088"),
-            textInput("hypo_color_deg", "Hypo color", value = "#00880088"),
-            actionButton("run_plot_chrom_deg", "Run")
+            actionButton(
+              inputId = "run_plot_chrom_deg",
+              label = "Run",
+              icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            br(),
+            fileInput(inputId = "deg_file", label = "DEG table"),
+            fileInput(inputId = "gff_file_deg", label = "GFF/GTF file"),
+            selectInput(
+              inputId = "gff_format_deg",
+              label = "Format",
+              choices = c("auto", "gff3", "gtf"),
+              selected = "auto"
+            ),
+            textInput(
+              inputId = "id_col",
+              label = "ID column",
+              value = "GeneID"
+            ),
+            textInput(
+              inputId = "fc_col",
+              label = "FC column",
+              value = "log2FoldChange"
+            ),
+            selectInput(
+              inputId = "violin_scale",
+              label = "Violin scale",
+              choices = c("count", "area", "width"),
+              selected = "count"
+            ),
+            sliderInput(
+              inputId = "violin_border",
+              label = "Violin border",
+              min = 0,
+              max = 2,
+              value = 0.5,
+              step = 0.1
+            ),
+            numericInput(
+              inputId = "point_shape_deg",
+              label = "Point shape",
+              value = 16,
+              min = 0,
+              step = 1
+            ),
+            numericInput(
+              inputId = "point_size_deg",
+              label = "Point size",
+              value = 2,
+              min = 0.5,
+              step = 0.5
+            ),
+            sliderInput(
+              inputId = "jitter_width_deg",
+              label = "Jitter width",
+              min = 0,
+              max = 1,
+              value = 0.2,
+              step = 0.05
+            ),
+            textInput(
+              inputId = "hyper_color_deg",
+              label = "Hyper color",
+              value = "#ff000088"
+            ),
+            textInput(
+              inputId = "hypo_color_deg",
+              label = "Hypo color",
+              value = "#00880088"
+            )
           )
-        ),
-        column(
+        ), column(
           width = 9,
           bs4Card(
             title = "Plot",
@@ -374,17 +1008,54 @@ ui <- bs4DashPage(
             status = "info",
             solidHeader = TRUE,
             width = 12,
-            fileInput("fst_file_heat", "FST table"),
-            numericInput("bin_size_fst", "Bin size", value = 1e6, min = 1e4, step = 1e5),
-            selectInput("metric", "Metric", choices = c("fst_mean","variant_count"), selected = "fst_mean"),
-            selectInput("orientation_fst", "Orientation", choices = c("horizontal","vertical"), selected = "horizontal"),
-            textInput("palette_start_fst", "Palette start", value = "#ffffff"),
-            textInput("palette_end_fst", "Palette end", value = "#aa00aa"),
-            sliderInput("alpha_fst", "Alpha", min = 0, max = 1, value = 0.9, step = 0.05),
-            actionButton("run_plot_snp_fst", "Run")
+            actionButton(
+              inputId = "run_plot_snp_fst",
+              label = "Run",
+              icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            br(),
+            fileInput(inputId = "fst_file_heat", label = "FST table"),
+            numericInput(
+              inputId = "bin_size_fst",
+              label = "Bin size",
+              value = 1e6,
+              min = 1e4,
+              step = 1e5
+            ),
+            selectInput(
+              inputId = "metric",
+              label = "Metric",
+              choices = c("fst_mean", "variant_count"),
+              selected = "fst_mean"
+            ),
+            selectInput(
+              inputId = "orientation_fst",
+              label = "Orientation",
+              choices = c("horizontal", "vertical"),
+              selected = "horizontal"
+            ),
+            textInput(
+              inputId = "palette_start_fst",
+              label = "Palette start",
+              value = "#ffffff"
+            ),
+            textInput(
+              inputId = "palette_end_fst",
+              label = "Palette end",
+              value = "#aa00aa"
+            ),
+            sliderInput(
+              inputId = "alpha_fst",
+              label = "Alpha",
+              min = 0,
+              max = 1,
+              value = 0.9,
+              step = 0.05
+            )
           )
-        ),
-        column(
+        ), column(
           width = 9,
           bs4Card(
             title = "Plot",
@@ -405,24 +1076,99 @@ ui <- bs4DashPage(
             status = "info",
             solidHeader = TRUE,
             width = 12,
-            fileInput("fst_file_anno", "FST table"),
-            fileInput("gff_file_fst", "GFF/GTF file"),
-            selectInput("gff_format_fst", "Format", choices = c("auto","gff3","gtf"), selected = "auto"),
-            textInput("chrom_id_fst", "Chrom ID", value = "chr2"),
-            numericInput("top_n", "Top N", value = 20, min = 1, step = 1),
-            selectInput("orientation_fst_anno", "Orientation", choices = c("vertical","horizontal"), selected = "vertical"),
-            sliderInput("smooth_span", "Smooth span", min = 0.05, max = 1, value = 0.5, step = 0.05),
-            numericInput("point_size_fst", "Point size", value = 1, min = 0.5, step = 0.5),
-            sliderInput("point_alpha_fst", "Point alpha", min = 0, max = 1, value = 0.3, step = 0.05),
-            numericInput("label_size_fst", "Label size", value = 3, min = 1, step = 1),
-            numericInput("connector_dx1", "Connector dx1", value = 2e4, min = 0, step = 1e3),
-            numericInput("connector_dx2", "Connector dx2", value = 4e4, min = 0, step = 1e3),
-            sliderInput("gap_frac", "Gap frac", min = 0.01, max = 0.2, value = 0.05, step = 0.01),
-            textInput("fst_color", "FST color", value = "#0088ff"),
-            actionButton("run_plot_snp_anno", "Run")
+            actionButton(
+              inputId = "run_plot_snp_anno",
+              label = "Run",
+              icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            br(),
+            fileInput(inputId = "fst_file_anno", label = "FST table"),
+            fileInput(inputId = "gff_file_fst", label = "GFF/GTF file"),
+            selectInput(
+              inputId = "gff_format_fst",
+              label = "Format",
+              choices = c("auto", "gff3", "gtf"),
+              selected = "auto"
+            ),
+            textInput(
+              inputId = "chrom_id_fst",
+              label = "Chrom ID",
+              value = "chr2"
+            ),
+            numericInput(
+              inputId = "top_n",
+              label = "Top N",
+              value = 20,
+              min = 1,
+              step = 1
+            ),
+            selectInput(
+              inputId = "orientation_fst_anno",
+              label = "Orientation",
+              choices = c("vertical", "horizontal"),
+              selected = "vertical"
+            ),
+            sliderInput(
+              inputId = "smooth_span",
+              label = "Smooth span",
+              min = 0.05,
+              max = 1,
+              value = 0.5,
+              step = 0.05
+            ),
+            numericInput(
+              inputId = "point_size_fst",
+              label = "Point size",
+              value = 1,
+              min = 0.5,
+              step = 0.5
+            ),
+            sliderInput(
+              inputId = "point_alpha_fst",
+              label = "Point alpha",
+              min = 0,
+              max = 1,
+              value = 0.3,
+              step = 0.05
+            ),
+            numericInput(
+              inputId = "label_size_fst",
+              label = "Label size",
+              value = 3,
+              min = 1,
+              step = 1
+            ),
+            numericInput(
+              inputId = "connector_dx1",
+              label = "Connector dx1",
+              value = 2e4,
+              min = 0,
+              step = 1e3
+            ),
+            numericInput(
+              inputId = "connector_dx2",
+              label = "Connector dx2",
+              value = 4e4,
+              min = 0,
+              step = 1e3
+            ),
+            sliderInput(
+              inputId = "gap_frac",
+              label = "Gap frac",
+              min = 0.01,
+              max = 0.2,
+              value = 0.05,
+              step = 0.01
+            ),
+            textInput(
+              inputId = "fst_color",
+              label = "FST color",
+              value = "#0088ff"
+            )
           )
-        ),
-        column(
+        ), column(
           width = 9,
           bs4Card(
             title = "Plot",
@@ -443,18 +1189,63 @@ ui <- bs4DashPage(
             status = "info",
             solidHeader = TRUE,
             width = 12,
-            fileInput("dmr_file", "DMR table"),
-            selectInput("violin_scale_dmr", "Violin scale", choices = c("count","area","width"), selected = "count"),
-            sliderInput("violin_border_dmr", "Violin border", min = 0, max = 2, value = 0.5, step = 0.1),
-            numericInput("point_shape_dmr", "Point shape", value = 8, min = 0, step = 1),
-            numericInput("point_size_dmr", "Point size", value = 2, min = 0.5, step = 0.5),
-            sliderInput("jitter_width_dmr", "Jitter width", min = 0, max = 1, value = 0.2, step = 0.05),
-            textInput("hyper_color_dmr", "Hyper color", value = "#ff880088"),
-            textInput("hypo_color_dmr", "Hypo color", value = "#0088ff88"),
-            actionButton("run_plot_dmg_chrom", "Run")
+            actionButton(
+              inputId = "run_plot_dmg_chrom",
+              label = "Run",
+              icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            br(),
+            fileInput(inputId = "dmr_file", label = "DMR table"),
+            selectInput(
+              inputId = "violin_scale_dmr",
+              label = "Violin scale",
+              choices = c("count", "area", "width"),
+              selected = "count"
+            ),
+            sliderInput(
+              inputId = "violin_border_dmr",
+              label = "Violin border",
+              min = 0,
+              max = 2,
+              value = 0.5,
+              step = 0.1
+            ),
+            numericInput(
+              inputId = "point_shape_dmr",
+              label = "Point shape",
+              value = 8,
+              min = 0,
+              step = 1
+            ),
+            numericInput(
+              inputId = "point_size_dmr",
+              label = "Point size",
+              value = 2,
+              min = 0.5,
+              step = 0.5
+            ),
+            sliderInput(
+              inputId = "jitter_width_dmr",
+              label = "Jitter width",
+              min = 0,
+              max = 1,
+              value = 0.2,
+              step = 0.05
+            ),
+            textInput(
+              inputId = "hyper_color_dmr",
+              label = "Hyper color",
+              value = "#ff880088"
+            ),
+            textInput(
+              inputId = "hypo_color_dmr",
+              label = "Hypo color",
+              value = "#0088ff88"
+            )
           )
-        ),
-        column(
+        ), column(
           width = 9,
           bs4Card(
             title = "Plot",
@@ -475,15 +1266,43 @@ ui <- bs4DashPage(
             status = "info",
             solidHeader = TRUE,
             width = 12,
-            fileInput("gff_file_gene_stats", "GFF/GTF file"),
-            selectInput("gff_format_gene_stats", "Format", choices = c("auto","gff3","gtf"), selected = "auto"),
-            sliderInput("bar_width_gene_stats", "Bar width", min = 0.1, max = 1, value = 0.7, step = 0.05),
-            textInput("bar_color_gene_stats", "Bar color", value = "#0055ff55"),
-            numericInput("label_size_gene_stats", "Label size", value = 3, min = 1, step = 1),
-            actionButton("run_plot_gene_stats", "Run")
+            actionButton(
+              inputId = "run_plot_gene_stats",
+              label = "Run",
+              icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            br(),
+            fileInput(inputId = "gff_file_gene_stats", label = "GFF/GTF file"),
+            selectInput(
+              inputId = "gff_format_gene_stats",
+              label = "Format",
+              choices = c("auto", "gff3", "gtf"),
+              selected = "auto"
+            ),
+            sliderInput(
+              inputId = "bar_width_gene_stats",
+              label = "Bar width",
+              min = 0.1,
+              max = 1,
+              value = 0.7,
+              step = 0.05
+            ),
+            textInput(
+              inputId = "bar_color_gene_stats",
+              label = "Bar color",
+              value = "#0055ff55"
+            ),
+            numericInput(
+              inputId = "label_size_gene_stats",
+              label = "Label size",
+              value = 3,
+              min = 1,
+              step = 1
+            )
           )
-        ),
-        column(
+        ), column(
           width = 9,
           bs4Card(
             title = "Plot",
@@ -502,16 +1321,44 @@ ui <- bs4DashPage(
             status = "info",
             solidHeader = TRUE,
             width = 12,
-            fileInput("fst_file_density", "FST table"),
-            checkboxInput("log10_density", "LOG10", value = FALSE),
-            numericInput("bin_size_density", "Bin size", value = 1e6, min = 1e4, step = 1e5),
-            textInput("density_color1", "Density color 1", value = "#0088ff"),
-            textInput("density_color2", "Density color 2", value = "#ff8800"),
-            textInput("density_color3", "Density color 3", value = "#ff0000"),
-            actionButton("run_plot_snp_density", "Run")
+            actionButton(
+              inputId = "run_plot_snp_density",
+              label = "Run",
+              icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            br(),
+            fileInput(inputId = "fst_file_density", label = "FST table"),
+            checkboxInput(
+              inputId = "log10_density",
+              label = "LOG10",
+              value = FALSE
+            ),
+            numericInput(
+              inputId = "bin_size_density",
+              label = "Bin size",
+              value = 1e6,
+              min = 1e4,
+              step = 1e5
+            ),
+            textInput(
+              inputId = "density_color1",
+              label = "Density color 1",
+              value = "#0088ff"
+            ),
+            textInput(
+              inputId = "density_color2",
+              label = "Density color 2",
+              value = "#ff8800"
+            ),
+            textInput(
+              inputId = "density_color3",
+              label = "Density color 3",
+              value = "#ff0000"
+            )
           )
-        ),
-        column(
+        ), column(
           width = 9,
           bs4Card(
             title = "Plot",
@@ -530,22 +1377,74 @@ ui <- bs4DashPage(
             status = "info",
             solidHeader = TRUE,
             width = 12,
-            fileInput("gff_file_anno_ranges", "GFF/GTF file"),
-            selectInput("gff_format_anno_ranges", "Format", choices = c("auto","gff3","gtf"), selected = "auto"),
-            fileInput("genomic_ranges_file", "Genomic ranges (FST/DMR)"),
-            textInput("chrom_col_ranges", "Chrom column", value = "CHROM"),
-            textInput("start_col_ranges", "Start column", value = "BIN_START"),
-            textInput("end_col_ranges", "End column", value = "BIN_END"),
-            numericInput("upstream_ranges", "Promoter upstream", value = 2000, min = 0, step = 100),
-            numericInput("downstream_ranges", "Promoter downstream", value = 200, min = 0, step = 50),
-            checkboxInput("ignore_strand_ranges", "Ignore strand", value = TRUE),
-            selectInput("features_ranges", "Features", multiple = TRUE,
-                        choices = c("promoter","UTR5","gene","exon","intron","CDS","UTR3","intergenic"),
-                        selected = c("promoter","UTR5","gene","exon","intron","CDS","UTR3")),
-            actionButton("run_anno_fst_dmr", "Run")
+            actionButton(
+              inputId = "run_anno_fst_dmr",
+              label = "Run",
+              icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            br(),
+            fileInput(inputId = "gff_file_anno_ranges", label = "GFF/GTF file"),
+            selectInput(
+              inputId = "gff_format_anno_ranges",
+              label = "Format",
+              choices = c("auto", "gff3", "gtf"),
+              selected = "auto"
+            ),
+            fileInput(inputId = "genomic_ranges_file", label = "Genomic ranges (FST/DMR)"),
+            textInput(
+              inputId = "chrom_col_ranges",
+              label = "Chrom column",
+              value = "CHROM"
+            ),
+            textInput(
+              inputId = "start_col_ranges",
+              label = "Start column",
+              value = "BIN_START"
+            ),
+            textInput(
+              inputId = "end_col_ranges",
+              label = "End column",
+              value = "BIN_END"
+            ),
+            numericInput(
+              inputId = "upstream_ranges",
+              label = "Promoter upstream",
+              value = 2000,
+              min = 0,
+              step = 100
+            ),
+            numericInput(
+              inputId = "downstream_ranges",
+              label = "Promoter downstream",
+              value = 200,
+              min = 0,
+              step = 50
+            ),
+            checkboxInput(
+              inputId = "ignore_strand_ranges",
+              label = "Ignore strand",
+              value = TRUE
+            ),
+            selectInput(
+              inputId = "features_ranges",
+              label = "Features",
+              multiple = TRUE,
+              choices = c(
+                "promoter",
+                "UTR5",
+                "gene",
+                "exon",
+                "intron",
+                "CDS",
+                "UTR3",
+                "intergenic"
+              ),
+              selected = c("promoter", "UTR5", "gene", "exon", "intron", "CDS", "UTR3")
+            )
           )
-        ),
-        column(
+        ), column(
           width = 9,
           bs4Card(
             title = "Data",
@@ -564,15 +1463,43 @@ ui <- bs4DashPage(
             status = "info",
             solidHeader = TRUE,
             width = 12,
-            fileInput("gff_file_extract_promoters", "GFF/GTF file"),
-            selectInput("gff_format_extract_promoters", "Format", choices = c("auto","gff3","gtf"), selected = "auto"),
-            numericInput("upstream_extract_promoters", "Promoter upstream", value = 2000, min = 0, step = 100),
-            numericInput("downstream_extract_promoters", "Promoter downstream", value = 200, min = 0, step = 50),
-            selectInput("promoter_info", "Info", choices = c("all","chrom_id","promoter_id","promoter_range"), selected = "all"),
-            actionButton("run_extract_promoters", "Run")
+            actionButton(
+              inputId = "run_extract_promoters",
+              label = "Run",
+              icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            br(),
+            fileInput(inputId = "gff_file_extract_promoters", label = "GFF/GTF file"),
+            selectInput(
+              inputId = "gff_format_extract_promoters",
+              label = "Format",
+              choices = c("auto", "gff3", "gtf"),
+              selected = "auto"
+            ),
+            numericInput(
+              inputId = "upstream_extract_promoters",
+              label = "Promoter upstream",
+              value = 2000,
+              min = 0,
+              step = 100
+            ),
+            numericInput(
+              inputId = "downstream_extract_promoters",
+              label = "Promoter downstream",
+              value = 200,
+              min = 0,
+              step = 50
+            ),
+            selectInput(
+              inputId = "promoter_info",
+              label = "Info",
+              choices = c("all", "chrom_id", "promoter_id", "promoter_range"),
+              selected = "all"
+            )
           )
-        ),
-        column(
+        ), column(
           width = 9,
           bs4Card(
             title = "Data",
@@ -591,13 +1518,29 @@ ui <- bs4DashPage(
             status = "info",
             solidHeader = TRUE,
             width = 12,
-            fileInput("gff_file_extract_utr5", "GFF/GTF file"),
-            selectInput("gff_format_extract_utr5", "Format", choices = c("auto","gff3","gtf"), selected = "auto"),
-            selectInput("utr5_info", "Info", choices = c("all","chrom_id","utr5_range"), selected = "all"),
-            actionButton("run_extract_utr5", "Run")
+            actionButton(
+              inputId = "run_extract_utr5",
+              label = "Run",
+              icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            br(),
+            fileInput(inputId = "gff_file_extract_utr5", label = "GFF/GTF file"),
+            selectInput(
+              inputId = "gff_format_extract_utr5",
+              label = "Format",
+              choices = c("auto", "gff3", "gtf"),
+              selected = "auto"
+            ),
+            selectInput(
+              inputId = "utr5_info",
+              label = "Info",
+              choices = c("all", "chrom_id", "utr5_range"),
+              selected = "all"
+            )
           )
-        ),
-        column(
+        ), column(
           width = 9,
           bs4Card(
             title = "Data",
@@ -616,13 +1559,29 @@ ui <- bs4DashPage(
             status = "info",
             solidHeader = TRUE,
             width = 12,
-            fileInput("gff_file_extract_genes", "GFF/GTF file"),
-            selectInput("gff_format_extract_genes", "Format", choices = c("auto","gff3","gtf"), selected = "auto"),
-            selectInput("gene_info_opt", "Info", choices = c("all","chrom_id","gene_id","gene_range"), selected = "all"),
-            actionButton("run_extract_genes", "Run")
+            actionButton(
+              inputId = "run_extract_genes",
+              label = "Run",
+              icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            br(),
+            fileInput(inputId = "gff_file_extract_genes", label = "GFF/GTF file"),
+            selectInput(
+              inputId = "gff_format_extract_genes",
+              label = "Format",
+              choices = c("auto", "gff3", "gtf"),
+              selected = "auto"
+            ),
+            selectInput(
+              inputId = "gene_info_opt",
+              label = "Info",
+              choices = c("all", "chrom_id", "gene_id", "gene_range"),
+              selected = "all"
+            )
           )
-        ),
-        column(
+        ), column(
           width = 9,
           bs4Card(
             title = "Data",
@@ -641,13 +1600,29 @@ ui <- bs4DashPage(
             status = "info",
             solidHeader = TRUE,
             width = 12,
-            fileInput("gff_file_extract_mrnas", "GFF/GTF file"),
-            selectInput("gff_format_extract_mrnas", "Format", choices = c("auto","gff3","gtf"), selected = "auto"),
-            selectInput("mrna_info_opt", "Info", choices = c("all","chrom_id","mrna_id","mrna_range"), selected = "all"),
-            actionButton("run_extract_mrnas", "Run")
+            actionButton(
+              inputId = "run_extract_mrnas",
+              label = "Run",
+              icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            br(),
+            fileInput(inputId = "gff_file_extract_mrnas", label = "GFF/GTF file"),
+            selectInput(
+              inputId = "gff_format_extract_mrnas",
+              label = "Format",
+              choices = c("auto", "gff3", "gtf"),
+              selected = "auto"
+            ),
+            selectInput(
+              inputId = "mrna_info_opt",
+              label = "Info",
+              choices = c("all", "chrom_id", "mrna_id", "mrna_range"),
+              selected = "all"
+            )
           )
-        ),
-        column(
+        ), column(
           width = 9,
           bs4Card(
             title = "Data",
@@ -666,13 +1641,29 @@ ui <- bs4DashPage(
             status = "info",
             solidHeader = TRUE,
             width = 12,
-            fileInput("gff_file_extract_cds", "GFF/GTF file"),
-            selectInput("gff_format_extract_cds", "Format", choices = c("auto","gff3","gtf"), selected = "auto"),
-            selectInput("cds_info_opt", "Info", choices = c("all","chrom_id","cds_id","cds_range"), selected = "all"),
-            actionButton("run_extract_cds", "Run")
+            actionButton(
+              inputId = "run_extract_cds",
+              label = "Run",
+              icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            br(),
+            fileInput(inputId = "gff_file_extract_cds", label = "GFF/GTF file"),
+            selectInput(
+              inputId = "gff_format_extract_cds",
+              label = "Format",
+              choices = c("auto", "gff3", "gtf"),
+              selected = "auto"
+            ),
+            selectInput(
+              inputId = "cds_info_opt",
+              label = "Info",
+              choices = c("all", "chrom_id", "cds_id", "cds_range"),
+              selected = "all"
+            )
           )
-        ),
-        column(
+        ), column(
           width = 9,
           bs4Card(
             title = "Data",
@@ -691,13 +1682,29 @@ ui <- bs4DashPage(
             status = "info",
             solidHeader = TRUE,
             width = 12,
-            fileInput("gff_file_extract_exons", "GFF/GTF file"),
-            selectInput("gff_format_extract_exons", "Format", choices = c("auto","gff3","gtf"), selected = "auto"),
-            selectInput("exon_info_opt", "Info", choices = c("all","chrom_id","exon_id","exon_range"), selected = "all"),
-            actionButton("run_extract_exons", "Run")
+            actionButton(
+              inputId = "run_extract_exons",
+              label = "Run",
+              icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            br(),
+            fileInput(inputId = "gff_file_extract_exons", label = "GFF/GTF file"),
+            selectInput(
+              inputId = "gff_format_extract_exons",
+              label = "Format",
+              choices = c("auto", "gff3", "gtf"),
+              selected = "auto"
+            ),
+            selectInput(
+              inputId = "exon_info_opt",
+              label = "Info",
+              choices = c("all", "chrom_id", "exon_id", "exon_range"),
+              selected = "all"
+            )
           )
-        ),
-        column(
+        ), column(
           width = 9,
           bs4Card(
             title = "Data",
@@ -716,13 +1723,29 @@ ui <- bs4DashPage(
             status = "info",
             solidHeader = TRUE,
             width = 12,
-            fileInput("gff_file_extract_utr3", "GFF/GTF file"),
-            selectInput("gff_format_extract_utr3", "Format", choices = c("auto","gff3","gtf"), selected = "auto"),
-            selectInput("utr3_info_opt", "Info", choices = c("all","chrom_id","utr3_range"), selected = "all"),
-            actionButton("run_extract_utr3", "Run")
+            actionButton(
+              inputId = "run_extract_utr3",
+              label = "Run",
+              icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            br(),
+            fileInput(inputId = "gff_file_extract_utr3", label = "GFF/GTF file"),
+            selectInput(
+              inputId = "gff_format_extract_utr3",
+              label = "Format",
+              choices = c("auto", "gff3", "gtf"),
+              selected = "auto"
+            ),
+            selectInput(
+              inputId = "utr3_info_opt",
+              label = "Info",
+              choices = c("all", "chrom_id", "utr3_range"),
+              selected = "all"
+            )
           )
-        ),
-        column(
+        ), column(
           width = 9,
           bs4Card(
             title = "Data",
@@ -739,26 +1762,49 @@ ui <- bs4DashPage(
 
 server <- function(input, output, session) {
   getGff <- function(infile) {
-    if (!is.null(infile)) infile$datapath else system.file("extdata","example.gff", package = "GAnnoViz")
+    if (!is.null(infile))
+      infile$datapath
+    else
+      system.file("extdata", "example.gff", package = "GAnnoViz")
   }
   getDeg <- function(infile) {
-    if (!is.null(infile)) infile$datapath else system.file("extdata","example.deg", package = "GAnnoViz")
+    if (!is.null(infile))
+      infile$datapath
+    else
+      system.file("extdata", "example.deg", package = "GAnnoViz")
   }
   getFst <- function(infile) {
-    if (!is.null(infile)) infile$datapath else system.file("extdata","example.fst", package = "GAnnoViz")
+    if (!is.null(infile))
+      infile$datapath
+    else
+      system.file("extdata", "example.fst", package = "GAnnoViz")
   }
   getDmr <- function(infile) {
-    if (!is.null(infile)) infile$datapath else system.file("extdata","example.dmr", package = "GAnnoViz")
+    if (!is.null(infile))
+      infile$datapath
+    else
+      system.file("extdata", "example.dmr", package = "GAnnoViz")
   }
   readGeneTable <- function(infile) {
     if (is.null(infile)) {
-      data.frame(gene_id = c("HdF029609","HdF029610"), gene_name = c("GeneA","GeneB"), stringsAsFactors = FALSE)
+      data.frame(
+        gene_id = c("HdF029609", "HdF029610"),
+        gene_name = c("GeneA", "GeneB"),
+        stringsAsFactors = FALSE
+      )
     } else {
-      utils::read.table(infile$datapath, header = TRUE, sep = "\t", stringsAsFactors = FALSE, check.names = FALSE)
+      utils::read.table(
+        infile$datapath,
+        header = TRUE,
+        sep = "\t",
+        stringsAsFactors = FALSE,
+        check.names = FALSE
+      )
     }
   }
   grToDf <- function(gr) {
-    if (is.null(gr)) return(data.frame())
+    if (is.null(gr))
+      return(data.frame())
     data.frame(
       chrom = as.character(GenomicRanges::seqnames(gr)),
       start = BiocGenerics::start(gr),
@@ -768,40 +1814,60 @@ server <- function(input, output, session) {
     )
   }
 
-  dfGeneFeatures <- function(gff_file, format, gene_id, upstream, downstream) {
+  dfGeneFeatures <- function(gff_file,
+                             format,
+                             gene_id,
+                             upstream,
+                             downstream) {
     txdb <- suppressWarnings(txdbmaker::makeTxDbFromGFF(file = gff_file, format = format))
     genes <- suppressWarnings(GenomicFeatures::genes(txdb))
-    if (!(gene_id %in% genes$gene_id)) return(data.frame())
+    if (!(gene_id %in% genes$gene_id))
+      return(data.frame())
     exons_by_tx <- suppressWarnings(GenomicFeatures::exonsBy(txdb, by = "tx"))
     introns_by_tx <- suppressWarnings(GenomicFeatures::intronsByTranscript(txdb, use.names = TRUE))
     utr5_by_tx <- suppressWarnings(GenomicFeatures::fiveUTRsByTranscript(txdb, use.names = TRUE))
     utr3_by_tx <- suppressWarnings(GenomicFeatures::threeUTRsByTranscript(txdb, use.names = TRUE))
-    promoters_tx <- suppressWarnings(GenomicFeatures::promoters(txdb, upstream = upstream, downstream = downstream, use.names = TRUE))
+    promoters_tx <- suppressWarnings(
+      GenomicFeatures::promoters(
+        txdb,
+        upstream = upstream,
+        downstream = downstream,
+        use.names = TRUE
+      )
+    )
     tx_by_gene <- suppressWarnings(GenomicFeatures::transcriptsBy(txdb, by = "gene"))
-    tx_names <- if (gene_id %in% names(tx_by_gene)) tx_by_gene[[gene_id]]$tx_name else character(0)
+    tx_names <- if (gene_id %in% names(tx_by_gene))
+      tx_by_gene[[gene_id]]$tx_name
+    else
+      character(0)
     build_df <- function(gr_list, feature) {
-      if (is.null(gr_list) || length(gr_list) == 0) return(data.frame())
+      if (is.null(gr_list) || length(gr_list) == 0)
+        return(data.frame())
       lst <- split(gr_list, gr_list$tx_name)
       lst <- lst[names(lst) %in% tx_names]
-      if (length(lst) == 0) return(data.frame())
+      if (length(lst) == 0)
+        return(data.frame())
       dfs <- lapply(names(lst), function(nm) {
         gr <- lst[[nm]]
-        data.frame(tx_name = nm,
-                   feature = feature,
-                   start = BiocGenerics::start(gr),
-                   end = BiocGenerics::end(gr),
-                   strand = as.character(GenomicRanges::strand(gr)),
-                   stringsAsFactors = FALSE)
+        data.frame(
+          tx_name = nm,
+          feature = feature,
+          start = BiocGenerics::start(gr),
+          end = BiocGenerics::end(gr),
+          strand = as.character(GenomicRanges::strand(gr)),
+          stringsAsFactors = FALSE
+        )
       })
       do.call(rbind, dfs)
     }
-    df <- do.call(rbind, list(
-      build_df(exons_by_tx, "exon"),
-      build_df(introns_by_tx, "intron"),
-      build_df(utr5_by_tx, "utr5"),
-      build_df(utr3_by_tx, "utr3"),
-      build_df(promoters_tx, "promoter")
-    ))
+    df <- do.call(rbind,
+                  list(
+                    build_df(exons_by_tx, "exon"),
+                    build_df(introns_by_tx, "intron"),
+                    build_df(utr5_by_tx, "utr5"),
+                    build_df(utr3_by_tx, "utr3"),
+                    build_df(promoters_tx, "promoter")
+                  ))
     df
   }
 
@@ -1049,7 +2115,11 @@ server <- function(input, output, session) {
       fst_file = getFst(input$fst_file_density),
       LOG10 = input$log10_density,
       bin_size = input$bin_size_density,
-      density_color = c(input$density_color1, input$density_color2, input$density_color3)
+      density_color = c(
+        input$density_color1,
+        input$density_color2,
+        input$density_color3
+      )
     )
   })
   output$plot_snp_density <- renderPlot({
@@ -1061,7 +2131,10 @@ server <- function(input, output, session) {
     anno_fst_dmr(
       gff_file = getGff(input$gff_file_anno_ranges),
       format = input$gff_format_anno_ranges,
-      genomic_ranges = if (!is.null(input$genomic_ranges_file)) input$genomic_ranges_file$datapath else getFst(NULL),
+      genomic_ranges = if (!is.null(input$genomic_ranges_file))
+        input$genomic_ranges_file$datapath
+      else
+        getFst(NULL),
       chrom_col = input$chrom_col_ranges,
       start_col = input$start_col_ranges,
       end_col = input$end_col_ranges,
@@ -1073,7 +2146,11 @@ server <- function(input, output, session) {
   })
   output$table_anno_fst_dmr <- DT::renderDataTable({
     req(anno_fst_dmr_ev())
-    DT::datatable(anno_fst_dmr_ev(), options = list(pageLength = 10, scrollX = TRUE), rownames = FALSE)
+    DT::datatable(
+      anno_fst_dmr_ev(),
+      options = list(pageLength = 10, scrollX = TRUE),
+      rownames = FALSE
+    )
   })
 
   extract_promoters_ev <- eventReactive(input$run_extract_promoters, {
@@ -1087,13 +2164,26 @@ server <- function(input, output, session) {
   })
   output$table_extract_promoters <- DT::renderDataTable({
     res <- extract_promoters_ev()
-    if (is.null(res)) return(DT::datatable(data.frame()))
+    if (is.null(res))
+      return(DT::datatable(data.frame()))
     if (is(res, "GRanges")) {
-      DT::datatable(grToDf(res), options = list(pageLength = 10, scrollX = TRUE), rownames = FALSE)
+      DT::datatable(
+        grToDf(res),
+        options = list(pageLength = 10, scrollX = TRUE),
+        rownames = FALSE
+      )
     } else if (is(res, "IRanges")) {
-      DT::datatable(as.data.frame(res), options = list(pageLength = 10, scrollX = TRUE), rownames = FALSE)
+      DT::datatable(
+        as.data.frame(res),
+        options = list(pageLength = 10, scrollX = TRUE),
+        rownames = FALSE
+      )
     } else {
-      DT::datatable(data.frame(value = res), options = list(pageLength = 10, scrollX = TRUE), rownames = FALSE)
+      DT::datatable(
+        data.frame(value = res),
+        options = list(pageLength = 10, scrollX = TRUE),
+        rownames = FALSE
+      )
     }
   })
 
@@ -1106,13 +2196,26 @@ server <- function(input, output, session) {
   })
   output$table_extract_utr5 <- DT::renderDataTable({
     res <- extract_utr5_ev()
-    if (is.null(res)) return(DT::datatable(data.frame()))
+    if (is.null(res))
+      return(DT::datatable(data.frame()))
     if (is(res, "GRanges")) {
-      DT::datatable(grToDf(res), options = list(pageLength = 10, scrollX = TRUE), rownames = FALSE)
+      DT::datatable(
+        grToDf(res),
+        options = list(pageLength = 10, scrollX = TRUE),
+        rownames = FALSE
+      )
     } else if (is(res, "IRanges")) {
-      DT::datatable(as.data.frame(res), options = list(pageLength = 10, scrollX = TRUE), rownames = FALSE)
+      DT::datatable(
+        as.data.frame(res),
+        options = list(pageLength = 10, scrollX = TRUE),
+        rownames = FALSE
+      )
     } else {
-      DT::datatable(data.frame(value = res), options = list(pageLength = 10, scrollX = TRUE), rownames = FALSE)
+      DT::datatable(
+        data.frame(value = res),
+        options = list(pageLength = 10, scrollX = TRUE),
+        rownames = FALSE
+      )
     }
   })
 
@@ -1125,13 +2228,26 @@ server <- function(input, output, session) {
   })
   output$table_extract_genes <- DT::renderDataTable({
     res <- extract_genes_ev()
-    if (is.null(res)) return(DT::datatable(data.frame()))
+    if (is.null(res))
+      return(DT::datatable(data.frame()))
     if (is(res, "GRanges")) {
-      DT::datatable(grToDf(res), options = list(pageLength = 10, scrollX = TRUE), rownames = FALSE)
+      DT::datatable(
+        grToDf(res),
+        options = list(pageLength = 10, scrollX = TRUE),
+        rownames = FALSE
+      )
     } else if (is(res, "IRanges")) {
-      DT::datatable(as.data.frame(res), options = list(pageLength = 10, scrollX = TRUE), rownames = FALSE)
+      DT::datatable(
+        as.data.frame(res),
+        options = list(pageLength = 10, scrollX = TRUE),
+        rownames = FALSE
+      )
     } else {
-      DT::datatable(data.frame(value = res), options = list(pageLength = 10, scrollX = TRUE), rownames = FALSE)
+      DT::datatable(
+        data.frame(value = res),
+        options = list(pageLength = 10, scrollX = TRUE),
+        rownames = FALSE
+      )
     }
   })
 
@@ -1144,13 +2260,26 @@ server <- function(input, output, session) {
   })
   output$table_extract_mrnas <- DT::renderDataTable({
     res <- extract_mrnas_ev()
-    if (is.null(res)) return(DT::datatable(data.frame()))
+    if (is.null(res))
+      return(DT::datatable(data.frame()))
     if (is(res, "GRanges")) {
-      DT::datatable(grToDf(res), options = list(pageLength = 10, scrollX = TRUE), rownames = FALSE)
+      DT::datatable(
+        grToDf(res),
+        options = list(pageLength = 10, scrollX = TRUE),
+        rownames = FALSE
+      )
     } else if (is(res, "IRanges")) {
-      DT::datatable(as.data.frame(res), options = list(pageLength = 10, scrollX = TRUE), rownames = FALSE)
+      DT::datatable(
+        as.data.frame(res),
+        options = list(pageLength = 10, scrollX = TRUE),
+        rownames = FALSE
+      )
     } else {
-      DT::datatable(data.frame(value = res), options = list(pageLength = 10, scrollX = TRUE), rownames = FALSE)
+      DT::datatable(
+        data.frame(value = res),
+        options = list(pageLength = 10, scrollX = TRUE),
+        rownames = FALSE
+      )
     }
   })
 
@@ -1163,13 +2292,26 @@ server <- function(input, output, session) {
   })
   output$table_extract_cds <- DT::renderDataTable({
     res <- extract_cds_ev()
-    if (is.null(res)) return(DT::datatable(data.frame()))
+    if (is.null(res))
+      return(DT::datatable(data.frame()))
     if (is(res, "GRanges")) {
-      DT::datatable(grToDf(res), options = list(pageLength = 10, scrollX = TRUE), rownames = FALSE)
+      DT::datatable(
+        grToDf(res),
+        options = list(pageLength = 10, scrollX = TRUE),
+        rownames = FALSE
+      )
     } else if (is(res, "IRanges")) {
-      DT::datatable(as.data.frame(res), options = list(pageLength = 10, scrollX = TRUE), rownames = FALSE)
+      DT::datatable(
+        as.data.frame(res),
+        options = list(pageLength = 10, scrollX = TRUE),
+        rownames = FALSE
+      )
     } else {
-      DT::datatable(data.frame(value = res), options = list(pageLength = 10, scrollX = TRUE), rownames = FALSE)
+      DT::datatable(
+        data.frame(value = res),
+        options = list(pageLength = 10, scrollX = TRUE),
+        rownames = FALSE
+      )
     }
   })
 
@@ -1182,13 +2324,26 @@ server <- function(input, output, session) {
   })
   output$table_extract_exons <- DT::renderDataTable({
     res <- extract_exons_ev()
-    if (is.null(res)) return(DT::datatable(data.frame()))
+    if (is.null(res))
+      return(DT::datatable(data.frame()))
     if (is(res, "GRanges")) {
-      DT::datatable(grToDf(res), options = list(pageLength = 10, scrollX = TRUE), rownames = FALSE)
+      DT::datatable(
+        grToDf(res),
+        options = list(pageLength = 10, scrollX = TRUE),
+        rownames = FALSE
+      )
     } else if (is(res, "IRanges")) {
-      DT::datatable(as.data.frame(res), options = list(pageLength = 10, scrollX = TRUE), rownames = FALSE)
+      DT::datatable(
+        as.data.frame(res),
+        options = list(pageLength = 10, scrollX = TRUE),
+        rownames = FALSE
+      )
     } else {
-      DT::datatable(data.frame(value = res), options = list(pageLength = 10, scrollX = TRUE), rownames = FALSE)
+      DT::datatable(
+        data.frame(value = res),
+        options = list(pageLength = 10, scrollX = TRUE),
+        rownames = FALSE
+      )
     }
   })
 
@@ -1201,13 +2356,26 @@ server <- function(input, output, session) {
   })
   output$table_extract_utr3 <- DT::renderDataTable({
     res <- extract_utr3_ev()
-    if (is.null(res)) return(DT::datatable(data.frame()))
+    if (is.null(res))
+      return(DT::datatable(data.frame()))
     if (is(res, "GRanges")) {
-      DT::datatable(grToDf(res), options = list(pageLength = 10, scrollX = TRUE), rownames = FALSE)
+      DT::datatable(
+        grToDf(res),
+        options = list(pageLength = 10, scrollX = TRUE),
+        rownames = FALSE
+      )
     } else if (is(res, "IRanges")) {
-      DT::datatable(as.data.frame(res), options = list(pageLength = 10, scrollX = TRUE), rownames = FALSE)
+      DT::datatable(
+        as.data.frame(res),
+        options = list(pageLength = 10, scrollX = TRUE),
+        rownames = FALSE
+      )
     } else {
-      DT::datatable(data.frame(value = res), options = list(pageLength = 10, scrollX = TRUE), rownames = FALSE)
+      DT::datatable(
+        data.frame(value = res),
+        options = list(pageLength = 10, scrollX = TRUE),
+        rownames = FALSE
+      )
     }
   })
 }

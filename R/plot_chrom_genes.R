@@ -21,11 +21,11 @@
 #' @export
 #'
 #' @examples
-#' # Example GFF3 file in SlideAnno
+#' # Example GFF3 file in GAnnoViz
 #' gff_file <- system.file(
 #'   "extdata",
 #'   "example.gff",
-#'   package = "SlideAnno")
+#'   package = "GAnnoViz")
 #'
 #' genes <- data.frame(
 #'   gene_id = c("HdF029609", "HdF029610"),

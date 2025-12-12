@@ -13,16 +13,16 @@
 #' @export
 #'
 #' @examples
-#' # Example DEGs and GFF in SlideAnno
+#' # Example DEGs and GFF in GAnnoViz
 #' deg_file <- system.file(
 #'   "extdata",
 #'   "example.deg",
-#'   package = "SlideAnno")
+#'   package = "GAnnoViz")
 #'
 #' gff_file <- system.file(
 #'   "extdata",
 #'   "example.gff",
-#'   package = "SlideAnno")
+#'   package = "GAnnoViz")
 #'
 #' # Annotate DEGs with chromosome positions
 #' res <- anno_deg_chrom(
@@ -55,8 +55,9 @@ anno_deg_chrom <- function(deg_file,
   )
 
   # Genes
+  fmt <- resolve_gff_format(gff_file, format)
   genes <- extract_genes(gff_file = gff_file,
-                         format = format,
+                         format = fmt,
                          gene_info = "all")
   df_genes <- data.frame(
     chrom = as.character(GenomicRanges::seqnames(genes)),

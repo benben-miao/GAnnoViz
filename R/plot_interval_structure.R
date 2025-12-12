@@ -25,11 +25,11 @@
 #' @export
 #'
 #' @examples
-#' # Example GFF3 file in SlideAnno
+#' # Example GFF3 file in GAnnoViz
 #' gff_file <- system.file(
 #'   "extdata",
 #'   "example.gff",
-#'   package = "SlideAnno")
+#'   package = "GAnnoViz")
 #'
 #' plot_interval_structure(
 #'   gff_file = gff_file,
@@ -84,7 +84,8 @@ plot_interval_structure <- function(gff_file,
     stop("end must be >= start")
 
   # TXDB
-  txdb <- suppressWarnings(txdbmaker::makeTxDbFromGFF(file = gff_file, format = format))
+  fmt <- resolve_gff_format(gff_file, format)
+  txdb <- suppressWarnings(txdbmaker::makeTxDbFromGFF(file = gff_file, format = fmt))
 
   # Genes in interval
   genes_all <- suppressWarnings(GenomicFeatures::genes(txdb))

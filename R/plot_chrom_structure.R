@@ -17,11 +17,11 @@
 #' @export
 #'
 #' @examples
-#' # Example GFF3 file in SlideAnno
+#' # Example GFF3 file in GAnnoViz
 #' gff_file <- system.file(
 #'   "extdata",
 #'   "example.gff",
-#'   package = "SlideAnno")
+#'   package = "GAnnoViz")
 #'
 #' plot_chrom_structure(
 #'   gff_file = gff_file,
@@ -47,8 +47,9 @@ plot_chrom_structure <- function(gff_file,
                                  telomere_color = "#ff0000",
                                  label_size = 3) {
   # Genes
+  fmt <- resolve_gff_format(gff_file, format)
   genes <- extract_genes(gff_file = gff_file,
-                         format = format,
+                         format = fmt,
                          gene_info = "all")
 
   # Chromosomes

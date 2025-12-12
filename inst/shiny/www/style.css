@@ -13,6 +13,10 @@
 	background-color: #ff8800 !important;
 }
 
+.nav-treeview>.nav-item>.nav-link.active {
+	background-color: #ff8800 !important;
+}
+
 .card {
 	border-radius: 10px !important;
 }
