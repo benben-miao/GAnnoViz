@@ -30,6 +30,7 @@
 #'   point_size = 3,
 #'   point_alpha = 0.5
 #' )
+#'
 plot_dmg_trend <- function(chrom_id,
                            dmr_file,
                            smooth_span = 0.1,
@@ -37,6 +38,7 @@ plot_dmg_trend <- function(chrom_id,
                            hypo_color = "#00880055",
                            point_size = 3,
                            point_alpha = 0.5) {
+  # DMR results
   dmr <- utils::read.table(
     dmr_file,
     header = TRUE,
@@ -49,7 +51,10 @@ plot_dmg_trend <- function(chrom_id,
   if (nrow(dmr) == 0)
     stop("No DMRs on the selected chromosome")
 
+  # Hyper/Hypo
   dmr$state <- ifelse(dmr$meth.diff >= 0, "hyper", "hypo")
+
+  # Plot
   ggplot2::ggplot(dmr, ggplot2::aes(x = start, y = meth.diff, color = state)) +
     ggplot2::geom_point(size = point_size, alpha = point_alpha) +
     ggplot2::geom_smooth(span = smooth_span,
