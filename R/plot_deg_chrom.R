@@ -32,7 +32,7 @@
 #'     package = "GAnnoViz")
 #'
 #' # Plot
-#' plot_chrom_deg(
+#' plot_deg_chrom(
 #'   deg_file = deg_file,
 #'   gff_file = gff_file,
 #'   format = "auto",
@@ -47,7 +47,7 @@
 #'   hypo_color = "#00880088"
 #' )
 #'
-plot_chrom_deg <- function(deg_file,
+plot_deg_chrom <- function(deg_file,
 						   gff_file,
 						   format = "auto",
 						   id_col = "GeneID",

@@ -1,6 +1,6 @@
 #' @title Plot DEGs up/down along chromosomes
-#' @description Plot \bold{\emph{differentially expressed genes (DEGs)}} along chromosomes,
-#'   showing positions and direction (up/down) of expression changes.
+#' @description Plot \bold{\emph{DEGs up/down}} along chromosomes.
+#' @author benben-miao
 #'
 #' @return A \bold{\emph{ggplot object}} visualizing DEGs along chromosomes.
 #' @param deg_file DEG table from \bold{\emph{DESeq2}} analysis.
@@ -8,17 +8,17 @@
 #' @param format Format of GFF3/GTF file. (\bold{\emph{"auto"}}, "gff3", "gtf").
 #' @param id_col Gene IDs column name. (\bold{\emph{"GeneID"}}).
 #' @param fc_col Log2(fold change) column name. (\bold{\emph{"log2FoldChange"}}).
-#' @param orientation Coordinate orientation. (\bold{\emph{"vertical"}}, "horizontal").
-#' @param chrom_alpha Chromosome bar alpha. (\bold{\emph{0.15}}).
+#' @param orientation Coordinate orientation. (\bold{\emph{"horizontal"}}, "vertical").
+#' @param chrom_alpha Chromosome bar alpha. (\bold{\emph{0.1}}).
 #' @param chrom_color Chromosome bar color. (\bold{\emph{"#008888"}}).
 #' @param bar_height Chromosome bar thickness in y units. (\bold{\emph{0.8}}).
-#' @param point_size Point size. (\bold{\emph{2}}).
-#' @param point_alpha Point alpha. (\bold{\emph{0.85}}).
+#' @param point_size Point size. (\bold{\emph{1}}).
+#' @param point_alpha Point alpha. (\bold{\emph{0.3}}).
 #' @param up_color Color for up-regulated genes. (\bold{\emph{"#ff0000"}}).
 #' @param down_color Color for down-regulated genes. (\bold{\emph{"#008800"}}).
 #' @param mark_style Marker style for DEGs. (\bold{\emph{"point"}}, "line").
-#' @param line_width Line width when \code{mark_style="line"}. (\bold{\emph{0.6}}).
-#' @param line_height_frac Line height relative to bar radius when \code{mark_style="line"}. (\bold{\emph{0.8}}).
+#' @param line_width Line width. (\bold{\emph{0.6}}).
+#' @param line_height Line height relative to bar radius. (\bold{\emph{0.8}}).
 #'
 #' @importFrom magrittr %>%
 #' @export
@@ -37,39 +37,42 @@
 #'     package = "GAnnoViz")
 #'
 #' # Plot DEGs along chromosomes
-#' plot_chrom_deg2(
+#' plot_deg_exp(
 #'   deg_file = deg_file,
 #'   gff_file = gff_file,
 #'   format = "auto",
 #'   id_col = "GeneID",
 #'   fc_col = "log2FoldChange",
-#'   orientation = "vertical",
-#'   chrom_alpha = 0.15,
+#'   orientation = "horizontal",
+#'   chrom_alpha = 0.1,
 #'   chrom_color = "#008888",
-#'   point_size = 2,
-#'   point_alpha = 0.85,
+#'   bar_height = 0.8,
+#'   point_size = 1,
+#'   point_alpha = 0.3,
 #'   up_color = "#ff0000",
 #'   down_color = "#008800",
-#'   mark_style = "line",
+#'   mark_style = "point",
 #'   line_width = 0.6,
-#'   line_height_frac = 0.8
-#' )
-plot_chrom_deg2 <- function(deg_file,
-                            gff_file,
-                            format = "auto",
-                            id_col = "GeneID",
-                            fc_col = "log2FoldChange",
-                            orientation = "vertical",
-                            chrom_alpha = 0.15,
-                            chrom_color = "#008888",
-                            bar_height = 0.8,
-                            point_size = 2,
-                            point_alpha = 0.85,
-                            up_color = "#ff0000",
-                            down_color = "#008800",
-                            mark_style = c("point", "line"),
-                            line_width = 0.6,
-                            line_height_frac = 0.8) {
+#'   line_height = 0.8)
+#'
+plot_deg_exp <- function(deg_file,
+                         gff_file,
+                         format = "auto",
+                         id_col = "GeneID",
+                         fc_col = "log2FoldChange",
+                         orientation = "horizontal",
+                         chrom_alpha = 0.1,
+                         chrom_color = "#008888",
+                         bar_height = 0.8,
+                         point_size = 1,
+                         point_alpha = 0.3,
+                         up_color = "#ff0000",
+                         down_color = "#008800",
+                         mark_style = "point",
+                         line_width = 0.6,
+                         line_height = 0.8) {
+
+  # DEG annotation
   mark_style <- match.arg(mark_style)
   df <- anno_deg_chrom(
     deg_file = deg_file,
@@ -95,6 +98,7 @@ plot_chrom_deg2 <- function(deg_file,
   if (nrow(df) == 0)
     stop("No DEGs with valid positions found")
 
+  # Chromosomes
   df$pos <- (df$start + df$end) / 2
   chrom_chr <- as.character(df$chr)
   chrom_num <- stringr::str_extract(chrom_chr, "\\d+")
@@ -116,10 +120,16 @@ plot_chrom_deg2 <- function(deg_file,
   df$state <- ifelse(df$log2fc >= 0, "up", "down")
   col_map <- c(up = up_color, down = down_color)
 
+  # Plot
   p <- ggplot2::ggplot() +
     ggplot2::geom_rect(
       data = length_map,
-      ggplot2::aes(xmin = 0, xmax = end, ymin = ymin, ymax = ymax),
+      ggplot2::aes(
+        xmin = 0,
+        xmax = end,
+        ymin = ymin,
+        ymax = ymax
+      ),
       fill = chrom_color,
       color = NA,
       alpha = chrom_alpha
@@ -136,19 +146,30 @@ plot_chrom_deg2 <- function(deg_file,
         # line style: vertical ticks with rounded ends
         df_seg <- df
         r <- length_map$radius[match(df_seg$chr, length_map$chr)]
-        h <- pmax(0.1, as.numeric(r) * line_height_frac)
+        h <- pmax(0.1, as.numeric(r) * line_height)
         df_seg$y1 <- df_seg$y - h
         df_seg$y2 <- df_seg$y + h
         ggplot2::geom_segment(
           data = df_seg,
-          ggplot2::aes(x = pos, xend = pos, y = y1, yend = y2, color = state),
+          ggplot2::aes(
+            x = pos,
+            xend = pos,
+            y = y1,
+            yend = y2,
+            color = state
+          ),
           linewidth = line_width,
           lineend = "round",
           alpha = point_alpha
         )
       }
     } +
-    ggplot2::scale_color_manual(values = col_map, drop = FALSE, name = NULL, labels = c(down = "Down", up = "Up")) +
+    ggplot2::scale_color_manual(
+      values = col_map,
+      drop = FALSE,
+      name = NULL,
+      labels = c(down = "Down", up = "Up")
+    ) +
     ggplot2::scale_x_continuous(breaks = scales::pretty_breaks(n = 8)) +
     ggplot2::scale_y_continuous(
       breaks = length_map$y,
