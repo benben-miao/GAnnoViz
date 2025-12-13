@@ -47,6 +47,7 @@ reference:
     contents:
       - plot_gene_stats
       - plot_gene_structure
+      - plot_gene_domains
       - plot_interval_structure
       - plot_interval_flank
       - plot_chrom_structure
@@ -55,7 +56,8 @@ reference:
   - title: DEG Anno & Viz
     contents:
       - anno_deg_chrom
-      - plot_chrom_deg
+      - plot_deg_chrom
+      - plot_deg_exp
   - title: SNP Anno & Plot
     contents:
       - anno_fst_dmr
@@ -66,4 +68,5 @@ reference:
     contents:
       - anno_fst_dmr
       - plot_dmg_chrom
+      - plot_dmg_exp
       - plot_dmg_trend

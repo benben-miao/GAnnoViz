@@ -58,7 +58,6 @@ GAnnoViz: a R package for genomic annotation and visualization.
 
 library(GAnnoViz)
 library(ggplot2)
-library(kableExtra)
 ```
 
 ## 3. Shiny App
@@ -189,6 +188,22 @@ plot_gene_structure(
 )
 ```
 
+### Plot protein domains from Ensembl
+
+```{r plot_gene_domains, fig.width=10, fig.height=7}
+# Plot TP53 domian
+res <- plot_gene_domains(
+  gene_name = "TP53",
+  species = "hsapiens",
+  transcript_id = NULL,
+  transcript_choice = "longest",
+  palette = "Set 2",
+  legend_ncol = 2,
+  return_data = TRUE)
+
+res$plot
+```
+
 ### Plot gene structures for a genomic interval
 
 ```{r plot_interval_structure, fig.width=10, fig.height=5}
@@ -269,6 +284,21 @@ plot_chrom_genes(
   orientation = "vertical")
 ```
 
+### Plot genomic feature density heatmap
+
+```{r plot_chrom_heatmap, fig.width=10, fig.height=7}
+# Gene density heatmap
+plot_chrom_heatmap(
+  gff_file = gff_file,
+  format = "auto",
+  feature = "gene",
+  bin_size = 1e6,
+  orientation = "horizontal",
+  palette = c("#ffffff", "#0055aa"),
+  alpha = 0.9
+)
+```
+
 ## 6. DEG Anno & Viz
 
 ### Annotate differentially expressed genes (DEGs) with chromosome positions
@@ -304,26 +334,11 @@ res <- anno_deg_chrom(
 head(res)
 ```
 
-### Plot genomic feature density heatmap
-
-```{r plot_chrom_heatmap, fig.width=10, fig.height=7}
-# Gene density heatmap
-plot_chrom_heatmap(
-  gff_file = gff_file,
-  format = "auto",
-  feature = "gene",
-  bin_size = 1e6,
-  orientation = "horizontal",
-  palette = c("#ffffff", "#0055aa"),
-  alpha = 0.9
-)
-```
-
 ### Plot differentially expressed genes (DEGs) hyper/hypo distributions by chromosome
 
-```{r plot_chrom_deg, fig.width=10, fig.height=7}
+```{r plot_deg_chrom, fig.width=10, fig.height=7}
 # Plot chrom DEGs
-plot_chrom_deg(
+plot_deg_chrom(
   deg_file = deg_file,
   gff_file = gff_file,
   format = "auto",
@@ -337,6 +352,28 @@ plot_chrom_deg(
   hyper_color = "#ff000088",
   hypo_color = "#00880088"
 )
+```
+
+### Plot DEGs up/down along chromosomes
+
+```{r plot_deg_exp, fig.width=10, fig.height=7}
+plot_deg_exp(
+  deg_file = deg_file,
+  gff_file = gff_file,
+  format = "auto",
+  id_col = "GeneID",
+  fc_col = "log2FoldChange",
+  orientation = "horizontal",
+  chrom_alpha = 0.1,
+  chrom_color = "#008888",
+  bar_height = 0.8,
+  point_size = 2,
+  point_alpha = 0.3,
+  up_color = "#ff0000",
+  down_color = "#008800",
+  mark_style = "point",
+  line_width = 0.6,
+  line_height = 0.8)
 ```
 
 ## 7. SNP Anno & Plot
@@ -475,6 +512,25 @@ plot_dmg_chrom(
   hyper_color = "#ff880088",
   hypo_color = "#0088ff88"
 )
+```
+
+### Plot DMGs hyper/hypo along chromosomes
+
+```{r plot_dmg_exp, fig.width=10, fig.height=7}
+# Plot DMG expression
+plot_dmg_exp(
+  dmr_file = dmr_table,
+  orientation = "horizontal",
+  chrom_alpha = 0.1,
+  chrom_color = "#008888",
+  point_size = 1,
+  point_alpha = 0.3,
+  hyper_color = "#ff0000",
+  hypo_color = "#008800",
+  mark_style = "line",
+  line_width = 0.6,
+  line_height = 0.8)
+
 ```
 
 ### Plot chromosomal DMGs trend

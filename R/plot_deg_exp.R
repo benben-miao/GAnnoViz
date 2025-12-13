@@ -12,7 +12,7 @@
 #' @param chrom_alpha Chromosome bar alpha. (\bold{\emph{0.1}}).
 #' @param chrom_color Chromosome bar color. (\bold{\emph{"#008888"}}).
 #' @param bar_height Chromosome bar thickness in y units. (\bold{\emph{0.8}}).
-#' @param point_size Point size. (\bold{\emph{1}}).
+#' @param point_size Point size. (\bold{\emph{2}}).
 #' @param point_alpha Point alpha. (\bold{\emph{0.3}}).
 #' @param up_color Color for up-regulated genes. (\bold{\emph{"#ff0000"}}).
 #' @param down_color Color for down-regulated genes. (\bold{\emph{"#008800"}}).
@@ -47,7 +47,7 @@
 #'   chrom_alpha = 0.1,
 #'   chrom_color = "#008888",
 #'   bar_height = 0.8,
-#'   point_size = 1,
+#'   point_size = 2,
 #'   point_alpha = 0.3,
 #'   up_color = "#ff0000",
 #'   down_color = "#008800",
@@ -64,7 +64,7 @@ plot_deg_exp <- function(deg_file,
                          chrom_alpha = 0.1,
                          chrom_color = "#008888",
                          bar_height = 0.8,
-                         point_size = 1,
+                         point_size = 2,
                          point_alpha = 0.3,
                          up_color = "#ff0000",
                          down_color = "#008800",

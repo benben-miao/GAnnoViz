@@ -24,12 +24,13 @@ ui <- bs4DashPage(
     fixed = TRUE,
     width = "300px",
     bs4SidebarMenu(
+      id = "main_menu",
       bs4SidebarUserPanel(name = "GAnnoViz", image = "logo.png"),
       bs4SidebarHeader(title = "GAnnoViz"),
       bs4SidebarMenuItem(
         text = "Extract Features",
         icon = icon("database"),
-        startExpanded = TRUE,
+        startExpanded = FALSE,
         bs4SidebarMenuSubItem(
           text = "extract_promoters",
           icon = icon("r-project"),
@@ -71,6 +72,11 @@ ui <- bs4DashPage(
         icon = icon("circle-nodes"),
         startExpanded = TRUE,
         bs4SidebarMenuSubItem(
+          text = "plot_gene_domains",
+          icon = icon("r-project"),
+          tabName = "plot_gene_domains"
+        ),
+        bs4SidebarMenuSubItem(
           text = "plot_gene_stats",
           icon = icon("r-project"),
           tabName = "plot_gene_stats"
@@ -109,22 +115,27 @@ ui <- bs4DashPage(
       bs4SidebarMenuItem(
         text = "DEG Anno & Viz",
         icon = icon("chart-simple"),
-        startExpanded = TRUE,
+        startExpanded = FALSE,
         bs4SidebarMenuSubItem(
           text = "anno_deg_chrom",
           icon = icon("r-project"),
           tabName = "anno_deg_chrom"
         ),
         bs4SidebarMenuSubItem(
-          text = "plot_chrom_deg",
+          text = "plot_deg_chrom",
           icon = icon("r-project"),
-          tabName = "plot_chrom_deg"
+          tabName = "plot_deg_chrom"
+        ),
+        bs4SidebarMenuSubItem(
+          text = "plot_deg_exp",
+          icon = icon("r-project"),
+          tabName = "plot_deg_exp"
         )
       ),
       bs4SidebarMenuItem(
         text = "SNP Anno & Plot",
         icon = icon("arrows-to-dot"),
-        startExpanded = TRUE,
+        startExpanded = FALSE,
         bs4SidebarMenuSubItem(
           text = "plot_snp_density",
           icon = icon("r-project"),
@@ -144,7 +155,7 @@ ui <- bs4DashPage(
       bs4SidebarMenuItem(
         text = "DMG Anno & Plot",
         icon = icon("atom"),
-        startExpanded = TRUE,
+        startExpanded = FALSE,
         bs4SidebarMenuSubItem(
           text = "anno_fst_dmr",
           icon = icon("r-project"),
@@ -154,6 +165,11 @@ ui <- bs4DashPage(
           text = "plot_dmg_chrom",
           icon = icon("r-project"),
           tabName = "plot_dmg_chrom"
+        ),
+        bs4SidebarMenuSubItem(
+          text = "plot_dmg_exp",
+          icon = icon("r-project"),
+          tabName = "plot_dmg_exp"
         ),
         bs4SidebarMenuSubItem(
           text = "plot_dmg_trend",
@@ -312,6 +328,126 @@ ui <- bs4DashPage(
             plotOutput("plot_gene_structure", height = "600px")
           ),
 
+        )
+      )),
+
+      bs4TabItem(tabName = "anno_deg_chrom", fluidRow(
+        column(
+          width = 3,
+          bs4Card(
+            title = "Parameters",
+            status = "info",
+            solidHeader = TRUE,
+            width = 12,
+            actionButton(
+              inputId = "run_anno_deg_chrom",
+              label = "Run",
+              icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            br(),
+            fileInput(inputId = "deg_file_anno", label = "DEG table"),
+            fileInput(inputId = "gff_file_deg_anno", label = "GFF/GTF file"),
+            selectInput(
+              inputId = "gff_format_deg_anno",
+              label = "Format",
+              choices = c("auto", "gff3", "gtf"),
+              selected = "auto"
+            ),
+            textInput(
+              inputId = "id_col_anno",
+              label = "ID column",
+              value = "GeneID"
+            ),
+            textInput(
+              inputId = "fc_col_anno",
+              label = "FC column",
+              value = "log2FoldChange"
+            ),
+            checkboxInput(
+              inputId = "use_strand_anno",
+              label = "Use strand",
+              value = FALSE
+            ),
+            checkboxInput(
+              inputId = "drop_unmapped_anno",
+              label = "Drop unmapped",
+              value = TRUE
+            )
+          )
+        ), column(
+          width = 9,
+          bs4Card(
+            title = "Data",
+            status = "primary",
+            solidHeader = TRUE,
+            width = 12,
+            DT::dataTableOutput("table_anno_deg_chrom")
+          )
+        )
+      )),
+
+      bs4TabItem(tabName = "plot_gene_domains", fluidRow(
+        column(
+          width = 3,
+          bs4Card(
+            title = "Parameters",
+            status = "info",
+            solidHeader = TRUE,
+            width = 12,
+            actionButton(
+              inputId = "run_plot_gene_domains",
+              label = "Run",
+              icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            br(),
+            textInput(
+              inputId = "gene_name_domains",
+              label = "Gene name",
+              value = "TP53"
+            ),
+            textInput(
+              inputId = "species_domains",
+              label = "Species",
+              value = "hsapiens"
+            ),
+            textInput(
+              inputId = "transcript_id_domains",
+              label = "Transcript ID",
+              value = ""
+            ),
+            selectInput(
+              inputId = "transcript_choice_domains",
+              label = "Transcript choice",
+              choices = c("longest", "canonical"),
+              selected = "longest"
+            ),
+            selectInput(
+              inputId = "palette_domains",
+              label = "Palette",
+              choices = c("Set 2", "Set 3", "Warm", "Cold", "Dynamic", "Viridis", "Plasma", "Inferno", "Rocket", "Mako"),
+              selected = "Set 2"
+            ),
+            numericInput(
+              inputId = "legend_ncol_domains",
+              label = "Legend columns",
+              value = 2,
+              min = 1,
+              step = 1
+            )
+          )
+        ), column(
+          width = 9,
+          bs4Card(
+            title = "Plot",
+            status = "danger",
+            solidHeader = TRUE,
+            width = 12,
+            plotOutput("plot_gene_domains", height = "600px")
+          )
         )
       )),
 
@@ -906,7 +1042,7 @@ ui <- bs4DashPage(
         )
       )),
 
-      bs4TabItem(tabName = "plot_chrom_deg", fluidRow(
+      bs4TabItem(tabName = "plot_deg_chrom", fluidRow(
         column(
           width = 3,
           bs4Card(
@@ -915,7 +1051,7 @@ ui <- bs4DashPage(
             solidHeader = TRUE,
             width = 12,
             actionButton(
-              inputId = "run_plot_chrom_deg",
+              inputId = "run_plot_deg_chrom",
               label = "Run",
               icon = icon("circle-play"),
               style = "width: 100%",
@@ -994,9 +1130,127 @@ ui <- bs4DashPage(
             status = "danger",
             solidHeader = TRUE,
             width = 12,
-            plotOutput("plot_chrom_deg", height = "600px")
+            plotOutput("plot_deg_chrom", height = "600px")
           ),
 
+        )
+      )),
+
+      bs4TabItem(tabName = "plot_deg_exp", fluidRow(
+        column(
+          width = 3,
+          bs4Card(
+            title = "Parameters",
+            status = "info",
+            solidHeader = TRUE,
+            width = 12,
+            actionButton(
+              inputId = "run_plot_deg_exp",
+              label = "Run",
+              icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            br(),
+            fileInput(inputId = "deg_file_exp", label = "DEG table"),
+            fileInput(inputId = "gff_file_deg_exp", label = "GFF/GTF file"),
+            selectInput(
+              inputId = "gff_format_deg_exp",
+              label = "Format",
+              choices = c("auto", "gff3", "gtf"),
+              selected = "auto"
+            ),
+            textInput(
+              inputId = "id_col_exp",
+              label = "ID column",
+              value = "GeneID"
+            ),
+            textInput(
+              inputId = "fc_col_exp",
+              label = "FC column",
+              value = "log2FoldChange"
+            ),
+            selectInput(
+              inputId = "orientation_deg_exp",
+              label = "Orientation",
+              choices = c("horizontal", "vertical"),
+              selected = "horizontal"
+            ),
+            sliderInput(
+              inputId = "chrom_alpha_deg_exp",
+              label = "Chrom alpha",
+              min = 0,
+              max = 1,
+              value = 0.1,
+              step = 0.05
+            ),
+            numericInput(
+              inputId = "bar_height_deg_exp",
+              label = "Bar height",
+              value = 0.8,
+              min = 0.1,
+              step = 0.1
+            ),
+            textInput(
+              inputId = "chrom_color_deg_exp",
+              label = "Chrom color",
+              value = "#008888"
+            ),
+            numericInput(
+              inputId = "point_size_deg_exp",
+              label = "Point size",
+              value = 1,
+              min = 0.5,
+              step = 0.5
+            ),
+            sliderInput(
+              inputId = "point_alpha_deg_exp",
+              label = "Point alpha",
+              min = 0,
+              max = 1,
+              value = 0.3,
+              step = 0.05
+            ),
+            textInput(
+              inputId = "up_color_deg_exp",
+              label = "Up color",
+              value = "#ff0000"
+            ),
+            textInput(
+              inputId = "down_color_deg_exp",
+              label = "Down color",
+              value = "#008800"
+            ),
+            selectInput(
+              inputId = "mark_style_deg_exp",
+              label = "Mark style",
+              choices = c("point", "line"),
+              selected = "point"
+            ),
+            numericInput(
+              inputId = "line_width_deg_exp",
+              label = "Line width",
+              value = 0.6,
+              min = 0.1,
+              step = 0.1
+            ),
+            numericInput(
+              inputId = "line_height_deg_exp",
+              label = "Line height",
+              value = 0.8,
+              min = 0.1,
+              step = 0.1
+            )
+          )
+        ), column(
+          width = 9,
+          bs4Card(
+            title = "Plot",
+            status = "danger",
+            solidHeader = TRUE,
+            width = 12,
+            plotOutput("plot_deg_exp", height = "600px")
+          )
         )
       )),
 
@@ -1255,6 +1509,106 @@ ui <- bs4DashPage(
             plotOutput("plot_dmg_chrom", height = "600px")
           ),
 
+        )
+      )),
+      bs4TabItem(tabName = "plot_dmg_exp", fluidRow(
+        column(
+          width = 3,
+          bs4Card(
+            title = "Parameters",
+            status = "info",
+            solidHeader = TRUE,
+            width = 12,
+            actionButton(
+              inputId = "run_plot_dmg_exp",
+              label = "Run",
+              icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            br(),
+            fileInput(inputId = "dmr_file_exp", label = "DMR table"),
+            selectInput(
+              inputId = "orientation_dmg_exp",
+              label = "Orientation",
+              choices = c("horizontal", "vertical"),
+              selected = "horizontal"
+            ),
+            sliderInput(
+              inputId = "chrom_alpha_dmg_exp",
+              label = "Chrom alpha",
+              min = 0,
+              max = 1,
+              value = 0.1,
+              step = 0.05
+            ),
+            numericInput(
+              inputId = "bar_height_dmg_exp",
+              label = "Bar height",
+              value = 0.8,
+              min = 0.1,
+              step = 0.1
+            ),
+            textInput(
+              inputId = "chrom_color_dmg_exp",
+              label = "Chrom color",
+              value = "#008888"
+            ),
+            numericInput(
+              inputId = "point_size_dmg_exp",
+              label = "Point size",
+              value = 1,
+              min = 0.5,
+              step = 0.5
+            ),
+            sliderInput(
+              inputId = "point_alpha_dmg_exp",
+              label = "Point alpha",
+              min = 0,
+              max = 1,
+              value = 0.3,
+              step = 0.05
+            ),
+            textInput(
+              inputId = "hyper_color_dmg_exp",
+              label = "Hyper color",
+              value = "#ff0000"
+            ),
+            textInput(
+              inputId = "hypo_color_dmg_exp",
+              label = "Hypo color",
+              value = "#008800"
+            ),
+            selectInput(
+              inputId = "mark_style_dmg_exp",
+              label = "Mark style",
+              choices = c("point", "line"),
+              selected = "point"
+            ),
+            numericInput(
+              inputId = "line_width_dmg_exp",
+              label = "Line width",
+              value = 0.6,
+              min = 0.1,
+              step = 0.1
+            ),
+            numericInput(
+              inputId = "line_height_dmg_exp",
+              label = "Line height",
+              value = 0.8,
+              min = 0.1,
+              step = 0.1
+            )
+          )
+        ), column(
+          width = 9,
+          bs4Card(
+            title = "Plot",
+            status = "danger",
+            solidHeader = TRUE,
+            width = 12,
+            plotOutput("plot_dmg_exp", height = "600px")
+          )
         )
       ))
       ,
@@ -1761,6 +2115,10 @@ ui <- bs4DashPage(
 )
 
 server <- function(input, output, session) {
+  observeEvent(TRUE, {
+    updateTabItems(session, "main_menu", "plot_interval_structure")
+  }, ignoreInit = FALSE, once = TRUE)
+  
   getGff <- function(infile) {
     if (!is.null(infile))
       infile$datapath
@@ -2004,8 +2362,8 @@ server <- function(input, output, session) {
     print(plot_chrom_heatmap_ev())
   })
 
-  plot_chrom_deg_ev <- eventReactive(input$run_plot_chrom_deg, {
-    plot_chrom_deg(
+  plot_deg_chrom_ev <- eventReactive(input$run_plot_deg_chrom, {
+    plot_deg_chrom(
       deg_file = getDeg(input$deg_file),
       gff_file = getGff(input$gff_file_deg),
       format = input$gff_format_deg,
@@ -2020,9 +2378,34 @@ server <- function(input, output, session) {
       hypo_color = input$hypo_color_deg
     )
   })
-  output$plot_chrom_deg <- renderPlot({
-    req(plot_chrom_deg_ev())
-    print(plot_chrom_deg_ev())
+  output$plot_deg_chrom <- renderPlot({
+    req(plot_deg_chrom_ev())
+    print(plot_deg_chrom_ev())
+  })
+
+  plot_deg_exp_ev <- eventReactive(input$run_plot_deg_exp, {
+    plot_deg_exp(
+      deg_file = getDeg(input$deg_file_exp),
+      gff_file = getGff(input$gff_file_deg_exp),
+      format = input$gff_format_deg_exp,
+      id_col = input$id_col_exp,
+      fc_col = input$fc_col_exp,
+      orientation = input$orientation_deg_exp,
+      chrom_alpha = input$chrom_alpha_deg_exp,
+      chrom_color = input$chrom_color_deg_exp,
+      bar_height = input$bar_height_deg_exp,
+      point_size = input$point_size_deg_exp,
+      point_alpha = input$point_alpha_deg_exp,
+      up_color = input$up_color_deg_exp,
+      down_color = input$down_color_deg_exp,
+      mark_style = input$mark_style_deg_exp,
+      line_width = input$line_width_deg_exp,
+      line_height = input$line_height_deg_exp
+    )
+  })
+  output$plot_deg_exp <- renderPlot({
+    req(plot_deg_exp_ev())
+    print(plot_deg_exp_ev())
   })
 
   plot_snp_fst_ev <- eventReactive(input$run_plot_snp_fst, {
@@ -2096,6 +2479,27 @@ server <- function(input, output, session) {
     print(plot_dmg_trend_ev())
   })
 
+  plot_dmg_exp_ev <- eventReactive(input$run_plot_dmg_exp, {
+    plot_dmg_exp(
+      dmr_file = getDmr(input$dmr_file_exp),
+      orientation = input$orientation_dmg_exp,
+      chrom_alpha = input$chrom_alpha_dmg_exp,
+      chrom_color = input$chrom_color_dmg_exp,
+      bar_height = input$bar_height_dmg_exp,
+      point_size = input$point_size_dmg_exp,
+      point_alpha = input$point_alpha_dmg_exp,
+      hyper_color = input$hyper_color_dmg_exp,
+      hypo_color = input$hypo_color_dmg_exp,
+      mark_style = input$mark_style_dmg_exp,
+      line_width = input$line_width_dmg_exp,
+      line_height = input$line_height_dmg_exp
+    )
+  })
+  output$plot_dmg_exp <- renderPlot({
+    req(plot_dmg_exp_ev())
+    print(plot_dmg_exp_ev())
+  })
+
   plot_gene_stats_ev <- eventReactive(input$run_plot_gene_stats, {
     plot_gene_stats(
       gff_file = getGff(input$gff_file_gene_stats),
@@ -2151,6 +2555,42 @@ server <- function(input, output, session) {
       options = list(pageLength = 10, scrollX = TRUE),
       rownames = FALSE
     )
+  })
+
+  anno_deg_chrom_ev <- eventReactive(input$run_anno_deg_chrom, {
+    anno_deg_chrom(
+      deg_file = getDeg(input$deg_file_anno),
+      gff_file = getGff(input$gff_file_deg_anno),
+      format = input$gff_format_deg_anno,
+      id_col = input$id_col_anno,
+      fc_col = input$fc_col_anno,
+      use_strand = input$use_strand_anno,
+      drop_unmapped = input$drop_unmapped_anno
+    )
+  })
+  output$table_anno_deg_chrom <- DT::renderDataTable({
+    req(anno_deg_chrom_ev())
+    DT::datatable(
+      anno_deg_chrom_ev(),
+      options = list(pageLength = 10, scrollX = TRUE),
+      rownames = FALSE
+    )
+  })
+
+  plot_gene_domains_ev <- eventReactive(input$run_plot_gene_domains, {
+    plot_gene_domains(
+      gene_name = if (nzchar(input$transcript_id_domains)) NULL else input$gene_name_domains,
+      species = input$species_domains,
+      transcript_id = if (nzchar(input$transcript_id_domains)) input$transcript_id_domains else NULL,
+      transcript_choice = input$transcript_choice_domains,
+      palette = input$palette_domains,
+      legend_ncol = input$legend_ncol_domains,
+      return_data = FALSE
+    )
+  })
+  output$plot_gene_domains <- renderPlot({
+    req(plot_gene_domains_ev())
+    print(plot_gene_domains_ev())
   })
 
   extract_promoters_ev <- eventReactive(input$run_extract_promoters, {

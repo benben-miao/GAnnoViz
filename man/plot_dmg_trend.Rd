@@ -52,4 +52,5 @@ plot_dmg_trend(
   point_size = 3,
   point_alpha = 0.5
 )
+
 }
