@@ -15,11 +15,16 @@ GAnnoViz
 
 ## 1. Introduction
 
+GAnnoViz: a R package for genomic annotation and visualization.
+
 **SourceCode:** <https://github.com/benben-miao/GAnnoViz/>
 
 **Website API**: <https://benben-miao.github.io/GAnnoViz/>
 
-GAnnoViz: a R package for genomic annotation and visualization.
+<figure>
+<img src="inst/shiny/www/Shinyapp.png" alt="Shinyapp UI" />
+<figcaption aria-hidden="true">Shinyapp UI</figcaption>
+</figure>
 
 ### Key features
 
@@ -64,7 +69,7 @@ GAnnoViz: a R package for genomic annotation and visualization.
 # Example GFF3 file in GAnnoViz
 gff_file <- system.file(
   "extdata",
-  "example.gff",
+  "example.gff3.gz",
   package = "GAnnoViz")
 
 # Extract Genes
@@ -81,14 +86,14 @@ gene_range <- extract_genes(
   gene_info = "gene_range")
 head(gene_range)
 #> IRanges object with 6 ranges and 0 metadata columns:
-#>                 start       end     width
-#>             <integer> <integer> <integer>
-#>   HdF000001  10724003  10725460      1458
-#>   HdF000002  10808174  10823308     15135
-#>   HdF000003  10911391  10930352     18962
-#>   HdF000004  10939872  10941326      1455
-#>   HdF000005  10982117  10999259     17143
-#>   HdF000006  11012358  11024009     11652
+#>                          start       end     width
+#>                      <integer> <integer> <integer>
+#>   ENSMUSG00000000001 108014596 108053462     38867
+#>   ENSMUSG00000000003  76881507  76897229     15723
+#>   ENSMUSG00000000028  18599197  18630737     31541
+#>   ENSMUSG00000000037 159865521 160041209    175689
+#>   ENSMUSG00000000049 108234180 108305222     71043
+#>   ENSMUSG00000000056 121128079 121146682     18604
 ```
 
 ### Extract CDS
@@ -107,15 +112,9 @@ cds_range <- extract_cds(
   format = "auto",
   cds_info = "cds_range")
 head(cds_range)
-#> IRanges object with 6 ranges and 0 metadata columns:
-#>           start       end     width
-#>       <integer> <integer> <integer>
-#>   [1]    810081    810090        10
-#>   [2]    816466    816734       269
-#>   [3]    818765    818971       207
-#>   [4]    819680    819740        61
-#>   [5]    821042    821214       173
-#>   [6]    825267    825329        63
+#> IRanges object with 0 ranges and 0 metadata columns:
+#>        start       end     width
+#>    <integer> <integer> <integer>
 ```
 
 ### Extract Promoters
@@ -139,14 +138,14 @@ promoter_range <- extract_promoters(
   promoter_info = "promoter_range")
 head(promoter_range)
 #> IRanges object with 6 ranges and 0 metadata columns:
-#>                     start       end     width
-#>                 <integer> <integer> <integer>
-#>   nbis-mrna-126    807987    810186      2200
-#>   nbis-mrna-127    882426    884625      2200
-#>   nbis-mrna-129    949197    951396      2200
-#>   nbis-mrna-130   1058746   1060945      2200
-#>   nbis-mrna-132   1184302   1186501      2200
-#>   nbis-mrna-134   1259096   1261295      2200
+#>                   start       end     width
+#>               <integer> <integer> <integer>
+#>    Lypla1-205   4876011   4878210      2200
+#>    Lypla1-201   4876046   4878245      2200
+#>    Lypla1-208   4876053   4878252      2200
+#>   Gm37988-201   4876115   4878314      2200
+#>    Lypla1-203   4876119   4878318      2200
+#>    Lypla1-206   4876121   4878320      2200
 ```
 
 ### Extract 5’UTR
@@ -165,15 +164,9 @@ utr5_range <- extract_utr5(
   format = "auto",
   utr5_info = "utr5_range")
 head(utr5_range)
-#> IRanges object with 6 ranges and 0 metadata columns:
-#>         start       end     width
-#>     <integer> <integer> <integer>
-#>   1    809987    810080        94
-#>   2    884426    884645       220
-#>   3    951197    951558       362
-#>   3    952741    952756        16
-#>   4   1060746   1060848       103
-#>   6   1261096   1261128        33
+#> IRanges object with 0 ranges and 0 metadata columns:
+#>        start       end     width
+#>    <integer> <integer> <integer>
 ```
 
 ## 5. Plot Structure
@@ -199,7 +192,7 @@ plot_gene_stats(
 plot_gene_structure(
   gff_file = gff_file,
   format = "auto",
-  gene_id = "HdF029609",
+  gene_id = "ENSMUSG00000025935",
   upstream = 2000,
   downstream = 200,
   feature_alpha = 0.8,
@@ -244,8 +237,8 @@ plot_interval_structure(
   gff_file = gff_file,
   format = "auto",
   chrom_id = "chr1",
-  start = 950000,
-  end = 1180000,
+  start = 13600000,
+  end = 13800000,
   x_breaks = 10,
   upstream = 2000,
   downstream = 200,
@@ -271,7 +264,7 @@ plot_interval_structure(
 plot_interval_flank(
   gff_file = gff_file,
   format = "auto",
-  gene_id = "HdF029609",
+  gene_id = "ENSMUSG00000025935",
   flank_upstream = 200000,
   flank_downstream = 200000,
   show_promoters = TRUE,
@@ -311,8 +304,8 @@ plot_chrom_structure(
 
 ``` r
 genes <- data.frame(
-  gene_id = c("HdF029609", "HdF029610"),
-  gene_name = c("GeneA", "GeneB"))
+  gene_id = c("ENSMUSG00000042414", "ENSMUSG00000025935", "ENSMUSG00000048701", "ENSMUSG00000035385"),
+  gene_name = c("Prdm14", "Tram1", "Ccdc6", "Ccl2"))
 
 # Vertical, annotate by name
 plot_chrom_genes(
@@ -360,20 +353,20 @@ deg <- read.table(
   stringsAsFactors = FALSE
 )
 head(deg)
-#>      GeneID    baseMean log2FoldChange     lfcSE      stat       pvalue
-#> 1 HdF054777   16.999581      -1.480620 0.7189789 -2.059337 3.946195e-02
-#> 2 HdF055254   10.012632       3.039624 1.3467639  2.256984 2.400909e-02
-#> 3 HdF055463    3.926022       5.319215 2.2806921  2.332281 1.968590e-02
-#> 4 HdF027237 1433.976916      -1.802171 0.3336465 -5.401438 6.610888e-08
-#> 5 HdF027261  178.124271      -1.049145 0.4681808 -2.240897 2.503274e-02
-#> 6 HdF002748  185.015989       2.051539 0.9494449  2.160778 3.071251e-02
+#>               GeneID baseMean log2FoldChange     lfcSE      stat       pvalue
+#> 1 ENSMUSG00000096094    23437       1.623064 0.3837042  4.229987 2.337044e-05
+#> 2 ENSMUSG00000104067    26867      -1.243960 0.5766501 -2.157217 3.098873e-02
+#> 3 ENSMUSG00000042699    20068       1.665528 0.4439496  3.751614 1.756999e-04
+#> 4 ENSMUSG00000102365    30846       1.329252 0.4377242  3.036734 2.391563e-03
+#> 5 ENSMUSG00000118401    27046      -1.357475 0.2651583 -5.119487 3.063684e-07
+#> 6 ENSMUSG00000103840    29564       1.328552 0.3902611  3.404265 6.634225e-04
 #>           padj
-#> 1 5.479174e-01
-#> 2 4.341369e-01
-#> 3           NA
-#> 4 2.832689e-05
-#> 5 4.406169e-01
-#> 6 4.865774e-01
+#> 1 6.504410e-05
+#> 2 3.197659e-02
+#> 3 3.684748e-04
+#> 4 3.369004e-03
+#> 5 1.172706e-06
+#> 6 1.136750e-03
 ```
 
 ``` r
@@ -388,14 +381,35 @@ res <- anno_deg_chrom(
   drop_unmapped = TRUE
 )
 head(res)
-#>   chrom    start      end   gene_id     score strand
-#> 1 chr14 12802589 12807112 HdF000031  1.408356      *
-#> 2 chr14 12979855 12984114 HdF000041 -1.114777      *
-#> 3 chr14 13092225 13094734 HdF000049  1.271638      *
-#> 4 chr14 13915421 13919063 HdF000066 -6.180426      *
-#> 5 chr14 15038730 15050966 HdF000091 -1.250090      *
-#> 6 chr14 15455652 15456778 HdF000106 -6.085891      *
+#>   chrom     start       end            gene_id     score strand
+#> 1  chr3 116306719 116343630 ENSMUSG00000000340  1.456567      *
+#> 2 chr17   6869070   6877078 ENSMUSG00000000579  2.696704      *
+#> 3 chr11  54988941  55003855 ENSMUSG00000000594  1.488543      *
+#> 4 chr10  77877781  77899456 ENSMUSG00000000730  1.592217      *
+#> 5  chr8  71261093  71274068 ENSMUSG00000000791  1.344079      *
+#> 6 chr11  83538670  83540181 ENSMUSG00000000982 -2.094984      *
 ```
+
+### Plot differentially expressed genes (DEGs) volcano
+
+``` r
+# Volcano plot
+plot_deg_volcano(
+  deg_file = deg_file,
+  id_col = "GeneID",
+  fc_col = "log2FoldChange",
+  sig_col = "padj",
+  fc_threshold = 1,
+  sig_threshold = 0.05,
+  point_size = 2,
+  point_alpha = 0.5,
+  up_color = "#ff0000",
+  down_color = "#008800",
+  ns_color = "#888888"
+)
+```
+
+<img src="man/figures/README-plot_deg_volcano-1.png" style="display: block; margin: auto;" />
 
 ### Plot differentially expressed genes (DEGs) hyper/hypo distributions by chromosome
 
@@ -449,33 +463,33 @@ plot_deg_exp(
 
 ``` r
 # Annotate FST
-fst_table <- system.file(
+fst_file <- system.file(
     "extdata",
     "example.fst",
     package = "GAnnoViz")
 
 fst <- read.table(
-  file = fst_table,
+  file = fst_file,
   header = TRUE,
   sep = "\t",
   na.strings = "NA",
   stringsAsFactors = FALSE
 )
 head(fst)
-#>   CHROM BIN_START BIN_END N_VARIANTS WEIGHTED_FST    MEAN_FST
-#> 1 chr11     10001   20000          7   0.04366440  0.02391140
-#> 2 chr11     15001   25000          7   0.04366440  0.02391140
-#> 3 chr11     25001   35000          4   0.01503910  0.01619730
-#> 4 chr11     30001   40000          4   0.01503910  0.01619730
-#> 5 chr11     55001   65000          1  -0.00444874 -0.00444874
-#> 6 chr11     60001   70000          1  -0.00444874 -0.00444874
+#>   CHROM BIN_START BIN_END N_VARIANTS WEIGHTED_FST     MEAN_FST
+#> 1  chr1         1   10000        119  0.034869746  0.027472144
+#> 2  chr1     20001   30000        150 -0.009735326 -0.019103882
+#> 3  chr1     40001   50000        587 -0.013269573 -0.004886184
+#> 4  chr1     60001   70000        256  0.036700847  0.027643440
+#> 5  chr1     80001   90000        842  0.020847846  0.011547497
+#> 6  chr1    100001  110000        892  0.001750007  0.002121159
 ```
 
 ``` r
 res <- anno_fst_dmr(
   gff_file = gff_file,
   format = "auto",
-  genomic_ranges = fst_table,
+  genomic_ranges = fst_file,
   chrom_col = "CHROM",
   start_col = "BIN_START",
   end_col = "BIN_END",
@@ -485,53 +499,53 @@ res <- anno_fst_dmr(
   features = c("promoter", "UTR5", "gene", "exon", "intron", "CDS", "UTR3", "intergenic")
 )
 head(res)
-#>   CHROM BIN_START BIN_END N_VARIANTS WEIGHTED_FST    MEAN_FST
-#> 1 chr11     10001   20000          7   0.04366440  0.02391140
-#> 2 chr11     15001   25000          7   0.04366440  0.02391140
-#> 3 chr11     25001   35000          4   0.01503910  0.01619730
-#> 4 chr11     30001   40000          4   0.01503910  0.01619730
-#> 5 chr11     55001   65000          1  -0.00444874 -0.00444874
-#> 6 chr11     60001   70000          1  -0.00444874 -0.00444874
-#>                                 anno_type                   gene_id
-#> 1 promoter,gene,UTR5,CDS,exon,intron,UTR3 HdF041849(p),HdF041849(g)
-#> 2          promoter,gene,UTR5,exon,intron HdF041849(p),HdF041849(g)
-#> 3                              intergenic                          
-#> 4                              intergenic                          
-#> 5                              intergenic                          
-#> 6                              intergenic
+#>   CHROM BIN_START BIN_END N_VARIANTS WEIGHTED_FST     MEAN_FST  anno_type
+#> 1  chr1         1   10000        119  0.034869746  0.027472144 intergenic
+#> 2  chr1     20001   30000        150 -0.009735326 -0.019103882 intergenic
+#> 3  chr1     40001   50000        587 -0.013269573 -0.004886184 intergenic
+#> 4  chr1     60001   70000        256  0.036700847  0.027643440 intergenic
+#> 5  chr1     80001   90000        842  0.020847846  0.011547497 intergenic
+#> 6  chr1    100001  110000        892  0.001750007  0.002121159 intergenic
+#>   gene_id
+#> 1        
+#> 2        
+#> 3        
+#> 4        
+#> 5        
+#> 6
 ```
 
 ### Annotate DMR slide windows with genomic features
 
 ``` r
 # Annotate DMR
-dmr_table <- system.file(
+dmr_file <- system.file(
     "extdata",
     "example.dmr",
     package = "GAnnoViz")
 
 dmr <- read.table(
-  file = dmr_table,
+  file = dmr_file,
   header = TRUE,
   sep = "\t",
   na.strings = "NA",
   stringsAsFactors = FALSE
 )
 head(dmr)
-#>    chr   start     end strand        pvalue        qvalue meth.diff
-#> 1 chr1  466001  468000      *  4.157118e-03  1.206712e-02 -27.31707
-#> 2 chr1  660001  662000      *  4.041133e-09  3.622605e-08 -33.37925
-#> 3 chr1 1454001 1456000      *  8.939178e-12  1.083862e-10 -26.55631
-#> 4 chr1 2750001 2752000      * 2.716109e-129 5.710428e-127  25.04745
-#> 5 chr1 3428001 3430000      *  2.049072e-10  2.144328e-09 -46.33124
-#> 6 chr1 3604001 3606000      *  2.137854e-09  1.984104e-08  37.85743
+#>    chr   start     end strand pvalue   qvalue meth.diff
+#> 1 chr1 4930001 4932000      *  1e-07 0.009117    89.850
+#> 2 chr1 4936001 4938000      *  1e-08 0.005656   -82.314
+#> 3 chr1 5670001 5672000      *  1e-09 0.011313   -69.908
+#> 4 chr1 5914001 5916000      *  1e-09 0.001782   -93.310
+#> 5 chr1 8576001 8578000      *  1e-08 0.009556   -68.589
+#> 6 chr1 9098001 9100000      *  1e-07 0.009733   -68.756
 ```
 
 ``` r
 res <- anno_fst_dmr(
   gff_file = gff_file,
   format = "auto",
-  genomic_ranges = dmr_table,
+  genomic_ranges = dmr_file,
   chrom_col = "chr",
   start_col = "start",
   end_col = "end",
@@ -541,20 +555,20 @@ res <- anno_fst_dmr(
   features = c("promoter", "UTR5", "gene", "exon", "intron", "CDS", "UTR3", "intergenic")
 )
 head(res)
-#>    chr   start     end strand        pvalue        qvalue meth.diff
-#> 1 chr1  466001  468000      *  4.157118e-03  1.206712e-02 -27.31707
-#> 2 chr1  660001  662000      *  4.041133e-09  3.622605e-08 -33.37925
-#> 3 chr1 1454001 1456000      *  8.939178e-12  1.083862e-10 -26.55631
-#> 4 chr1 2750001 2752000      * 2.716109e-129 5.710428e-127  25.04745
-#> 5 chr1 3428001 3430000      *  2.049072e-10  2.144328e-09 -46.33124
-#> 6 chr1 3604001 3606000      *  2.137854e-09  1.984104e-08  37.85743
-#>        anno_type      gene_id
-#> 1    gene,intron HdF051575(g)
-#> 2    gene,intron HdF051575(g)
-#> 3 gene,exon,UTR3 HdF027216(g)
-#> 4     intergenic             
-#> 5    gene,intron HdF027234(g)
-#> 6    gene,intron HdF027242(g)
+#>    chr   start     end strand pvalue   qvalue meth.diff        anno_type
+#> 1 chr1 4930001 4932000      *  1e-07 0.009117    89.850      gene,intron
+#> 2 chr1 4936001 4938000      *  1e-08 0.005656   -82.314 gene,exon,intron
+#> 3 chr1 5670001 5672000      *  1e-09 0.011313   -69.908      gene,intron
+#> 4 chr1 5914001 5916000      *  1e-09 0.001782   -93.310       intergenic
+#> 5 chr1 8576001 8578000      *  1e-08 0.009556   -68.589      gene,intron
+#> 6 chr1 9098001 9100000      *  1e-07 0.009733   -68.756      gene,intron
+#>                                       gene_id
+#> 1 ENSMUSG00000033813(g),ENSMUSG00000104217(g)
+#> 2 ENSMUSG00000033813(g),ENSMUSG00000104217(g)
+#> 3                       ENSMUSG00000025905(g)
+#> 4                                            
+#> 5                       ENSMUSG00000025909(g)
+#> 6                       ENSMUSG00000025909(g)
 ```
 
 ### Plot SNP density at chromosome level
@@ -562,7 +576,7 @@ head(res)
 ``` r
 # Plot SNP density
 plot_snp_density(
-  fst_file = fst_table,
+  fst_file = fst_file,
   LOG10 = FALSE,
   bin_size = 1e6,
   density_color = c("#0088ff", "#ff8800", "#ff0000")
@@ -576,7 +590,7 @@ plot_snp_density(
 ``` r
 # Plot weighted FST
 plot_snp_fst(
-  fst_file = fst_table,
+  fst_file = fst_file,
   bin_size = 1e6,
   metric = "fst_mean",
   orientation = "horizontal",
@@ -592,7 +606,7 @@ plot_snp_fst(
 ``` r
 # Chromosome FST with Top-20 gene annotations on chr11
 plot_snp_anno(
-  fst_file = fst_table,
+  fst_file = fst_file,
   gff_file = gff_file,
   format = "auto",
   chrom_id = "chr2",
@@ -618,7 +632,7 @@ plot_snp_anno(
 ``` r
 # Plot chrom DMRs
 plot_dmg_chrom(
-  dmr_file = dmr_table,
+  dmr_file = dmr_file,
   violin_scale = "count",
   violin_border = 0.5,
   point_shape = 8,
@@ -636,7 +650,7 @@ plot_dmg_chrom(
 ``` r
 # Plot DMG expression
 plot_dmg_exp(
-  dmr_file = dmr_table,
+  dmr_file = dmr_file,
   orientation = "horizontal",
   chrom_alpha = 0.1,
   chrom_color = "#008888",
@@ -657,7 +671,7 @@ plot_dmg_exp(
 # Plot DMR trend
 plot_dmg_trend(
   chrom_id = "chr1",
-  dmr_file = dmr_table,
+  dmr_file = dmr_file,
   smooth_span = 0.1,
   hyper_color = "#ff0000",
   hypo_color = "#008800",

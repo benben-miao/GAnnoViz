@@ -190,16 +190,21 @@ ui <- bs4DashPage(
       tags$style(
         HTML(
           "
+            #sidebarId {
+              border-radius: 15px;
+              transform: scale(0.98);
+            }
             .main-header {
               margin: 3px;
-              border: 1px solid #008888;
+              padding: 5px;
+              border: 1px solid #eeeeee;
               border-radius: 30px;
-              box-shadow: 0px -10px 10px #dddddd;
+              box-shadow: 0px 10px 20px #cccccc;
               transform: scale(0.8);
-              background-image: radial-gradient(circle 720px at 50% 50%, #ff000022 0%, #00008811 50%, #00880011 100%);
+              background-image: radial-gradient(circle 720px at 50% 50%, #ff000033 0%, #00008811 50%, #00880011 100%);
             }
-            .content {
-              background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
+            .wrapper {
+              background-color: #efefef88;
             }
             .card-title {
               color: #000000;
@@ -694,14 +699,14 @@ ui <- bs4DashPage(
             numericInput(
               inputId = "win_start",
               label = "Start",
-              value = 950000,
+              value = 13600000,
               min = 0,
               step = 1000
             ),
             numericInput(
               inputId = "win_end",
               label = "End",
-              value = 1180000,
+              value = 13800000,
               min = 0,
               step = 1000
             ),
