@@ -171,7 +171,7 @@ plot_gene_stats(
 plot_gene_structure(
   gff_file = gff_file,
   format = "auto",
-  gene_id = "HdF029609",
+  gene_id = "ENSMUSG00000025935",
   upstream = 2000,
   downstream = 200,
   feature_alpha = 0.8,
@@ -237,7 +237,7 @@ plot_interval_structure(
 plot_interval_flank(
   gff_file = gff_file,
   format = "auto",
-  gene_id = "HdF029609",
+  gene_id = "ENSMUSG00000025935",
   flank_upstream = 200000,
   flank_downstream = 200000,
   show_promoters = TRUE,
@@ -273,8 +273,8 @@ plot_chrom_structure(
 
 ```{r plot_chrom_genes, fig.width=10, fig.height=7}
 genes <- data.frame(
-  gene_id = c("HdF029609", "HdF029610"),
-  gene_name = c("GeneA", "GeneB"))
+  gene_id = c("ENSMUSG00000042414", "ENSMUSG00000025935", "ENSMUSG00000048701", "ENSMUSG00000035385"),
+  gene_name = c("Prdm14", "Tram1", "Ccdc6", "Ccl2"))
 
 # Vertical, annotate by name
 plot_chrom_genes(

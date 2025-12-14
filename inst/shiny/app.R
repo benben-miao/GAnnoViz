@@ -269,7 +269,7 @@ ui <- bs4DashPage(
             textInput(
               inputId = "gene_id",
               label = "Gene ID",
-              value = "HdF029609"
+              value = "ENSMUSG00000025935"
             ),
             numericInput(
               inputId = "upstream",
@@ -860,7 +860,7 @@ ui <- bs4DashPage(
             textInput(
               inputId = "flank_gene_id",
               label = "Gene ID",
-              value = "HdF029609"
+              value = "ENSMUSG00000025935"
             ),
             numericInput(
               inputId = "flank_upstream",

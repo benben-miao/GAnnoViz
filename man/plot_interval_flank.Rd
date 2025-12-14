@@ -64,7 +64,7 @@ gff_file <- system.file(
 plot_interval_flank(
   gff_file = gff_file,
   format = "auto",
-  gene_id = "HdF029609",
+  gene_id = "ENSMUSG00000025935",
   flank_upstream = 200000,
   flank_downstream = 200000,
   show_promoters = TRUE,

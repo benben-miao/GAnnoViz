@@ -73,7 +73,7 @@ gff_file <- system.file(
 plot_gene_structure(
   gff_file = gff_file,
   format = "auto",
-  gene_id = "HdF029609",
+  gene_id = "ENSMUSG00000025935",
   upstream = 2000,
   downstream = 200,
   feature_alpha = 0.8,

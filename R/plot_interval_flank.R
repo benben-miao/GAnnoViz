@@ -31,7 +31,7 @@
 #' plot_interval_flank(
 #'   gff_file = gff_file,
 #'   format = "auto",
-#'   gene_id = "HdF029609",
+#'   gene_id = "ENSMUSG00000025935",
 #'   flank_upstream = 200000,
 #'   flank_downstream = 200000,
 #'   show_promoters = TRUE,
@@ -134,7 +134,7 @@ plot_interval_flank <- function(gff_file,
     ) +
     ggplot2::geom_text(
       data = df_genes,
-      ggplot2::aes(x = pmax(df_genes$end, df_genes$start) + (region_end - region_start) * 0.02, y = y, label = gene_id),
+      ggplot2::aes(x = pmax(end, start) + (region_end - region_start) * 0.02, y = y, label = gene_id),
       size = label_size,
       color = "#000000",
       hjust = 0,
