@@ -190,8 +190,23 @@ ui <- bs4DashPage(
       tags$style(
         HTML(
           "
+            .main-header {
+              margin: 3px;
+              border: 1px solid #008888;
+              border-radius: 30px;
+              box-shadow: 0px -10px 10px #dddddd;
+              transform: scale(0.8);
+              background-image: radial-gradient(circle 720px at 50% 50%, #ff000022 0%, #00008811 50%, #00880011 100%);
+            }
+            .content {
+              background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
+            }
+            .card-title {
+              color: #000000;
+              font-weight: bold;
+            }
             .card-body {
-              max-height: 800px;
+              height: 840px;
               overflow-y: auto;
               scrollbar-width: thin;
             }
@@ -202,9 +217,16 @@ ui <- bs4DashPage(
             	color: #333333;
             	font-weight: bold;
             }
+            .shiny-download-link {
+              width: 100%;
+            	background-color: #0088aa88;
+            	border-radius: 10px;
+            	color: #333333;
+            	font-weight: bold;
+            }
             .form-control, .selectize-input, .shiny-input-number, .shiny-input-select, .custom-file-input, .custom-file-label {
-              border-radius: 10px !important;
-              background-color: #f7f7f7 !important;
+              border-radius: 10px;
+              background-image: radial-gradient(circle 200px at 50% 50%, #00008808 0%, #00880008 100%);
             }
             .irs-line, .irs-bar, .irs-handle {
               border-radius: 10px !important;
@@ -220,12 +242,19 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Parameters",
             status = "info",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             actionButton(
               inputId = "run_plot_gene_structure",
               label = "Run",
               icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            downloadButton(
+              outputId = "download_plot_gene_structure",
+              label = "Download",
+              icon = icon("cloud-arrow-down"),
               style = "width: 100%",
               class = "btn-block"
             ),
@@ -322,6 +351,33 @@ ui <- bs4DashPage(
               inputId = "intron_color",
               label = "Intron color",
               value = "#333333"
+            ),
+            numericInput(
+              inputId = "plot_width_gene_structure",
+              label = "Width (in)",
+              value = 10,
+              min = 1,
+              step = 0.5
+            ),
+            numericInput(
+              inputId = "plot_height_gene_structure",
+              label = "Height (in)",
+              value = 6,
+              min = 1,
+              step = 0.5
+            ),
+            numericInput(
+              inputId = "plot_dpi_gene_structure",
+              label = "DPI",
+              value = 300,
+              min = 72,
+              step = 10
+            ),
+            selectInput(
+              inputId = "plot_format_gene_structure",
+              label = "Format",
+              choices = c("pdf", "jpeg"),
+              selected = "pdf"
             )
           )
         ), column(
@@ -329,7 +385,7 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Plot",
             status = "danger",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             plotOutput("plot_gene_structure", height = "600px")
           ),
@@ -343,7 +399,7 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Parameters",
             status = "info",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             actionButton(
               inputId = "run_anno_deg_chrom",
@@ -355,9 +411,9 @@ ui <- bs4DashPage(
             downloadButton(
               outputId = "download_table_anno_deg_chrom",
               label = "Download",
-              icon = icon("download"),
+              icon = icon("cloud-arrow-down"),
               style = "width: 100%",
-              class = "btn btn-success btn-block"
+              class = "btn-block"
             ),
             br(),
             fileInput(inputId = "deg_file_anno", label = "DEG table"),
@@ -394,7 +450,7 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Data",
             status = "primary",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             DT::dataTableOutput("table_anno_deg_chrom")
           )
@@ -407,12 +463,19 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Parameters",
             status = "info",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             actionButton(
               inputId = "run_plot_gene_domains",
               label = "Run",
               icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            downloadButton(
+              outputId = "download_plot_gene_domains",
+              label = "Download",
+              icon = icon("cloud-arrow-down"),
               style = "width: 100%",
               class = "btn-block"
             ),
@@ -450,6 +513,33 @@ ui <- bs4DashPage(
               value = 2,
               min = 1,
               step = 1
+            ),
+            numericInput(
+              inputId = "plot_width_gene_domains",
+              label = "Width (in)",
+              value = 10,
+              min = 1,
+              step = 0.5
+            ),
+            numericInput(
+              inputId = "plot_height_gene_domains",
+              label = "Height (in)",
+              value = 6,
+              min = 1,
+              step = 0.5
+            ),
+            numericInput(
+              inputId = "plot_dpi_gene_domains",
+              label = "DPI",
+              value = 300,
+              min = 72,
+              step = 10
+            ),
+            selectInput(
+              inputId = "plot_format_gene_domains",
+              label = "Format",
+              choices = c("pdf", "jpeg"),
+              selected = "pdf"
             )
           )
         ), column(
@@ -457,7 +547,7 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Plot",
             status = "danger",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             plotOutput("plot_gene_domains", height = "600px")
           )
@@ -470,12 +560,19 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Parameters",
             status = "info",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             actionButton(
               inputId = "run_plot_dmg_trend",
               label = "Run",
               icon = icon("circle-play"),
+              class = "btn-block"
+            ),
+            downloadButton(
+              outputId = "download_plot_dmg_trend",
+              label = "Download",
+              icon = icon("cloud-arrow-down"),
+              style = "width: 100%",
               class = "btn-block"
             ),
             br(),
@@ -517,6 +614,33 @@ ui <- bs4DashPage(
               max = 1,
               value = 0.5,
               step = 0.05
+            ),
+            numericInput(
+              inputId = "plot_width_dmg_trend",
+              label = "Width (in)",
+              value = 10,
+              min = 1,
+              step = 0.5
+            ),
+            numericInput(
+              inputId = "plot_height_dmg_trend",
+              label = "Height (in)",
+              value = 6,
+              min = 1,
+              step = 0.5
+            ),
+            numericInput(
+              inputId = "plot_dpi_dmg_trend",
+              label = "DPI",
+              value = 300,
+              min = 72,
+              step = 10
+            ),
+            selectInput(
+              inputId = "plot_format_dmg_trend",
+              label = "Format",
+              choices = c("pdf", "jpeg"),
+              selected = "pdf"
             )
           )
         ), column(
@@ -524,7 +648,7 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Plot",
             status = "danger",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             plotOutput("plot_dmg_trend", height = "600px")
           ),
@@ -538,12 +662,19 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Parameters",
             status = "info",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             actionButton(
               inputId = "run_plot_interval_structure",
               label = "Run",
               icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            downloadButton(
+              outputId = "download_plot_interval_structure",
+              label = "Download",
+              icon = icon("cloud-arrow-down"),
               style = "width: 100%",
               class = "btn-block"
             ),
@@ -654,6 +785,33 @@ ui <- bs4DashPage(
               inputId = "intron_color_interval",
               label = "Intron color",
               value = "#333333"
+            ),
+            numericInput(
+              inputId = "plot_width_interval_structure",
+              label = "Width (in)",
+              value = 10,
+              min = 1,
+              step = 0.5
+            ),
+            numericInput(
+              inputId = "plot_height_interval_structure",
+              label = "Height (in)",
+              value = 6,
+              min = 1,
+              step = 0.5
+            ),
+            numericInput(
+              inputId = "plot_dpi_interval_structure",
+              label = "DPI",
+              value = 300,
+              min = 72,
+              step = 10
+            ),
+            selectInput(
+              inputId = "plot_format_interval_structure",
+              label = "Format",
+              choices = c("pdf", "jpeg"),
+              selected = "pdf"
             )
           )
         ), column(
@@ -661,7 +819,7 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Plot",
             status = "danger",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             plotOutput("plot_interval_structure", height = "600px")
           ),
@@ -675,12 +833,19 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Parameters",
             status = "info",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             actionButton(
               inputId = "run_plot_interval_flank",
               label = "Run",
               icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            downloadButton(
+              outputId = "download_plot_interval_flank",
+              label = "Download",
+              icon = icon("cloud-arrow-down"),
               style = "width: 100%",
               class = "btn-block"
             ),
@@ -759,6 +924,33 @@ ui <- bs4DashPage(
               value = 3,
               min = 1,
               step = 1
+            ),
+            numericInput(
+              inputId = "plot_width_interval_flank",
+              label = "Width (in)",
+              value = 10,
+              min = 1,
+              step = 0.5
+            ),
+            numericInput(
+              inputId = "plot_height_interval_flank",
+              label = "Height (in)",
+              value = 6,
+              min = 1,
+              step = 0.5
+            ),
+            numericInput(
+              inputId = "plot_dpi_interval_flank",
+              label = "DPI",
+              value = 300,
+              min = 72,
+              step = 10
+            ),
+            selectInput(
+              inputId = "plot_format_interval_flank",
+              label = "Format",
+              choices = c("pdf", "jpeg"),
+              selected = "pdf"
             )
           )
         ), column(
@@ -766,7 +958,7 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Plot",
             status = "danger",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             plotOutput("plot_interval_flank", height = "600px")
           ),
@@ -780,12 +972,19 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Parameters",
             status = "info",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             actionButton(
               inputId = "run_plot_chrom_structure",
               label = "Run",
               icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            downloadButton(
+              outputId = "download_plot_chrom_structure",
+              label = "Download",
+              icon = icon("cloud-arrow-down"),
               style = "width: 100%",
               class = "btn-block"
             ),
@@ -849,13 +1048,41 @@ ui <- bs4DashPage(
               min = 1,
               step = 1
             )
+            ,
+            numericInput(
+              inputId = "plot_width_chrom_structure",
+              label = "Width (in)",
+              value = 10,
+              min = 1,
+              step = 0.5
+            ),
+            numericInput(
+              inputId = "plot_height_chrom_structure",
+              label = "Height (in)",
+              value = 6,
+              min = 1,
+              step = 0.5
+            ),
+            numericInput(
+              inputId = "plot_dpi_chrom_structure",
+              label = "DPI",
+              value = 300,
+              min = 72,
+              step = 10
+            ),
+            selectInput(
+              inputId = "plot_format_chrom_structure",
+              label = "Format",
+              choices = c("pdf", "jpeg"),
+              selected = "pdf"
+            )
           )
         ), column(
           width = 9,
           bs4Card(
             title = "Plot",
             status = "danger",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             plotOutput("plot_chrom_structure", height = "600px")
           ),
@@ -869,12 +1096,19 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Parameters",
             status = "info",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             actionButton(
               inputId = "run_plot_chrom_genes",
               label = "Run",
               icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            downloadButton(
+              outputId = "download_plot_chrom_genes",
+              label = "Download",
+              icon = icon("cloud-arrow-down"),
               style = "width: 100%",
               class = "btn-block"
             ),
@@ -966,6 +1200,33 @@ ui <- bs4DashPage(
               value = 0.2,
               min = 0,
               step = 0.05
+            ),
+            numericInput(
+              inputId = "plot_width_chrom_genes",
+              label = "Width (in)",
+              value = 10,
+              min = 1,
+              step = 0.5
+            ),
+            numericInput(
+              inputId = "plot_height_chrom_genes",
+              label = "Height (in)",
+              value = 6,
+              min = 1,
+              step = 0.5
+            ),
+            numericInput(
+              inputId = "plot_dpi_chrom_genes",
+              label = "DPI",
+              value = 300,
+              min = 72,
+              step = 10
+            ),
+            selectInput(
+              inputId = "plot_format_chrom_genes",
+              label = "Format",
+              choices = c("pdf", "jpeg"),
+              selected = "pdf"
             )
           )
         ), column(
@@ -973,7 +1234,7 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Plot",
             status = "danger",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             plotOutput("plot_chrom_genes", height = "600px")
           ),
@@ -987,12 +1248,19 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Parameters",
             status = "info",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             actionButton(
               inputId = "run_plot_chrom_heatmap",
               label = "Run",
               icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            downloadButton(
+              outputId = "download_plot_chrom_heatmap",
+              label = "Download",
+              icon = icon("cloud-arrow-down"),
               style = "width: 100%",
               class = "btn-block"
             ),
@@ -1040,6 +1308,33 @@ ui <- bs4DashPage(
               max = 1,
               value = 0.9,
               step = 0.05
+            ),
+            numericInput(
+              inputId = "plot_width_chrom_heatmap",
+              label = "Width (in)",
+              value = 10,
+              min = 1,
+              step = 0.5
+            ),
+            numericInput(
+              inputId = "plot_height_chrom_heatmap",
+              label = "Height (in)",
+              value = 6,
+              min = 1,
+              step = 0.5
+            ),
+            numericInput(
+              inputId = "plot_dpi_chrom_heatmap",
+              label = "DPI",
+              value = 300,
+              min = 72,
+              step = 10
+            ),
+            selectInput(
+              inputId = "plot_format_chrom_heatmap",
+              label = "Format",
+              choices = c("pdf", "jpeg"),
+              selected = "pdf"
             )
           )
         ), column(
@@ -1047,7 +1342,7 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Plot",
             status = "danger",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             plotOutput("plot_chrom_heatmap", height = "600px")
           ),
@@ -1061,7 +1356,7 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Parameters",
             status = "info",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             actionButton(
               inputId = "run_plot_deg_chrom",
@@ -1073,9 +1368,9 @@ ui <- bs4DashPage(
             downloadButton(
               outputId = "download_plot_deg_chrom",
               label = "Download",
-              icon = icon("download"),
+              icon = icon("cloud-arrow-down"),
               style = "width: 100%",
-              class = "btn btn-success btn-block"
+              class = "btn-block"
             ),
             br(),
             fileInput(inputId = "deg_file", label = "DEG table"),
@@ -1175,7 +1470,7 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Plot",
             status = "danger",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             plotOutput("plot_deg_chrom", height = "600px")
           ),
@@ -1189,7 +1484,7 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Parameters",
             status = "info",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             actionButton(
               inputId = "run_plot_deg_exp",
@@ -1201,9 +1496,9 @@ ui <- bs4DashPage(
             downloadButton(
               outputId = "download_plot_deg_exp",
               label = "Download",
-              icon = icon("download"),
+              icon = icon("cloud-arrow-down"),
               style = "width: 100%",
-              class = "btn btn-success btn-block"
+              class = "btn-block"
             ),
             br(),
             fileInput(inputId = "deg_file_exp", label = "DEG table"),
@@ -1328,7 +1623,7 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Plot",
             status = "danger",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             plotOutput("plot_deg_exp", height = "600px")
           )
@@ -1341,7 +1636,7 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Parameters",
             status = "info",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             actionButton(
               inputId = "run_plot_deg_volcano",
@@ -1353,9 +1648,9 @@ ui <- bs4DashPage(
             downloadButton(
               outputId = "download_plot_deg_volcano",
               label = "Download",
-              icon = icon("download"),
+              icon = icon("cloud-arrow-down"),
               style = "width: 100%",
-              class = "btn btn-success btn-block"
+              class = "btn-block"
             ),
             br(),
             fileInput(inputId = "deg_file_volcano", label = "DEG table"),
@@ -1452,7 +1747,7 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Plot",
             status = "danger",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             plotOutput("plot_deg_volcano", height = "600px")
           )
@@ -1465,12 +1760,19 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Parameters",
             status = "info",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             actionButton(
               inputId = "run_plot_snp_fst",
               label = "Run",
               icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            downloadButton(
+              outputId = "download_plot_snp_fst",
+              label = "Download",
+              icon = icon("cloud-arrow-down"),
               style = "width: 100%",
               class = "btn-block"
             ),
@@ -1512,6 +1814,33 @@ ui <- bs4DashPage(
               max = 1,
               value = 0.9,
               step = 0.05
+            ),
+            numericInput(
+              inputId = "plot_width_snp_fst",
+              label = "Width (in)",
+              value = 10,
+              min = 1,
+              step = 0.5
+            ),
+            numericInput(
+              inputId = "plot_height_snp_fst",
+              label = "Height (in)",
+              value = 6,
+              min = 1,
+              step = 0.5
+            ),
+            numericInput(
+              inputId = "plot_dpi_snp_fst",
+              label = "DPI",
+              value = 300,
+              min = 72,
+              step = 10
+            ),
+            selectInput(
+              inputId = "plot_format_snp_fst",
+              label = "Format",
+              choices = c("pdf", "jpeg"),
+              selected = "pdf"
             )
           )
         ), column(
@@ -1519,7 +1848,7 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Plot",
             status = "danger",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             plotOutput("plot_snp_fst", height = "600px")
           ),
@@ -1533,12 +1862,19 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Parameters",
             status = "info",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             actionButton(
               inputId = "run_plot_snp_anno",
               label = "Run",
               icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            downloadButton(
+              outputId = "download_plot_snp_anno",
+              label = "Download",
+              icon = icon("cloud-arrow-down"),
               style = "width: 100%",
               class = "btn-block"
             ),
@@ -1625,6 +1961,33 @@ ui <- bs4DashPage(
               inputId = "fst_color",
               label = "FST color",
               value = "#0088ff"
+            ),
+            numericInput(
+              inputId = "plot_width_snp_anno",
+              label = "Width (in)",
+              value = 10,
+              min = 1,
+              step = 0.5
+            ),
+            numericInput(
+              inputId = "plot_height_snp_anno",
+              label = "Height (in)",
+              value = 6,
+              min = 1,
+              step = 0.5
+            ),
+            numericInput(
+              inputId = "plot_dpi_snp_anno",
+              label = "DPI",
+              value = 300,
+              min = 72,
+              step = 10
+            ),
+            selectInput(
+              inputId = "plot_format_snp_anno",
+              label = "Format",
+              choices = c("pdf", "jpeg"),
+              selected = "pdf"
             )
           )
         ), column(
@@ -1632,7 +1995,7 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Plot",
             status = "danger",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             plotOutput("plot_snp_anno", height = "600px")
           ),
@@ -1646,12 +2009,19 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Parameters",
             status = "info",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             actionButton(
               inputId = "run_plot_dmg_chrom",
               label = "Run",
               icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            downloadButton(
+              outputId = "download_plot_dmg_chrom",
+              label = "Download",
+              icon = icon("cloud-arrow-down"),
               style = "width: 100%",
               class = "btn-block"
             ),
@@ -1702,6 +2072,33 @@ ui <- bs4DashPage(
               inputId = "hypo_color_dmr",
               label = "Hypo color",
               value = "#0088ff88"
+            ),
+            numericInput(
+              inputId = "plot_width_dmg_chrom",
+              label = "Width (in)",
+              value = 10,
+              min = 1,
+              step = 0.5
+            ),
+            numericInput(
+              inputId = "plot_height_dmg_chrom",
+              label = "Height (in)",
+              value = 6,
+              min = 1,
+              step = 0.5
+            ),
+            numericInput(
+              inputId = "plot_dpi_dmg_chrom",
+              label = "DPI",
+              value = 300,
+              min = 72,
+              step = 10
+            ),
+            selectInput(
+              inputId = "plot_format_dmg_chrom",
+              label = "Format",
+              choices = c("pdf", "jpeg"),
+              selected = "pdf"
             )
           )
         ), column(
@@ -1709,7 +2106,7 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Plot",
             status = "danger",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             plotOutput("plot_dmg_chrom", height = "600px")
           ),
@@ -1722,12 +2119,19 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Parameters",
             status = "info",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             actionButton(
               inputId = "run_plot_dmg_exp",
               label = "Run",
               icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            downloadButton(
+              outputId = "download_plot_dmg_exp",
+              label = "Download",
+              icon = icon("cloud-arrow-down"),
               style = "width: 100%",
               class = "btn-block"
             ),
@@ -1803,6 +2207,33 @@ ui <- bs4DashPage(
               value = 0.8,
               min = 0.1,
               step = 0.1
+            ),
+            numericInput(
+              inputId = "plot_width_dmg_exp",
+              label = "Width (in)",
+              value = 10,
+              min = 1,
+              step = 0.5
+            ),
+            numericInput(
+              inputId = "plot_height_dmg_exp",
+              label = "Height (in)",
+              value = 6,
+              min = 1,
+              step = 0.5
+            ),
+            numericInput(
+              inputId = "plot_dpi_dmg_exp",
+              label = "DPI",
+              value = 300,
+              min = 72,
+              step = 10
+            ),
+            selectInput(
+              inputId = "plot_format_dmg_exp",
+              label = "Format",
+              choices = c("pdf", "jpeg"),
+              selected = "pdf"
             )
           )
         ), column(
@@ -1810,7 +2241,7 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Plot",
             status = "danger",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             plotOutput("plot_dmg_exp", height = "600px")
           )
@@ -1823,12 +2254,19 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Parameters",
             status = "info",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             actionButton(
               inputId = "run_plot_gene_stats",
               label = "Run",
               icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            downloadButton(
+              outputId = "download_plot_gene_stats",
+              label = "Download",
+              icon = icon("cloud-arrow-down"),
               style = "width: 100%",
               class = "btn-block"
             ),
@@ -1859,6 +2297,33 @@ ui <- bs4DashPage(
               value = 3,
               min = 1,
               step = 1
+            ),
+            numericInput(
+              inputId = "plot_width_gene_stats",
+              label = "Width (in)",
+              value = 10,
+              min = 1,
+              step = 0.5
+            ),
+            numericInput(
+              inputId = "plot_height_gene_stats",
+              label = "Height (in)",
+              value = 6,
+              min = 1,
+              step = 0.5
+            ),
+            numericInput(
+              inputId = "plot_dpi_gene_stats",
+              label = "DPI",
+              value = 300,
+              min = 72,
+              step = 10
+            ),
+            selectInput(
+              inputId = "plot_format_gene_stats",
+              label = "Format",
+              choices = c("pdf", "jpeg"),
+              selected = "pdf"
             )
           )
         ), column(
@@ -1866,7 +2331,7 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Plot",
             status = "danger",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             plotOutput("plot_gene_stats", height = "600px")
           )
@@ -1878,12 +2343,19 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Parameters",
             status = "info",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             actionButton(
               inputId = "run_plot_snp_density",
               label = "Run",
               icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            downloadButton(
+              outputId = "download_plot_snp_density",
+              label = "Download",
+              icon = icon("cloud-arrow-down"),
               style = "width: 100%",
               class = "btn-block"
             ),
@@ -1915,6 +2387,33 @@ ui <- bs4DashPage(
               inputId = "density_color3",
               label = "Density color 3",
               value = "#ff0000"
+            ),
+            numericInput(
+              inputId = "plot_width_snp_density",
+              label = "Width (in)",
+              value = 10,
+              min = 1,
+              step = 0.5
+            ),
+            numericInput(
+              inputId = "plot_height_snp_density",
+              label = "Height (in)",
+              value = 6,
+              min = 1,
+              step = 0.5
+            ),
+            numericInput(
+              inputId = "plot_dpi_snp_density",
+              label = "DPI",
+              value = 300,
+              min = 72,
+              step = 10
+            ),
+            selectInput(
+              inputId = "plot_format_snp_density",
+              label = "Format",
+              choices = c("pdf", "jpeg"),
+              selected = "pdf"
             )
           )
         ), column(
@@ -1922,7 +2421,7 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Plot",
             status = "danger",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             plotOutput("plot_snp_density", height = "600px")
           )
@@ -1934,12 +2433,19 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Parameters",
             status = "info",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             actionButton(
               inputId = "run_anno_fst_dmr",
               label = "Run",
               icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            downloadButton(
+              outputId = "download_table_anno_fst_dmr",
+              label = "Download",
+              icon = icon("cloud-arrow-down"),
               style = "width: 100%",
               class = "btn-block"
             ),
@@ -2008,7 +2514,7 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Data",
             status = "primary",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             DT::dataTableOutput("table_anno_fst_dmr")
           )
@@ -2020,12 +2526,19 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Parameters",
             status = "info",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             actionButton(
               inputId = "run_extract_promoters",
               label = "Run",
               icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            downloadButton(
+              outputId = "download_table_extract_promoters",
+              label = "Download",
+              icon = icon("cloud-arrow-down"),
               style = "width: 100%",
               class = "btn-block"
             ),
@@ -2063,7 +2576,7 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Data",
             status = "primary",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             DT::dataTableOutput("table_extract_promoters")
           )
@@ -2075,12 +2588,19 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Parameters",
             status = "info",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             actionButton(
               inputId = "run_extract_utr5",
               label = "Run",
               icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            downloadButton(
+              outputId = "download_table_extract_utr5",
+              label = "Download",
+              icon = icon("cloud-arrow-down"),
               style = "width: 100%",
               class = "btn-block"
             ),
@@ -2104,7 +2624,7 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Data",
             status = "primary",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             DT::dataTableOutput("table_extract_utr5")
           )
@@ -2116,12 +2636,19 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Parameters",
             status = "info",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             actionButton(
               inputId = "run_extract_genes",
               label = "Run",
               icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            downloadButton(
+              outputId = "download_table_extract_genes",
+              label = "Download",
+              icon = icon("cloud-arrow-down"),
               style = "width: 100%",
               class = "btn-block"
             ),
@@ -2145,7 +2672,7 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Data",
             status = "primary",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             DT::dataTableOutput("table_extract_genes")
           )
@@ -2157,12 +2684,19 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Parameters",
             status = "info",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             actionButton(
               inputId = "run_extract_mrnas",
               label = "Run",
               icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            downloadButton(
+              outputId = "download_table_extract_mrnas",
+              label = "Download",
+              icon = icon("cloud-arrow-down"),
               style = "width: 100%",
               class = "btn-block"
             ),
@@ -2186,7 +2720,7 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Data",
             status = "primary",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             DT::dataTableOutput("table_extract_mrnas")
           )
@@ -2198,12 +2732,19 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Parameters",
             status = "info",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             actionButton(
               inputId = "run_extract_cds",
               label = "Run",
               icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            downloadButton(
+              outputId = "download_table_extract_cds",
+              label = "Download",
+              icon = icon("cloud-arrow-down"),
               style = "width: 100%",
               class = "btn-block"
             ),
@@ -2227,7 +2768,7 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Data",
             status = "primary",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             DT::dataTableOutput("table_extract_cds")
           )
@@ -2239,12 +2780,19 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Parameters",
             status = "info",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             actionButton(
               inputId = "run_extract_exons",
               label = "Run",
               icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            downloadButton(
+              outputId = "download_table_extract_exons",
+              label = "Download",
+              icon = icon("cloud-arrow-down"),
               style = "width: 100%",
               class = "btn-block"
             ),
@@ -2268,7 +2816,7 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Data",
             status = "primary",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             DT::dataTableOutput("table_extract_exons")
           )
@@ -2280,12 +2828,19 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Parameters",
             status = "info",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             actionButton(
               inputId = "run_extract_utr3",
               label = "Run",
               icon = icon("circle-play"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            downloadButton(
+              outputId = "download_table_extract_utr3",
+              label = "Download",
+              icon = icon("cloud-arrow-down"),
               style = "width: 100%",
               class = "btn-block"
             ),
@@ -2309,7 +2864,7 @@ ui <- bs4DashPage(
           bs4Card(
             title = "Data",
             status = "primary",
-            solidHeader = TRUE,
+            solidHeader = FALSE,
             width = 12,
             DT::dataTableOutput("table_extract_utr3")
           )
@@ -2458,6 +3013,24 @@ server <- function(input, output, session) {
     req(plot_gene_structure_ev())
     print(plot_gene_structure_ev())
   })
+  output$download_plot_gene_structure <- downloadHandler(
+    filename = function() {
+      fmt <- input$plot_format_gene_structure
+      sprintf("plot_gene_structure.%s", fmt)
+    },
+    content = function(file) {
+      p <- plot_gene_structure_ev()
+      req(p)
+      ggplot2::ggsave(
+        filename = file,
+        plot = p,
+        width = input$plot_width_gene_structure,
+        height = input$plot_height_gene_structure,
+        dpi = input$plot_dpi_gene_structure,
+        device = input$plot_format_gene_structure
+      )
+    }
+  )
 
   plot_interval_structure_ev <- eventReactive(input$run_plot_interval_structure, {
     plot_interval_structure(
@@ -2485,6 +3058,24 @@ server <- function(input, output, session) {
     req(plot_interval_structure_ev())
     print(plot_interval_structure_ev())
   })
+  output$download_plot_interval_structure <- downloadHandler(
+    filename = function() {
+      fmt <- input$plot_format_interval_structure
+      sprintf("plot_interval_structure.%s", fmt)
+    },
+    content = function(file) {
+      p <- plot_interval_structure_ev()
+      req(p)
+      ggplot2::ggsave(
+        filename = file,
+        plot = p,
+        width = input$plot_width_interval_structure,
+        height = input$plot_height_interval_structure,
+        dpi = input$plot_dpi_interval_structure,
+        device = input$plot_format_interval_structure
+      )
+    }
+  )
 
   plot_interval_flank_ev <- eventReactive(input$run_plot_interval_flank, {
     plot_interval_flank(
@@ -2507,6 +3098,24 @@ server <- function(input, output, session) {
     req(plot_interval_flank_ev())
     print(plot_interval_flank_ev())
   })
+  output$download_plot_interval_flank <- downloadHandler(
+    filename = function() {
+      fmt <- input$plot_format_interval_flank
+      sprintf("plot_interval_flank.%s", fmt)
+    },
+    content = function(file) {
+      p <- plot_interval_flank_ev()
+      req(p)
+      ggplot2::ggsave(
+        filename = file,
+        plot = p,
+        width = input$plot_width_interval_flank,
+        height = input$plot_height_interval_flank,
+        dpi = input$plot_dpi_interval_flank,
+        device = input$plot_format_interval_flank
+      )
+    }
+  )
 
   plot_chrom_structure_ev <- eventReactive(input$run_plot_chrom_structure, {
     plot_chrom_structure(
@@ -2526,6 +3135,24 @@ server <- function(input, output, session) {
     req(plot_chrom_structure_ev())
     print(plot_chrom_structure_ev())
   })
+  output$download_plot_chrom_structure <- downloadHandler(
+    filename = function() {
+      fmt <- input$plot_format_chrom_structure
+      sprintf("plot_chrom_structure.%s", fmt)
+    },
+    content = function(file) {
+      p <- plot_chrom_structure_ev()
+      req(p)
+      ggplot2::ggsave(
+        filename = file,
+        plot = p,
+        width = input$plot_width_chrom_structure,
+        height = input$plot_height_chrom_structure,
+        dpi = input$plot_dpi_chrom_structure,
+        device = input$plot_format_chrom_structure
+      )
+    }
+  )
 
   plot_chrom_genes_ev <- eventReactive(input$run_plot_chrom_genes, {
     plot_chrom_genes(
@@ -2550,6 +3177,24 @@ server <- function(input, output, session) {
     req(plot_chrom_genes_ev())
     print(plot_chrom_genes_ev())
   })
+  output$download_plot_chrom_genes <- downloadHandler(
+    filename = function() {
+      fmt <- input$plot_format_chrom_genes
+      sprintf("plot_chrom_genes.%s", fmt)
+    },
+    content = function(file) {
+      p <- plot_chrom_genes_ev()
+      req(p)
+      ggplot2::ggsave(
+        filename = file,
+        plot = p,
+        width = input$plot_width_chrom_genes,
+        height = input$plot_height_chrom_genes,
+        dpi = input$plot_dpi_chrom_genes,
+        device = input$plot_format_chrom_genes
+      )
+    }
+  )
 
   plot_chrom_heatmap_ev <- eventReactive(input$run_plot_chrom_heatmap, {
     plot_chrom_heatmap(
@@ -2566,6 +3211,24 @@ server <- function(input, output, session) {
     req(plot_chrom_heatmap_ev())
     print(plot_chrom_heatmap_ev())
   })
+  output$download_plot_chrom_heatmap <- downloadHandler(
+    filename = function() {
+      fmt <- input$plot_format_chrom_heatmap
+      sprintf("plot_chrom_heatmap.%s", fmt)
+    },
+    content = function(file) {
+      p <- plot_chrom_heatmap_ev()
+      req(p)
+      ggplot2::ggsave(
+        filename = file,
+        plot = p,
+        width = input$plot_width_chrom_heatmap,
+        height = input$plot_height_chrom_heatmap,
+        dpi = input$plot_dpi_chrom_heatmap,
+        device = input$plot_format_chrom_heatmap
+      )
+    }
+  )
 
   plot_deg_chrom_ev <- eventReactive(input$run_plot_deg_chrom, {
     plot_deg_chrom(
@@ -2701,6 +3364,24 @@ server <- function(input, output, session) {
     req(plot_snp_fst_ev())
     print(plot_snp_fst_ev())
   })
+  output$download_plot_snp_fst <- downloadHandler(
+    filename = function() {
+      fmt <- input$plot_format_snp_fst
+      sprintf("plot_snp_fst.%s", fmt)
+    },
+    content = function(file) {
+      p <- plot_snp_fst_ev()
+      req(p)
+      ggplot2::ggsave(
+        filename = file,
+        plot = p,
+        width = input$plot_width_snp_fst,
+        height = input$plot_height_snp_fst,
+        dpi = input$plot_dpi_snp_fst,
+        device = input$plot_format_snp_fst
+      )
+    }
+  )
 
   plot_snp_anno_ev <- eventReactive(input$run_plot_snp_anno, {
     plot_snp_anno(
@@ -2724,6 +3405,24 @@ server <- function(input, output, session) {
     req(plot_snp_anno_ev())
     print(plot_snp_anno_ev())
   })
+  output$download_plot_snp_anno <- downloadHandler(
+    filename = function() {
+      fmt <- input$plot_format_snp_anno
+      sprintf("plot_snp_anno.%s", fmt)
+    },
+    content = function(file) {
+      p <- plot_snp_anno_ev()
+      req(p)
+      ggplot2::ggsave(
+        filename = file,
+        plot = p,
+        width = input$plot_width_snp_anno,
+        height = input$plot_height_snp_anno,
+        dpi = input$plot_dpi_snp_anno,
+        device = input$plot_format_snp_anno
+      )
+    }
+  )
 
   plot_dmg_chrom_ev <- eventReactive(input$run_plot_dmg_chrom, {
     plot_dmg_chrom(
@@ -2741,6 +3440,24 @@ server <- function(input, output, session) {
     req(plot_dmg_chrom_ev())
     print(plot_dmg_chrom_ev())
   })
+  output$download_plot_dmg_chrom <- downloadHandler(
+    filename = function() {
+      fmt <- input$plot_format_dmg_chrom
+      sprintf("plot_dmg_chrom.%s", fmt)
+    },
+    content = function(file) {
+      p <- plot_dmg_chrom_ev()
+      req(p)
+      ggplot2::ggsave(
+        filename = file,
+        plot = p,
+        width = input$plot_width_dmg_chrom,
+        height = input$plot_height_dmg_chrom,
+        dpi = input$plot_dpi_dmg_chrom,
+        device = input$plot_format_dmg_chrom
+      )
+    }
+  )
 
   plot_dmg_trend_ev <- eventReactive(input$run_plot_dmg_trend, {
     plot_dmg_trend(
@@ -2757,6 +3474,24 @@ server <- function(input, output, session) {
     req(plot_dmg_trend_ev())
     print(plot_dmg_trend_ev())
   })
+  output$download_plot_dmg_trend <- downloadHandler(
+    filename = function() {
+      fmt <- input$plot_format_dmg_trend
+      sprintf("plot_dmg_trend.%s", fmt)
+    },
+    content = function(file) {
+      p <- plot_dmg_trend_ev()
+      req(p)
+      ggplot2::ggsave(
+        filename = file,
+        plot = p,
+        width = input$plot_width_dmg_trend,
+        height = input$plot_height_dmg_trend,
+        dpi = input$plot_dpi_dmg_trend,
+        device = input$plot_format_dmg_trend
+      )
+    }
+  )
 
   plot_dmg_exp_ev <- eventReactive(input$run_plot_dmg_exp, {
     plot_dmg_exp(
@@ -2778,6 +3513,24 @@ server <- function(input, output, session) {
     req(plot_dmg_exp_ev())
     print(plot_dmg_exp_ev())
   })
+  output$download_plot_dmg_exp <- downloadHandler(
+    filename = function() {
+      fmt <- input$plot_format_dmg_exp
+      sprintf("plot_dmg_exp.%s", fmt)
+    },
+    content = function(file) {
+      p <- plot_dmg_exp_ev()
+      req(p)
+      ggplot2::ggsave(
+        filename = file,
+        plot = p,
+        width = input$plot_width_dmg_exp,
+        height = input$plot_height_dmg_exp,
+        dpi = input$plot_dpi_dmg_exp,
+        device = input$plot_format_dmg_exp
+      )
+    }
+  )
 
   plot_gene_stats_ev <- eventReactive(input$run_plot_gene_stats, {
     plot_gene_stats(
@@ -2792,6 +3545,24 @@ server <- function(input, output, session) {
     req(plot_gene_stats_ev())
     print(plot_gene_stats_ev())
   })
+  output$download_plot_gene_stats <- downloadHandler(
+    filename = function() {
+      fmt <- input$plot_format_gene_stats
+      sprintf("plot_gene_stats.%s", fmt)
+    },
+    content = function(file) {
+      p <- plot_gene_stats_ev()
+      req(p)
+      ggplot2::ggsave(
+        filename = file,
+        plot = p,
+        width = input$plot_width_gene_stats,
+        height = input$plot_height_gene_stats,
+        dpi = input$plot_dpi_gene_stats,
+        device = input$plot_format_gene_stats
+      )
+    }
+  )
 
   plot_snp_density_ev <- eventReactive(input$run_plot_snp_density, {
     plot_snp_density(
@@ -2809,6 +3580,24 @@ server <- function(input, output, session) {
     req(plot_snp_density_ev())
     print(plot_snp_density_ev())
   })
+  output$download_plot_snp_density <- downloadHandler(
+    filename = function() {
+      fmt <- input$plot_format_snp_density
+      sprintf("plot_snp_density.%s", fmt)
+    },
+    content = function(file) {
+      p <- plot_snp_density_ev()
+      req(p)
+      ggplot2::ggsave(
+        filename = file,
+        plot = p,
+        width = input$plot_width_snp_density,
+        height = input$plot_height_snp_density,
+        dpi = input$plot_dpi_snp_density,
+        device = input$plot_format_snp_density
+      )
+    }
+  )
 
   anno_fst_dmr_ev <- eventReactive(input$run_anno_fst_dmr, {
     anno_fst_dmr(
@@ -2835,6 +3624,14 @@ server <- function(input, output, session) {
       rownames = FALSE
     )
   })
+  output$download_table_anno_fst_dmr <- downloadHandler(
+    filename = function() sprintf("anno_fst_dmr.txt"),
+    content = function(file) {
+      df <- anno_fst_dmr_ev()
+      if (is.null(df)) df <- data.frame()
+      utils::write.table(df, file, sep = "\t", row.names = FALSE, quote = FALSE)
+    }
+  )
 
   anno_deg_chrom_ev <- eventReactive(input$run_anno_deg_chrom, {
     anno_deg_chrom(
@@ -2913,6 +3710,14 @@ server <- function(input, output, session) {
       )
     }
   })
+  output$download_table_extract_promoters <- downloadHandler(
+    filename = function() sprintf("extract_promoters.txt"),
+    content = function(file) {
+      res <- extract_promoters_ev()
+      df <- if (is.null(res)) data.frame() else if (is(res, "GRanges")) grToDf(res) else if (is(res, "IRanges")) as.data.frame(res) else as.data.frame(res)
+      utils::write.table(df, file, sep = "\t", row.names = FALSE, quote = FALSE)
+    }
+  )
 
   extract_utr5_ev <- eventReactive(input$run_extract_utr5, {
     extract_utr5(
@@ -2945,6 +3750,14 @@ server <- function(input, output, session) {
       )
     }
   })
+  output$download_table_extract_utr5 <- downloadHandler(
+    filename = function() sprintf("extract_utr5.txt"),
+    content = function(file) {
+      res <- extract_utr5_ev()
+      df <- if (is.null(res)) data.frame() else if (is(res, "GRanges")) grToDf(res) else if (is(res, "IRanges")) as.data.frame(res) else as.data.frame(res)
+      utils::write.table(df, file, sep = "\t", row.names = FALSE, quote = FALSE)
+    }
+  )
 
   extract_genes_ev <- eventReactive(input$run_extract_genes, {
     extract_genes(
@@ -2977,6 +3790,14 @@ server <- function(input, output, session) {
       )
     }
   })
+  output$download_table_extract_genes <- downloadHandler(
+    filename = function() sprintf("extract_genes.txt"),
+    content = function(file) {
+      res <- extract_genes_ev()
+      df <- if (is.null(res)) data.frame() else if (is(res, "GRanges")) grToDf(res) else if (is(res, "IRanges")) as.data.frame(res) else as.data.frame(res)
+      utils::write.table(df, file, sep = "\t", row.names = FALSE, quote = FALSE)
+    }
+  )
 
   extract_mrnas_ev <- eventReactive(input$run_extract_mrnas, {
     extract_mrnas(
@@ -3009,6 +3830,14 @@ server <- function(input, output, session) {
       )
     }
   })
+  output$download_table_extract_mrnas <- downloadHandler(
+    filename = function() sprintf("extract_mrnas.txt"),
+    content = function(file) {
+      res <- extract_mrnas_ev()
+      df <- if (is.null(res)) data.frame() else if (is(res, "GRanges")) grToDf(res) else if (is(res, "IRanges")) as.data.frame(res) else as.data.frame(res)
+      utils::write.table(df, file, sep = "\t", row.names = FALSE, quote = FALSE)
+    }
+  )
 
   extract_cds_ev <- eventReactive(input$run_extract_cds, {
     extract_cds(
@@ -3041,6 +3870,14 @@ server <- function(input, output, session) {
       )
     }
   })
+  output$download_table_extract_cds <- downloadHandler(
+    filename = function() sprintf("extract_cds.txt"),
+    content = function(file) {
+      res <- extract_cds_ev()
+      df <- if (is.null(res)) data.frame() else if (is(res, "GRanges")) grToDf(res) else if (is(res, "IRanges")) as.data.frame(res) else as.data.frame(res)
+      utils::write.table(df, file, sep = "\t", row.names = FALSE, quote = FALSE)
+    }
+  )
 
   extract_exons_ev <- eventReactive(input$run_extract_exons, {
     extract_exons(
@@ -3073,6 +3910,14 @@ server <- function(input, output, session) {
       )
     }
   })
+  output$download_table_extract_exons <- downloadHandler(
+    filename = function() sprintf("extract_exons.txt"),
+    content = function(file) {
+      res <- extract_exons_ev()
+      df <- if (is.null(res)) data.frame() else if (is(res, "GRanges")) grToDf(res) else if (is(res, "IRanges")) as.data.frame(res) else as.data.frame(res)
+      utils::write.table(df, file, sep = "\t", row.names = FALSE, quote = FALSE)
+    }
+  )
 
   extract_utr3_ev <- eventReactive(input$run_extract_utr3, {
     extract_utr3(
@@ -3105,6 +3950,14 @@ server <- function(input, output, session) {
       )
     }
   })
+  output$download_table_extract_utr3 <- downloadHandler(
+    filename = function() sprintf("extract_utr3.txt"),
+    content = function(file) {
+      res <- extract_utr3_ev()
+      df <- if (is.null(res)) data.frame() else if (is(res, "GRanges")) grToDf(res) else if (is(res, "IRanges")) as.data.frame(res) else as.data.frame(res)
+      utils::write.table(df, file, sep = "\t", row.names = FALSE, quote = FALSE)
+    }
+  )
 }
 
 shinyApp(ui, server)

@@ -74,7 +74,7 @@ library(ggplot2)
 # Example GFF3 file in GAnnoViz
 gff_file <- system.file(
   "extdata",
-  "example.gff",
+  "example.gff3.gz",
   package = "GAnnoViz")
 
 # Extract Genes
@@ -334,6 +334,26 @@ res <- anno_deg_chrom(
 head(res)
 ```
 
+### Plot differentially expressed genes (DEGs) volcano
+
+```{r plot_deg_volcano, fig.width=10, fig.height=7}
+# Volcano plot
+plot_deg_volcano(
+  deg_file = deg_file,
+  id_col = "GeneID",
+  fc_col = "log2FoldChange",
+  sig_col = "padj",
+  fc_threshold = 1,
+  sig_threshold = 0.05,
+  point_size = 2,
+  point_alpha = 0.5,
+  up_color = "#ff0000",
+  down_color = "#008800",
+  ns_color = "#888888"
+)
+
+```
+
 ### Plot differentially expressed genes (DEGs) hyper/hypo distributions by chromosome
 
 ```{r plot_deg_chrom, fig.width=10, fig.height=7}
@@ -382,13 +402,13 @@ plot_deg_exp(
 
 ```{r}
 # Annotate FST
-fst_table <- system.file(
+fst_file <- system.file(
     "extdata",
     "example.fst",
     package = "GAnnoViz")
 
 fst <- read.table(
-  file = fst_table,
+  file = fst_file,
   header = TRUE,
   sep = "\t",
   na.strings = "NA",
@@ -401,7 +421,7 @@ head(fst)
 res <- anno_fst_dmr(
   gff_file = gff_file,
   format = "auto",
-  genomic_ranges = fst_table,
+  genomic_ranges = fst_file,
   chrom_col = "CHROM",
   start_col = "BIN_START",
   end_col = "BIN_END",
@@ -417,13 +437,13 @@ head(res)
 
 ```{r}
 # Annotate DMR
-dmr_table <- system.file(
+dmr_file <- system.file(
     "extdata",
     "example.dmr",
     package = "GAnnoViz")
 
 dmr <- read.table(
-  file = dmr_table,
+  file = dmr_file,
   header = TRUE,
   sep = "\t",
   na.strings = "NA",
@@ -436,7 +456,7 @@ head(dmr)
 res <- anno_fst_dmr(
   gff_file = gff_file,
   format = "auto",
-  genomic_ranges = dmr_table,
+  genomic_ranges = dmr_file,
   chrom_col = "chr",
   start_col = "start",
   end_col = "end",
@@ -453,7 +473,7 @@ head(res)
 ```{r plot_snp_density, fig.width=10, fig.height=7}
 # Plot SNP density
 plot_snp_density(
-  fst_file = fst_table,
+  fst_file = fst_file,
   LOG10 = FALSE,
   bin_size = 1e6,
   density_color = c("#0088ff", "#ff8800", "#ff0000")
@@ -465,7 +485,7 @@ plot_snp_density(
 ```{r plot_snp_fst, fig.width=10, fig.height=7}
 # Plot weighted FST
 plot_snp_fst(
-  fst_file = fst_table,
+  fst_file = fst_file,
   bin_size = 1e6,
   metric = "fst_mean",
   orientation = "horizontal",
@@ -479,7 +499,7 @@ plot_snp_fst(
 ```{r plot_snp_anno, fig.width=10, fig.height=7}
 # Chromosome FST with Top-20 gene annotations on chr11
 plot_snp_anno(
-  fst_file = fst_table,
+  fst_file = fst_file,
   gff_file = gff_file,
   format = "auto",
   chrom_id = "chr2",
@@ -503,7 +523,7 @@ plot_snp_anno(
 ```{r plot_chrom_dmr, fig.width=10, fig.height=7}
 # Plot chrom DMRs
 plot_dmg_chrom(
-  dmr_file = dmr_table,
+  dmr_file = dmr_file,
   violin_scale = "count",
   violin_border = 0.5,
   point_shape = 8,
@@ -519,7 +539,7 @@ plot_dmg_chrom(
 ```{r plot_dmg_exp, fig.width=10, fig.height=7}
 # Plot DMG expression
 plot_dmg_exp(
-  dmr_file = dmr_table,
+  dmr_file = dmr_file,
   orientation = "horizontal",
   chrom_alpha = 0.1,
   chrom_color = "#008888",
@@ -539,7 +559,7 @@ plot_dmg_exp(
 # Plot DMR trend
 plot_dmg_trend(
   chrom_id = "chr1",
-  dmr_file = dmr_table,
+  dmr_file = dmr_file,
   smooth_span = 0.1,
   hyper_color = "#ff0000",
   hypo_color = "#008800",
