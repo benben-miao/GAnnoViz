@@ -18,22 +18,26 @@ div.sourceCode {
 }
 
 pre.sourceCode {
-  background: #1e1e1e !important;
-  color: #d4d4d4 !important;
+  background: #222222 !important;
+  color: #eeeeee !important;
   border-radius: 10px !important;
   white-space: pre !important;
   margin: 0 !important;
   padding: 1em !important;
-  display: inline-block;
+  display: block !important;
   min-width: 100%;
   box-sizing: border-box !important;
 }
 
-pre.sourceCode .kw { color: #c792ea !important; }
-pre.sourceCode .fu { color: #82aaff !important; }
-pre.sourceCode .st { color: #ecc48d !important; }
-pre.sourceCode .va { color: #d4d4d4 !important; }
-pre.sourceCode .op { color: #89ddff !important; }
-pre.sourceCode .co { color: #697098 !important; font-style: italic !important; }
-pre.sourceCode .fl { color: #f78c6c !important; }
-pre.sourceCode .cn { color: #ff5370 !important; }
+pre.sourceCode * { color: inherit !important; }
+pre.sourceCode .va { color: #ffff00 !important; font-style: italic !important; }
+pre.sourceCode .kw { color: #ff0088 !important; }
+pre.sourceCode .fu { color: #0088ff !important; font-weight: bold !important; }
+pre.sourceCode .st { color: #00ff88 !important; }
+pre.sourceCode .dv { color: #ff8800 !important; }
+pre.sourceCode .fl { color: #ff8800 !important; }
+pre.sourceCode .op { color: #ff00ff !important; }
+pre.sourceCode .cn { color: #880088 !important; }
+pre.sourceCode .co { color: #00aa88 !important; }
+
+

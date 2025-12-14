@@ -61,6 +61,7 @@ reference:
       - anno_deg_chrom
       - plot_deg_chrom
       - plot_deg_exp
+      - plot_deg_volcano
   - title: SNP Anno & Plot
     contents:
       - anno_fst_dmr
