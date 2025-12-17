@@ -28,7 +28,7 @@ ui <- bs4DashPage(
       bs4SidebarUserPanel(name = "GAnnoViz", image = "logo.png"),
       bs4SidebarHeader(title = "GAnnoViz"),
       bs4SidebarMenuItem(
-        text = "Extract Features",
+        text = "Extract Features (7)",
         icon = icon("database"),
         startExpanded = FALSE,
         bs4SidebarMenuSubItem(
@@ -68,7 +68,7 @@ ui <- bs4DashPage(
         )
       ),
       bs4SidebarMenuItem(
-        text = "Plot Structure",
+        text = "Plot Structure (8)",
         icon = icon("circle-nodes"),
         startExpanded = TRUE,
         bs4SidebarMenuSubItem(
@@ -113,7 +113,7 @@ ui <- bs4DashPage(
         )
       ),
       bs4SidebarMenuItem(
-        text = "DEG Anno & Viz",
+        text = "DEG Anno & Viz (4)",
         icon = icon("chart-simple"),
         startExpanded = FALSE,
         bs4SidebarMenuSubItem(
@@ -138,7 +138,7 @@ ui <- bs4DashPage(
         )
       ),
       bs4SidebarMenuItem(
-        text = "SNP Anno & Plot",
+        text = "SNP Anno & Plot (3)",
         icon = icon("arrows-to-dot"),
         startExpanded = FALSE,
         bs4SidebarMenuSubItem(
@@ -158,7 +158,7 @@ ui <- bs4DashPage(
         )
       ),
       bs4SidebarMenuItem(
-        text = "DMG Anno & Plot",
+        text = "DMG Anno & Plot (4)",
         icon = icon("atom"),
         startExpanded = FALSE,
         bs4SidebarMenuSubItem(
@@ -245,7 +245,8 @@ ui <- bs4DashPage(
         column(
           width = 3,
           bs4Card(
-            title = "Parameters",
+            title = " Parameters",
+            icon = icon("gear"),
             status = "info",
             solidHeader = FALSE,
             width = 12,
@@ -388,7 +389,8 @@ ui <- bs4DashPage(
         ), column(
           width = 9,
           bs4Card(
-            title = "Plot",
+            title = " Plot",
+            icon = icon("chart-pie"),
             status = "danger",
             solidHeader = FALSE,
             width = 12,
@@ -402,7 +404,8 @@ ui <- bs4DashPage(
         column(
           width = 3,
           bs4Card(
-            title = "Parameters",
+            title = " Parameters",
+            icon = icon("gear"),
             status = "info",
             solidHeader = FALSE,
             width = 12,
@@ -466,7 +469,8 @@ ui <- bs4DashPage(
         column(
           width = 3,
           bs4Card(
-            title = "Parameters",
+            title = " Parameters",
+            icon = icon("gear"),
             status = "info",
             solidHeader = FALSE,
             width = 12,
@@ -550,7 +554,8 @@ ui <- bs4DashPage(
         ), column(
           width = 9,
           bs4Card(
-            title = "Plot",
+            title = " Plot",
+            icon = icon("chart-pie"),
             status = "danger",
             solidHeader = FALSE,
             width = 12,
@@ -563,7 +568,8 @@ ui <- bs4DashPage(
         column(
           width = 3,
           bs4Card(
-            title = "Parameters",
+            title = " Parameters",
+            icon = icon("gear"),
             status = "info",
             solidHeader = FALSE,
             width = 12,
@@ -651,7 +657,8 @@ ui <- bs4DashPage(
         ), column(
           width = 9,
           bs4Card(
-            title = "Plot",
+            title = " Plot",
+            icon = icon("chart-pie"),
             status = "danger",
             solidHeader = FALSE,
             width = 12,
@@ -665,7 +672,8 @@ ui <- bs4DashPage(
         column(
           width = 3,
           bs4Card(
-            title = "Parameters",
+            title = " Parameters",
+            icon = icon("gear"),
             status = "info",
             solidHeader = FALSE,
             width = 12,
@@ -822,7 +830,8 @@ ui <- bs4DashPage(
         ), column(
           width = 9,
           bs4Card(
-            title = "Plot",
+            title = " Plot",
+            icon = icon("chart-pie"),
             status = "danger",
             solidHeader = FALSE,
             width = 12,
@@ -836,7 +845,8 @@ ui <- bs4DashPage(
         column(
           width = 3,
           bs4Card(
-            title = "Parameters",
+            title = " Parameters",
+            icon = icon("gear"),
             status = "info",
             solidHeader = FALSE,
             width = 12,
@@ -961,7 +971,8 @@ ui <- bs4DashPage(
         ), column(
           width = 9,
           bs4Card(
-            title = "Plot",
+            title = " Plot",
+            icon = icon("chart-pie"),
             status = "danger",
             solidHeader = FALSE,
             width = 12,
@@ -975,7 +986,8 @@ ui <- bs4DashPage(
         column(
           width = 3,
           bs4Card(
-            title = "Parameters",
+            title = " Parameters",
+            icon = icon("gear"),
             status = "info",
             solidHeader = FALSE,
             width = 12,
@@ -1085,7 +1097,8 @@ ui <- bs4DashPage(
         ), column(
           width = 9,
           bs4Card(
-            title = "Plot",
+            title = " Plot",
+            icon = icon("chart-pie"),
             status = "danger",
             solidHeader = FALSE,
             width = 12,
@@ -1099,7 +1112,8 @@ ui <- bs4DashPage(
         column(
           width = 3,
           bs4Card(
-            title = "Parameters",
+            title = " Parameters",
+            icon = icon("gear"),
             status = "info",
             solidHeader = FALSE,
             width = 12,
@@ -1237,7 +1251,8 @@ ui <- bs4DashPage(
         ), column(
           width = 9,
           bs4Card(
-            title = "Plot",
+            title = " Plot",
+            icon = icon("chart-pie"),
             status = "danger",
             solidHeader = FALSE,
             width = 12,
@@ -1251,7 +1266,8 @@ ui <- bs4DashPage(
         column(
           width = 3,
           bs4Card(
-            title = "Parameters",
+            title = " Parameters",
+            icon = icon("gear"),
             status = "info",
             solidHeader = FALSE,
             width = 12,
@@ -1345,7 +1361,8 @@ ui <- bs4DashPage(
         ), column(
           width = 9,
           bs4Card(
-            title = "Plot",
+            title = " Plot",
+            icon = icon("chart-pie"),
             status = "danger",
             solidHeader = FALSE,
             width = 12,
@@ -1359,7 +1376,8 @@ ui <- bs4DashPage(
         column(
           width = 3,
           bs4Card(
-            title = "Parameters",
+            title = " Parameters",
+            icon = icon("gear"),
             status = "info",
             solidHeader = FALSE,
             width = 12,
@@ -1473,7 +1491,8 @@ ui <- bs4DashPage(
         ), column(
           width = 9,
           bs4Card(
-            title = "Plot",
+            title = " Plot",
+            icon = icon("chart-pie"),
             status = "danger",
             solidHeader = FALSE,
             width = 12,
@@ -1487,7 +1506,8 @@ ui <- bs4DashPage(
         column(
           width = 3,
           bs4Card(
-            title = "Parameters",
+            title = " Parameters",
+            icon = icon("gear"),
             status = "info",
             solidHeader = FALSE,
             width = 12,
@@ -1626,7 +1646,8 @@ ui <- bs4DashPage(
         ), column(
           width = 9,
           bs4Card(
-            title = "Plot",
+            title = " Plot",
+            icon = icon("chart-pie"),
             status = "danger",
             solidHeader = FALSE,
             width = 12,
@@ -1639,7 +1660,8 @@ ui <- bs4DashPage(
         column(
           width = 3,
           bs4Card(
-            title = "Parameters",
+            title = " Parameters",
+            icon = icon("gear"),
             status = "info",
             solidHeader = FALSE,
             width = 12,
@@ -1750,7 +1772,8 @@ ui <- bs4DashPage(
         ), column(
           width = 9,
           bs4Card(
-            title = "Plot",
+            title = " Plot",
+            icon = icon("chart-pie"),
             status = "danger",
             solidHeader = FALSE,
             width = 12,
@@ -1763,7 +1786,8 @@ ui <- bs4DashPage(
         column(
           width = 3,
           bs4Card(
-            title = "Parameters",
+            title = " Parameters",
+            icon = icon("gear"),
             status = "info",
             solidHeader = FALSE,
             width = 12,
@@ -1851,7 +1875,8 @@ ui <- bs4DashPage(
         ), column(
           width = 9,
           bs4Card(
-            title = "Plot",
+            title = " Plot",
+            icon = icon("chart-pie"),
             status = "danger",
             solidHeader = FALSE,
             width = 12,
@@ -1865,7 +1890,8 @@ ui <- bs4DashPage(
         column(
           width = 3,
           bs4Card(
-            title = "Parameters",
+            title = " Parameters",
+            icon = icon("gear"),
             status = "info",
             solidHeader = FALSE,
             width = 12,
@@ -1998,7 +2024,8 @@ ui <- bs4DashPage(
         ), column(
           width = 9,
           bs4Card(
-            title = "Plot",
+            title = " Plot",
+            icon = icon("chart-pie"),
             status = "danger",
             solidHeader = FALSE,
             width = 12,
@@ -2012,7 +2039,8 @@ ui <- bs4DashPage(
         column(
           width = 3,
           bs4Card(
-            title = "Parameters",
+            title = " Parameters",
+            icon = icon("gear"),
             status = "info",
             solidHeader = FALSE,
             width = 12,
@@ -2109,7 +2137,8 @@ ui <- bs4DashPage(
         ), column(
           width = 9,
           bs4Card(
-            title = "Plot",
+            title = " Plot",
+            icon = icon("chart-pie"),
             status = "danger",
             solidHeader = FALSE,
             width = 12,
@@ -2122,7 +2151,8 @@ ui <- bs4DashPage(
         column(
           width = 3,
           bs4Card(
-            title = "Parameters",
+            title = " Parameters",
+            icon = icon("gear"),
             status = "info",
             solidHeader = FALSE,
             width = 12,
@@ -2244,7 +2274,8 @@ ui <- bs4DashPage(
         ), column(
           width = 9,
           bs4Card(
-            title = "Plot",
+            title = " Plot",
+            icon = icon("chart-pie"),
             status = "danger",
             solidHeader = FALSE,
             width = 12,
@@ -2257,7 +2288,8 @@ ui <- bs4DashPage(
         column(
           width = 3,
           bs4Card(
-            title = "Parameters",
+            title = " Parameters",
+            icon = icon("gear"),
             status = "info",
             solidHeader = FALSE,
             width = 12,
@@ -2334,7 +2366,8 @@ ui <- bs4DashPage(
         ), column(
           width = 9,
           bs4Card(
-            title = "Plot",
+            title = " Plot",
+            icon = icon("chart-pie"),
             status = "danger",
             solidHeader = FALSE,
             width = 12,
@@ -2346,7 +2379,8 @@ ui <- bs4DashPage(
         column(
           width = 3,
           bs4Card(
-            title = "Parameters",
+            title = " Parameters",
+            icon = icon("gear"),
             status = "info",
             solidHeader = FALSE,
             width = 12,
@@ -2424,7 +2458,8 @@ ui <- bs4DashPage(
         ), column(
           width = 9,
           bs4Card(
-            title = "Plot",
+            title = " Plot",
+            icon = icon("chart-pie"),
             status = "danger",
             solidHeader = FALSE,
             width = 12,
@@ -2436,7 +2471,8 @@ ui <- bs4DashPage(
         column(
           width = 3,
           bs4Card(
-            title = "Parameters",
+            title = " Parameters",
+            icon = icon("gear"),
             status = "info",
             solidHeader = FALSE,
             width = 12,
@@ -2529,7 +2565,8 @@ ui <- bs4DashPage(
         column(
           width = 3,
           bs4Card(
-            title = "Parameters",
+            title = " Parameters",
+            icon = icon("gear"),
             status = "info",
             solidHeader = FALSE,
             width = 12,
@@ -2591,7 +2628,8 @@ ui <- bs4DashPage(
         column(
           width = 3,
           bs4Card(
-            title = "Parameters",
+            title = " Parameters",
+            icon = icon("gear"),
             status = "info",
             solidHeader = FALSE,
             width = 12,
@@ -2639,7 +2677,8 @@ ui <- bs4DashPage(
         column(
           width = 3,
           bs4Card(
-            title = "Parameters",
+            title = " Parameters",
+            icon = icon("gear"),
             status = "info",
             solidHeader = FALSE,
             width = 12,
@@ -2687,7 +2726,8 @@ ui <- bs4DashPage(
         column(
           width = 3,
           bs4Card(
-            title = "Parameters",
+            title = " Parameters",
+            icon = icon("gear"),
             status = "info",
             solidHeader = FALSE,
             width = 12,
@@ -2735,7 +2775,8 @@ ui <- bs4DashPage(
         column(
           width = 3,
           bs4Card(
-            title = "Parameters",
+            title = " Parameters",
+            icon = icon("gear"),
             status = "info",
             solidHeader = FALSE,
             width = 12,
@@ -2783,7 +2824,8 @@ ui <- bs4DashPage(
         column(
           width = 3,
           bs4Card(
-            title = "Parameters",
+            title = " Parameters",
+            icon = icon("gear"),
             status = "info",
             solidHeader = FALSE,
             width = 12,
@@ -2831,7 +2873,8 @@ ui <- bs4DashPage(
         column(
           width = 3,
           bs4Card(
-            title = "Parameters",
+            title = " Parameters",
+            icon = icon("gear"),
             status = "info",
             solidHeader = FALSE,
             width = 12,

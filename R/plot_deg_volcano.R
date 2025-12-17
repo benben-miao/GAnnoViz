@@ -64,13 +64,6 @@ plot_deg_volcano <- function(deg_file,
   if (!(fc_col %in% colnames(deg)))
     stop("FC column not found: ", fc_col)
   sig_used <- sig_col
-  if (!(sig_used %in% colnames(deg))) {
-    if ("pvalue" %in% colnames(deg)) {
-      sig_used <- "pvalue"
-    } else {
-      stop("Significance column not found: ", sig_col)
-    }
-  }
 
   x <- as.numeric(deg[[fc_col]])
   y_raw <- as.numeric(deg[[sig_used]])
