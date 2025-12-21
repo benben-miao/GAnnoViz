@@ -22,34 +22,21 @@ knitr::opts_chunk$set(
 
 ## 1. Introduction
 
-GAnnoViz: a R package for genomic annotation and visualization.
+**GAnnoViz: a R package for genomic annotation and visualization.**
 
-**SourceCode:** <https://github.com/benben-miao/GAnnoViz/>
+**GAnnoViz (genomic annotation and visualization)** is an R ecosystem specialized for annotating and visualizing chromosome-level gene functional elements in multi-omics. It provides core analysis and visualization functions through an R package and drives an online platform to enable experimental data analysis through real-time interaction. Currently, GAnnoViz includes 26 functions and 3 datasets. These functions are mainly used to address analytical needs in the following four aspects: extraction of genomic functional elements, drawing of linear gene structures, multi-omics sliding window annotation, and visualization of chromosome-level gene expression. 
 
-**Website API**: <https://benben-miao.github.io/GAnnoViz/>
+These functions are compatible with each other in terms of input and output results, collaborating freely and closely to complete complex analytical tasks. Although this project uses the genome of the model species mouse as a reference, it has been tested that standard structural annotations and omics data from any species are supported. It is worth noting that the results of transcriptome differential expression should be in the DESeq2 structure, while epigenome differential methylation data should refer to the MethylKit results as the standard.
 
-![Shinyapp UI](inst/shiny/www/Shinyapp.png)
+GAnnoViz prioritizes the use of `GRanges` objects for parsing gene structures and interval annotations, and uses `ggplot` objects as the standard for graph drawing, facilitating high customization and long-term maintenance. This ecosystem adopts an open-source approach for suggestion adoption, new function iteration, continuous community maintenance, and is supported by the Hiplot cloud platform. The complete local or online help documentation contains detailed parameter descriptions and runnable examples of all functions, as well as a streamlined tutorial protocol.
 
-### Key features
+**Open Source Code:** <https://github.com/benben-miao/GAnnoViz/>
 
-- Comprehensive GFF/GTF parsing into tidy GRanges workflows
-- Publication-grade genomic visualizations: gene structure, interval structure, and chromosome layouts
-- Signal overlays for population and epigenetic analyses (FST, DMR) with robust window aggregation
-- Innovative genome-wide density maps and circos-style rings for exploratory analysis
-- Modular API with consistent theming for reproducible, high-quality figures
+**Documents API**: <https://benben-miao.github.io/GAnnoViz/>
 
-### Typical inputs
+**Cloud Platform**: <https://shiny.hiplot.cn/gannoviz/>
 
-- Structural annotations: GFF3/GTF
-- Population genetics: sliding-window FST tables
-- Epigenetics: methylKit-derived DMR tables
-- Differential expression: DESeq2-style DEG tables
-
-### Design principles
-
-- Consistent chromosome ordering and coordinate handling across functions
-- Overlap-length weighted aggregation for window-based statistics
-- Publication-ready defaults, minimal external dependencies, reproducible outputs
+![Shinyapp UI](https://benben-miao.github.io/GAnnoViz/image/Shinyapp.png)
 
 ## 2. Installation
 
@@ -552,6 +539,67 @@ plot_dmg_exp(
   line_width = 0.6,
   line_height = 0.8)
 
+```
+
+### Plot DMGs circos across chromosomes
+
+```{r plot_dmg_circos, fig.width=10, fig.height=10}
+# Plot DMG circos
+plot_dmg_circos(
+  dmr_file = dmr_file,
+  gff_file = gff_file,
+  format = "auto",
+  label_type = "name",
+  gene_table = NULL,
+  y_transform = "none",
+  chrom_height = 0.08,
+  chrom_color = "#eeeeee",
+  chrom_border = "#cccccc",
+  chrom_cex = 0.8,
+  gap_degree = 1,
+  x_tick_by = 2e7,
+  axis_cex = 0.5,
+  last_gap_degree = 3,
+  scatter_height = 0.15,
+  top_up = 30,
+  top_down = 30,
+  up_color = "#ff0000",
+  down_color = "#008800",
+  point_cex = 0.5,
+  annotation_height = 0.18,
+  label_cex = 0.5,
+  label_rotate = 0,
+  label_font = 1,
+  connector_lwd = 0.5,
+  connector_col = "#333333",
+  connector_len = 0.2,
+  connector_elbow = 0.8)
+```
+
+### Plot DMGs manhattan plot across chromosomes
+
+```{r plot_dmg_manhattan, fig.width=10, fig.height=6.18}
+# Plot DMG Manhattan
+plot_dmg_manhattan(
+  dmr_file = dmr_file,
+  gff_file = gff_file,
+  format = "auto",
+  gene_table = NULL,
+  label_type = "name",
+  label_col = NULL,
+  y_transform = "none",
+  chromosome_spacing = 1e6,
+  hyper_color = "#ff0000",
+  hypo_color = "#008800",
+  point_size = 1,
+  point_alpha = 0.5,
+  label_top_n = 10,
+  label_size = 3,
+  gap_frac = 0.04,
+  connector_dx1 = NULL,
+  connector_dx2 = NULL,
+  connector_elbow = 0.8,
+  connector_tilt_frac = 0.2)
 ```
 
 ### Plot chromosomal DMGs trend

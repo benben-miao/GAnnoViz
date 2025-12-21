@@ -74,5 +74,9 @@
   distributions by chromosome
 - [`plot_dmg_exp()`](https://github.com/benben-miao/GAnnoViz/reference/plot_dmg_exp.md)
   : Plot DMGs hyper/hypo along chromosomes
+- [`plot_dmg_circos()`](https://github.com/benben-miao/GAnnoViz/reference/plot_dmg_circos.md)
+  : Plot DMGs circos across chromosomes
+- [`plot_dmg_manhattan()`](https://github.com/benben-miao/GAnnoViz/reference/plot_dmg_manhattan.md)
+  : Plot DMGs manhattan plot across chromosomes
 - [`plot_dmg_trend()`](https://github.com/benben-miao/GAnnoViz/reference/plot_dmg_trend.md)
   : Plot chromosomal DMGs trend

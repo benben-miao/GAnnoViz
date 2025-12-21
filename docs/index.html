@@ -80,41 +80,16 @@
 <div class="section level2">
 <h2 id="id_1-introduction">1. Introduction<a class="anchor" aria-label="anchor" href="#id_1-introduction"></a>
 </h2>
-<p>GAnnoViz: a R package for genomic annotation and visualization.</p>
-<p><strong>SourceCode:</strong> <a href="https://github.com/benben-miao/GAnnoViz/" class="uri">https://github.com/benben-miao/GAnnoViz/</a></p>
-<p><strong>Website API</strong>: <a href="https://benben-miao.github.io/GAnnoViz/" class="external-link uri">https://benben-miao.github.io/GAnnoViz/</a></p>
-<figure><img src="inst/shiny/www/Shinyapp.png" alt="Shinyapp UI"><figcaption aria-hidden="true">
+<p><strong>GAnnoViz: a R package for genomic annotation and visualization.</strong></p>
+<p><strong>GAnnoViz (genomic annotation and visualization)</strong> is an R ecosystem specialized for annotating and visualizing chromosome-level gene functional elements in multi-omics. It provides core analysis and visualization functions through an R package and drives an online platform to enable experimental data analysis through real-time interaction. Currently, GAnnoViz includes 26 functions and 3 datasets. These functions are mainly used to address analytical needs in the following four aspects: extraction of genomic functional elements, drawing of linear gene structures, multi-omics sliding window annotation, and visualization of chromosome-level gene expression.</p>
+<p>These functions are compatible with each other in terms of input and output results, collaborating freely and closely to complete complex analytical tasks. Although this project uses the genome of the model species mouse as a reference, it has been tested that standard structural annotations and omics data from any species are supported. It is worth noting that the results of transcriptome differential expression should be in the DESeq2 structure, while epigenome differential methylation data should refer to the MethylKit results as the standard.</p>
+<p>GAnnoViz prioritizes the use of <code>GRanges</code> objects for parsing gene structures and interval annotations, and uses <code>ggplot</code> objects as the standard for graph drawing, facilitating high customization and long-term maintenance. This ecosystem adopts an open-source approach for suggestion adoption, new function iteration, continuous community maintenance, and is supported by the Hiplot cloud platform. The complete local or online help documentation contains detailed parameter descriptions and runnable examples of all functions, as well as a streamlined tutorial protocol.</p>
+<p><strong>Open Source Code:</strong> <a href="https://github.com/benben-miao/GAnnoViz/" class="uri">https://github.com/benben-miao/GAnnoViz/</a></p>
+<p><strong>Documents API</strong>: <a href="https://benben-miao.github.io/GAnnoViz/" class="external-link uri">https://benben-miao.github.io/GAnnoViz/</a></p>
+<p><strong>Cloud Platform</strong>: <a href="https://shiny.hiplot.cn/gannoviz/" class="external-link uri">https://shiny.hiplot.cn/gannoviz/</a></p>
+<figure><img src="https://benben-miao.github.io/GAnnoViz/image/Shinyapp.png" alt="Shinyapp UI"><figcaption aria-hidden="true">
 Shinyapp UI
-</figcaption></figure><div class="section level3">
-<h3 id="key-features">Key features<a class="anchor" aria-label="anchor" href="#key-features"></a>
-</h3>
-<ul>
-<li>Comprehensive GFF/GTF parsing into tidy GRanges workflows</li>
-<li>Publication-grade genomic visualizations: gene structure, interval structure, and chromosome layouts</li>
-<li>Signal overlays for population and epigenetic analyses (FST, DMR) with robust window aggregation</li>
-<li>Innovative genome-wide density maps and circos-style rings for exploratory analysis</li>
-<li>Modular API with consistent theming for reproducible, high-quality figures</li>
-</ul>
-</div>
-<div class="section level3">
-<h3 id="typical-inputs">Typical inputs<a class="anchor" aria-label="anchor" href="#typical-inputs"></a>
-</h3>
-<ul>
-<li>Structural annotations: GFF3/GTF</li>
-<li>Population genetics: sliding-window FST tables</li>
-<li>Epigenetics: methylKit-derived DMR tables</li>
-<li>Differential expression: DESeq2-style DEG tables</li>
-</ul>
-</div>
-<div class="section level3">
-<h3 id="design-principles">Design principles<a class="anchor" aria-label="anchor" href="#design-principles"></a>
-</h3>
-<ul>
-<li>Consistent chromosome ordering and coordinate handling across functions</li>
-<li>Overlap-length weighted aggregation for window-based statistics</li>
-<li>Publication-ready defaults, minimal external dependencies, reproducible outputs</li>
-</ul>
-</div>
+</figcaption></figure>
 </div>
 <div class="section level2">
 <h2 id="id_2-installation">2. Installation<a class="anchor" aria-label="anchor" href="#id_2-installation"></a>
@@ -416,20 +391,13 @@ Shinyapp UI
 <span>  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">deg</span><span class="op">)</span></span>
-<span><span class="co">#&gt;               GeneID baseMean log2FoldChange     lfcSE      stat       pvalue</span></span>
-<span><span class="co">#&gt; 1 ENSMUSG00000096094    23437       1.623064 0.3837042  4.229987 2.337044e-05</span></span>
-<span><span class="co">#&gt; 2 ENSMUSG00000104067    26867      -1.243960 0.5766501 -2.157217 3.098873e-02</span></span>
-<span><span class="co">#&gt; 3 ENSMUSG00000042699    20068       1.665528 0.4439496  3.751614 1.756999e-04</span></span>
-<span><span class="co">#&gt; 4 ENSMUSG00000102365    30846       1.329252 0.4377242  3.036734 2.391563e-03</span></span>
-<span><span class="co">#&gt; 5 ENSMUSG00000118401    27046      -1.357475 0.2651583 -5.119487 3.063684e-07</span></span>
-<span><span class="co">#&gt; 6 ENSMUSG00000103840    29564       1.328552 0.3902611  3.404265 6.634225e-04</span></span>
-<span><span class="co">#&gt;           padj</span></span>
-<span><span class="co">#&gt; 1 6.504410e-05</span></span>
-<span><span class="co">#&gt; 2 3.197659e-02</span></span>
-<span><span class="co">#&gt; 3 3.684748e-04</span></span>
-<span><span class="co">#&gt; 4 3.369004e-03</span></span>
-<span><span class="co">#&gt; 5 1.172706e-06</span></span>
-<span><span class="co">#&gt; 6 1.136750e-03</span></span></code></pre></div>
+<span><span class="co">#&gt;               GeneID baseMean log2FoldChange     lfcSE      stat   pvalue  padj</span></span>
+<span><span class="co">#&gt; 1 ENSMUSG00000025198    23869      -6.000000 0.2843066 -21.10398 7.31e-74 1e-40</span></span>
+<span><span class="co">#&gt; 2 ENSMUSG00000025272    40302       5.595767 0.2788325  20.06856 1.39e-64 1e-40</span></span>
+<span><span class="co">#&gt; 3 ENSMUSG00000064264    13298      -5.534248 0.2955626 -18.72446 3.13e-53 1e-40</span></span>
+<span><span class="co">#&gt; 4 ENSMUSG00000046432    55113       6.000000 0.3230247  18.57443 5.17e-52 1e-40</span></span>
+<span><span class="co">#&gt; 5 ENSMUSG00000102989    28945       5.953063 0.3218916  18.49400 2.31e-51 1e-40</span></span>
+<span><span class="co">#&gt; 6 ENSMUSG00000103364    13437       4.987586 0.2709416  18.40835 1.13e-50 1e-40</span></span></code></pre></div>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Annotate DEGs with chromosome positions</span></span>
 <span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/anno_deg_chrom.html">anno_deg_chrom</a></span><span class="op">(</span></span>
@@ -718,9 +686,72 @@ Shinyapp UI
 <p><img src="reference/figures/README-plot_dmg_exp-1.png" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
-<h3 id="plot-chromosomal-dmgs-trend">Plot chromosomal DMGs trend<a class="anchor" aria-label="anchor" href="#plot-chromosomal-dmgs-trend"></a>
+<h3 id="plot-dmgs-circos-across-chromosomes">Plot DMGs circos across chromosomes<a class="anchor" aria-label="anchor" href="#plot-dmgs-circos-across-chromosomes"></a>
 </h3>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Plot DMG circos</span></span>
+<span><span class="fu"><a href="reference/plot_dmg_circos.html">plot_dmg_circos</a></span><span class="op">(</span></span>
+<span>  dmr_file <span class="op">=</span> <span class="va">dmr_file</span>,</span>
+<span>  gff_file <span class="op">=</span> <span class="va">gff_file</span>,</span>
+<span>  format <span class="op">=</span> <span class="st">"auto"</span>,</span>
+<span>  label_type <span class="op">=</span> <span class="st">"name"</span>,</span>
+<span>  gene_table <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  y_transform <span class="op">=</span> <span class="st">"none"</span>,</span>
+<span>  chrom_height <span class="op">=</span> <span class="fl">0.08</span>,</span>
+<span>  chrom_color <span class="op">=</span> <span class="st">"#eeeeee"</span>,</span>
+<span>  chrom_border <span class="op">=</span> <span class="st">"#cccccc"</span>,</span>
+<span>  chrom_cex <span class="op">=</span> <span class="fl">0.8</span>,</span>
+<span>  gap_degree <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  x_tick_by <span class="op">=</span> <span class="fl">2e7</span>,</span>
+<span>  axis_cex <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>  last_gap_degree <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>  scatter_height <span class="op">=</span> <span class="fl">0.15</span>,</span>
+<span>  top_up <span class="op">=</span> <span class="fl">30</span>,</span>
+<span>  top_down <span class="op">=</span> <span class="fl">30</span>,</span>
+<span>  up_color <span class="op">=</span> <span class="st">"#ff0000"</span>,</span>
+<span>  down_color <span class="op">=</span> <span class="st">"#008800"</span>,</span>
+<span>  point_cex <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>  annotation_height <span class="op">=</span> <span class="fl">0.18</span>,</span>
+<span>  label_cex <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>  label_rotate <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  label_font <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  connector_lwd <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>  connector_col <span class="op">=</span> <span class="st">"#333333"</span>,</span>
+<span>  connector_len <span class="op">=</span> <span class="fl">0.2</span>,</span>
+<span>  connector_elbow <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-plot_dmg_circos-1.png" style="display: block; margin: auto;"></p>
+</div>
+<div class="section level3">
+<h3 id="plot-dmgs-manhattan-plot-across-chromosomes">Plot DMGs manhattan plot across chromosomes<a class="anchor" aria-label="anchor" href="#plot-dmgs-manhattan-plot-across-chromosomes"></a>
+</h3>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Plot DMG Manhattan</span></span>
+<span><span class="fu"><a href="reference/plot_dmg_manhattan.html">plot_dmg_manhattan</a></span><span class="op">(</span></span>
+<span>  dmr_file <span class="op">=</span> <span class="va">dmr_file</span>,</span>
+<span>  gff_file <span class="op">=</span> <span class="va">gff_file</span>,</span>
+<span>  format <span class="op">=</span> <span class="st">"auto"</span>,</span>
+<span>  gene_table <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  label_type <span class="op">=</span> <span class="st">"name"</span>,</span>
+<span>  label_col <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  y_transform <span class="op">=</span> <span class="st">"none"</span>,</span>
+<span>  chromosome_spacing <span class="op">=</span> <span class="fl">1e6</span>,</span>
+<span>  hyper_color <span class="op">=</span> <span class="st">"#ff0000"</span>,</span>
+<span>  hypo_color <span class="op">=</span> <span class="st">"#008800"</span>,</span>
+<span>  point_size <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  point_alpha <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>  label_top_n <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>  label_size <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>  gap_frac <span class="op">=</span> <span class="fl">0.04</span>,</span>
+<span>  connector_dx1 <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  connector_dx2 <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  connector_elbow <span class="op">=</span> <span class="fl">0.8</span>,</span>
+<span>  connector_tilt_frac <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-plot_dmg_manhattan-1.png" style="display: block; margin: auto;"></p>
+</div>
+<div class="section level3">
+<h3 id="plot-chromosomal-dmgs-trend">Plot chromosomal DMGs trend<a class="anchor" aria-label="anchor" href="#plot-chromosomal-dmgs-trend"></a>
+</h3>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Plot DMR trend</span></span>
 <span><span class="fu"><a href="reference/plot_dmg_trend.html">plot_dmg_trend</a></span><span class="op">(</span></span>
 <span>  chrom_id <span class="op">=</span> <span class="st">"chr1"</span>,</span>
