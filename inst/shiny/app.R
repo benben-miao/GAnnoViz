@@ -6,6 +6,8 @@ library(patchwork)
 library(DT)
 library(dplyr)
 
+options(shiny.maxRequestSize = 1024 * 1024^2)
+
 ui <- bs4DashPage(
   title = "GAnnoViz",
   fullscreen = TRUE,
