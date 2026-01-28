@@ -24,11 +24,9 @@ knitr::opts_chunk$set(
 
 **GAnnoViz: a R package for genomic annotation and visualization.**
 
-**GAnnoViz (genomic annotation and visualization)** is an R ecosystem specialized for annotating and visualizing chromosome-level gene functional elements in multi-omics. It provides core analysis and visualization functions through an R package and drives an online platform to enable experimental data analysis through real-time interaction. Currently, GAnnoViz includes 26 functions and 3 datasets. These functions are mainly used to address analytical needs in the following four aspects: extraction of genomic functional elements, drawing of linear gene structures, multi-omics sliding window annotation, and visualization of chromosome-level gene expression. 
+GAnnoViz is a cloud-integrated framework for chromosome-level feature annotation and visualization in multi-omics research. It provides analytical and visualization capabilities through R packages, while integrating a cloud platform to enable real-time interactive data analysis. The current release consists of 26 functions and three datasets, collectively addressing four core analytical requirements: genomic features extraction, gene structure drawing, sliding-window annotation, and multi-omics chromosome-level visualization.
 
-These functions are compatible with each other in terms of input and output results, collaborating freely and closely to complete complex analytical tasks. Although this project uses the genome of the model species mouse as a reference, it has been tested that standard structural annotations and omics data from any species are supported. It is worth noting that the results of transcriptome differential expression should be in the DESeq2 structure, while epigenome differential methylation data should refer to the MethylKit results as the standard.
-
-GAnnoViz prioritizes the use of `GRanges` objects for parsing gene structures and interval annotations, and uses `ggplot` objects as the standard for graph drawing, facilitating high customization and long-term maintenance. This ecosystem adopts an open-source approach for suggestion adoption, new function iteration, continuous community maintenance, and is supported by the Hiplot cloud platform. The complete local or online help documentation contains detailed parameter descriptions and runnable examples of all functions, as well as a streamlined tutorial protocol.
+The source code and example datasets are available in the GitHub repository under an open-source license, facilitating reproducibility and community-driven development through issue reporting and pull requests.
 
 **Open Source Code:** <https://github.com/benben-miao/GAnnoViz/>
 
@@ -38,13 +36,16 @@ GAnnoViz prioritizes the use of `GRanges` objects for parsing gene structures an
 
 ![Shinyapp UI](https://benben-miao.github.io/GAnnoViz/image/Shinyapp.png)
 
-## 2. Installation
+## 2. Install and Library
+
+```{r eval=FALSE}
+# Install from GitHub
+install.packages("remotes")
+remotes::install_github("benben-miao/GAnnoViz")
+```
 
 ```{r echo=FALSE}
-# From GitHub
-# install.packages("remotes")
-# remotes::install_github("benben-miao/GAnnoViz")
-
+# Library GAnnoViz
 library(GAnnoViz)
 library(ggplot2)
 ```
@@ -52,8 +53,13 @@ library(ggplot2)
 ## 3. Shiny App
 
 ```{r eval=FALSE}
-# GAnnoVizApp()
+# Running GAnnoVizApp on Rstudio or Rconsole
+GAnnoViz::GAnnoVizApp()
 ```
+
+## 4. Reference genomic annotation and multi-omics result datasets
+
+The built-in example genomic annotations and multi-omics datasets in the GAnnoViz package and its accompanying cloud platform are provided for demonstration purposes, enabling users to rapidly prepare their own input data by reference. The structure of these example datasets can be inspected through dedicated functions, and the files are publicly accessible for download from both the source code repository and the cloud platform. The default reference genomic annotation employed is the latest version of the mouse (Mus musculus) genome, GRCm39.115, sourced from the Ensembl database (version 115) 7 and formatted in standard GFF3. This annotation includes complete chromosomes, gene coordinate information, and well-defined hierarchical feature relationships. The current and historical genomic annotation versions for humans and other key species can be obtained directly from Ensembl, and GAnnoViz supports the parsing of newly assembled genomic annotation. All multi-omics example datasets are simulated for illustrative purposes and adhere the widely adopted formats in the field. Standard gene differential expression matrices are generated using DESeq2, with differentially expressed genes (DEGs) identified by |log2(FoldChange)| > 1 and padj < 0.05. Differential methylation results are generated using MethylKit 8, with differentially methylated regions (DMRs) identified by |meth.diff| > 25 and qvalue < 0.05. Data files can be directly loaded into standard R data objects via built-in reading functions or through the cloud platform’s data upload interface, eliminating the need for users to pre-process genome annotations or multi-omics results into tabular formats prior to analysis.
 
 ## 4. Extract Features
 

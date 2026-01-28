@@ -8,6 +8,19 @@ library(dplyr)
 
 options(shiny.maxRequestSize = 1024 * 1024^2)
 
+exampleImageFile <- function(fun) {
+  p <- system.file("shiny", "www", "figures", sprintf("README-%s-1.png", fun), package = "GAnnoViz")
+  if (nzchar(p) && file.exists(p)) return(p)
+  p <- file.path("www", "figures", sprintf("README-%s-1.png", fun))
+  if (file.exists(p)) return(normalizePath(p))
+  p <- file.path("inst", "shiny", "www", "figures", sprintf("README-%s-1.png", fun))
+}
+sample_gff <- function() system.file("extdata", "example.gff3.gz", package = "GAnnoViz")
+sample_deg <- function() system.file("extdata", "example.deg", package = "GAnnoViz")
+sample_dmr <- function() system.file("extdata", "example.dmr", package = "GAnnoViz")
+sample_fst <- function() system.file("extdata", "example.fst", package = "GAnnoViz")
+placeholderImage <- function() system.file("shiny", "www", "Shinyapp.png", package = "GAnnoViz")
+
 ui <- bs4DashPage(
   title = "GAnnoViz",
   fullscreen = TRUE,
@@ -238,10 +251,114 @@ ui <- bs4DashPage(
             .irs-line, .irs-bar, .irs-handle {
               border-radius: 10px !important;
             }
+            .tooltip-inner {
+              font-size: 12px;
+              background-color: #333333;
+              box-shadow: 0px 0px 5px #888888;
+              border-radius: 10px;
+            }
+            .fa-exclamation-circle {
+              color: #333333 !important;
+            }
+            #right-info-panel {
+              position: fixed;
+              right: 15px;
+              top: 80px;
+              width: 23%;
+              z-index: 1000;
+              height: 850px;
+              overflow-y: auto;
+              scrollbar-width: thin;
+            }
+            #right-info-panel img {
+              border-radius: 10px;
+              width: 100%;
+              height: auto;
+            }
           "
         )
       )
     ),
+    tags$script(HTML("
+      $(function(){
+        var paramTips = {
+          'GFF/GTF file':'Genomic structural annotation GFF3/GTF file path.',
+          'Format':'Format of GFF3/GTF file. (\"auto\", \"gff3\", \"gtf\").',
+          'Gene ID':'Gene id same as GFF3/GTF. (necessary).',
+          'Promoter upstream':'Promoter upstream (bp). (2000).',
+          'Promoter downstream':'Promoter downstream (bp). (200).',
+          'Feature alpha':'Elements alpha. (0.8).',
+          'Intron width':'Intron line width. (1).',
+          'X breaks':'X axis breaks number. (10).',
+          'Arrow length':'Intron arrows length (pt). (1).',
+          'Arrow count':'Intron arrow number bold. (1).',
+          'Arrow unit':'Intron arrow length unit. (\"pt\", \"mm\").',
+          'Promoter color':'Promoter color. (\"#ff8800\").',
+          '5\\'UTR color':'5\\'UTR color. (\"#008833\").',
+          '3\\'UTR color':'3\\'UTR color. (\"#ff0033\").',
+          'Exon color':'Exon color. (\"#0033ff\").',
+          'Intron color':'Intron color. (\"#333333\").',
+          'Width (in)':'Plot width in inches.',
+          'Height (in)':'Plot height in inches.',
+          'DPI':'Plot resolution (dots per inch).',
+          'Orientation':'Coordinate orientation. (\"horizontal\", \"vertical\").',
+          'Bar width':'Chromosome bar width. (0.6).',
+          'Chrom alpha':'Chromosome alpha. (1).',
+          'Gene width':'Gene bar width. (0.6).',
+          'Chrom color':'Chromosome color. (\"#333333\").',
+          'Gene color':'Gene color. (\"#ff0000\").',
+          'Bar color':'Bar color.',
+          'Telomere color':'Telomere color. (\"#ff0000\").',
+          'Label size':'Text size for gene labels. (3).',
+          'Feature':'Feature type (gene, exon, CDS, promoter, etc.).',
+          'Bin size':'Bin size (bp) for FST calculation. (2000).',
+          'Alpha':'Point alpha. (0.3).',
+          'ID column':'Gene ID column name in DEG table.',
+          'FC column':'FoldChange column name in DEG table.',
+          'Use strand':'Whether to respect actual strand instead of \"*\". (FALSE).',
+          'Drop unmapped':'Whether to drop unmapped chromosomes. (TRUE).',
+          'Violin scale':'Violin scale mode. (\"count\", \"area\", \"width\").',
+          'Violin border':'Violin border width. (0.5).',
+          'Point shape':'Points shape (0-25). (8).',
+          'Point size':'Point size. (1).',
+          'Jitter width':'Horizontal jitter width. (0.2).',
+          'Hyper color':'Point color for hyper-methylated/up-regulated genes.',
+          'Hypo color':'Point color for hypo-methylated/down-regulated genes.',
+          'Palette':'Color palette. (\"Set 2\", \"Set 3\", \"Warm\", \"Cold\", \"Dynamic\", \"Viridis\", \"Plasma\", \"Inferno\", \"Rocket\", \"Mako\").',
+          'Legend columns':'Legend columns per row. (2).',
+          'Smooth span':'Span for local regression smoothing. (0.1).',
+          'Up color':'Color for up-regulated genes.',
+          'Down color':'Color for down-regulated genes.',
+          'Mark style':'Marker style for DMGs. (\"point\", \"line\").',
+          'Line width':'Line width. (0.6).',
+          'Line height':'Line height relative to bar radius. (0.8).',
+          'Metric':'Aggregation metric for bin fill. (\"fst_mean\", \"variant_count\").',
+          'Top N':'Number of top genes to annotate. (20).',
+          'Connector dx1':'Connector horizontal length 1. (0.1).',
+          'Connector dx2':'Connector horizontal length 2. (0.1).',
+          'Gap frac':'Minimum vertical gap between labels (fraction of chromosome length). (0.02).',
+          'Info':'Information to extract (all, chrom_id, gene_id, range, etc.).'
+        };
+        $('.card .shiny-input-container > label, .card .form-group > label, .card label[for]').each(function(){
+          var t = $(this).text().trim();
+          var tip = paramTips[t] || ('Package help: ' + t);
+          if($(this).find('.fa-exclamation-circle').length === 0){
+            var icon = $('<i>')
+              .addClass('fa fa-exclamation-circle')
+              .attr('data-toggle','tooltip')
+              .attr('title', tip)
+              .css({color:'#ff8800',fontSize:'0.9em',marginLeft:'5px',cursor:'pointer'});
+            icon.on('click', function(e){
+              e.preventDefault();
+              e.stopPropagation();
+            });
+            $(this).append(icon);
+          }
+        });
+        $('[data-toggle=\"tooltip\"]').tooltip({container:'body', boundary:'viewport'});
+      });
+    ")),
+
     bs4TabItems(
       bs4TabItem(tabName = "plot_gene_structure", fluidRow(
         column(
@@ -389,7 +506,7 @@ ui <- bs4DashPage(
             )
           )
         ), column(
-          width = 9,
+          width = 6,
           bs4Card(
             title = " Plot",
             icon = icon("chart-pie"),
@@ -397,8 +514,54 @@ ui <- bs4DashPage(
             solidHeader = FALSE,
             width = 12,
             plotOutput("plot_gene_structure", height = "600px")
+          )
+        ), column(
+          width = 3,
+          bs4Card(
+            title = "Plot gene structure",
+            status = "warning",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. App Name:"),
+            br(),
+            tags$b("plot_gene_structure"),
+            br(),br(),
+            tags$b("2. Function Description"),
+            br(),
+            p("Plot gene structure (Promoter, 3'UTR, Exon, Intron, 5'UTR)."),
+            tags$b("3. Demo Output"),
+            br(),br(),
+            imageOutput("example_plot_gene_structure", width = 300, height = NULL)
           ),
+          bs4Card(
+            title = "Example Datasets",
+            status = "info",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. Genomic Annotation (GFF3/GTF)"),
+            br(),
+            tags$b("Mus musculus: GRCm39.115"),
+            downloadButton("dl_gff_gtf_1", "Download GFF3", icon = icon("download")),
+            br(), br(),
+            tags$b("2. Differentially expressed genes (DESeq2)"),
+            br(),
 
+            downloadButton("dl_deg_deg_1", "Download DEG", icon = icon("download")),
+            br(), br(),
+            tags$b("3. Differentially methylated regions (MethylKit)"),
+            br(),
+
+            downloadButton("dl_dmr_dmg_1", "Download DMR", icon = icon("download")),
+            br(), br(),
+            tags$b("4. SNP mutation site (VCFtools)"),
+            br(),
+
+            downloadButton("dl_fst_snp_1", "Download SNP", icon = icon("download"))
+          )
         )
       )),
 
@@ -456,13 +619,60 @@ ui <- bs4DashPage(
             )
           )
         ), column(
-          width = 9,
+          width = 6,
           bs4Card(
             title = "Data",
             status = "primary",
             solidHeader = FALSE,
             width = 12,
             DT::dataTableOutput("table_anno_deg_chrom")
+          )
+        ), column(
+          width = 3,
+          bs4Card(
+            title = "Annotate DEGs on chromosomes",
+            status = "warning",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. App Name:"),
+            br(),
+            tags$b("anno_deg_chrom"),
+            br(),br(),
+            tags$b("2. Function Description"),
+            br(),
+            p("Annotate and plot differentially expressed genes (DEGs) on chromosomes."),
+            tags$b("3. Demo Output"),
+            br(),br(),
+            imageOutput("example_anno_deg_chrom", width = 300, height = NULL)
+          ),
+          bs4Card(
+            title = "Example Datasets",
+            status = "info",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. Genomic Annotation (GFF3/GTF)"),
+            br(),
+            tags$b("Mus musculus: GRCm39.115"),
+            downloadButton("dl_gff_gtf_2", "Download GFF3", icon = icon("download")),
+            br(), br(),
+            tags$b("2. Differentially expressed genes (DESeq2)"),
+            br(),
+
+            downloadButton("dl_deg_deg_2", "Download DEG", icon = icon("download")),
+            br(), br(),
+            tags$b("3. Differentially methylated regions (MethylKit)"),
+            br(),
+
+            downloadButton("dl_dmr_dmg_2", "Download DMR", icon = icon("download")),
+            br(), br(),
+            tags$b("4. SNP mutation site (VCFtools)"),
+            br(),
+
+            downloadButton("dl_fst_snp_2", "Download SNP", icon = icon("download"))
           )
         )
       )),
@@ -554,7 +764,7 @@ ui <- bs4DashPage(
             )
           )
         ), column(
-          width = 9,
+          width = 6,
           bs4Card(
             title = " Plot",
             icon = icon("chart-pie"),
@@ -562,6 +772,53 @@ ui <- bs4DashPage(
             solidHeader = FALSE,
             width = 12,
             plotOutput("plot_gene_domains", height = "600px")
+          )
+        ), column(
+          width = 3,
+          bs4Card(
+            title = "Plot protein domains",
+            status = "warning",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. App Name:"),
+            br(),
+            tags$b("plot_gene_domains"),
+            br(),br(),
+            tags$b("2. Function Description"),
+            br(),
+            p("Plot protein domains from Ensembl."),
+            tags$b("3. Demo Output"),
+            br(),br(),
+            imageOutput("example_plot_gene_domains", width = 300, height = NULL)
+          ),
+          bs4Card(
+            title = "Example Datasets",
+            status = "info",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. Genomic Annotation (GFF3/GTF)"),
+            br(),
+            tags$b("Mus musculus: GRCm39.115"),
+            downloadButton("dl_gff_gtf_3", "Download GFF3", icon = icon("download")),
+            br(), br(),
+            tags$b("2. Differentially expressed genes (DESeq2)"),
+            br(),
+
+            downloadButton("dl_deg_deg_3", "Download DEG", icon = icon("download")),
+            br(), br(),
+            tags$b("3. Differentially methylated regions (MethylKit)"),
+            br(),
+
+            downloadButton("dl_dmr_dmg_3", "Download DMR", icon = icon("download")),
+            br(), br(),
+            tags$b("4. SNP mutation site (VCFtools)"),
+            br(),
+
+            downloadButton("dl_fst_snp_3", "Download SNP", icon = icon("download"))
           )
         )
       )),
@@ -657,7 +914,7 @@ ui <- bs4DashPage(
             )
           )
         ), column(
-          width = 9,
+          width = 6,
           bs4Card(
             title = " Plot",
             icon = icon("chart-pie"),
@@ -665,8 +922,54 @@ ui <- bs4DashPage(
             solidHeader = FALSE,
             width = 12,
             plotOutput("plot_dmg_trend", height = "600px")
+          )
+        ), column(
+          width = 3,
+          bs4Card(
+            title = "Plot chromosomal DMGs trend",
+            status = "warning",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. App Name:"),
+            br(),
+            tags$b("plot_dmg_trend"),
+            br(),br(),
+            tags$b("2. Function Description"),
+            br(),
+            p("Plot chromosomal DMGs trend."),
+            tags$b("3. Demo Output"),
+            br(),br(),
+            imageOutput("example_plot_dmg_trend", width = 300, height = NULL)
           ),
+          bs4Card(
+            title = "Example Datasets",
+            status = "info",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. Genomic Annotation (GFF3/GTF)"),
+            br(),
+            tags$b("Mus musculus: GRCm39.115"),
+            downloadButton("dl_gff_gtf_4", "Download GFF3", icon = icon("download")),
+            br(), br(),
+            tags$b("2. Differentially expressed genes (DESeq2)"),
+            br(),
 
+            downloadButton("dl_deg_deg_4", "Download DEG", icon = icon("download")),
+            br(), br(),
+            tags$b("3. Differentially methylated regions (MethylKit)"),
+            br(),
+
+            downloadButton("dl_dmr_dmg_4", "Download DMR", icon = icon("download")),
+            br(), br(),
+            tags$b("4. SNP mutation site (VCFtools)"),
+            br(),
+
+            downloadButton("dl_fst_snp_4", "Download SNP", icon = icon("download"))
+          )
         )
       )),
 
@@ -830,7 +1133,7 @@ ui <- bs4DashPage(
             )
           )
         ), column(
-          width = 9,
+          width = 6,
           bs4Card(
             title = " Plot",
             icon = icon("chart-pie"),
@@ -838,8 +1141,54 @@ ui <- bs4DashPage(
             solidHeader = FALSE,
             width = 12,
             plotOutput("plot_interval_structure", height = "600px")
+          )
+        ), column(
+          width = 3,
+          bs4Card(
+            title = "Plot gene structures for interval",
+            status = "warning",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. App Name:"),
+            br(),
+            tags$b("plot_interval_structure"),
+            br(),br(),
+            tags$b("2. Function Description"),
+            br(),
+            p("Plot gene structures for a genomic interval."),
+            tags$b("3. Demo Output"),
+            br(),br(),
+            imageOutput("example_plot_interval_structure", width = 300, height = NULL)
           ),
+          bs4Card(
+            title = "Example Datasets",
+            status = "info",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. Genomic Annotation (GFF3/GTF)"),
+            br(),
+            tags$b("Mus musculus: GRCm39.115"),
+            downloadButton("dl_gff_gtf_5", "Download GFF3", icon = icon("download")),
+            br(), br(),
+            tags$b("2. Differentially expressed genes (DESeq2)"),
+            br(),
 
+            downloadButton("dl_deg_deg_5", "Download DEG", icon = icon("download")),
+            br(), br(),
+            tags$b("3. Differentially methylated regions (MethylKit)"),
+            br(),
+
+            downloadButton("dl_dmr_dmg_5", "Download DMR", icon = icon("download")),
+            br(), br(),
+            tags$b("4. SNP mutation site (VCFtools)"),
+            br(),
+
+            downloadButton("dl_fst_snp_5", "Download SNP", icon = icon("download"))
+          )
         )
       )),
 
@@ -971,7 +1320,7 @@ ui <- bs4DashPage(
             )
           )
         ), column(
-          width = 9,
+          width = 6,
           bs4Card(
             title = " Plot",
             icon = icon("chart-pie"),
@@ -979,8 +1328,54 @@ ui <- bs4DashPage(
             solidHeader = FALSE,
             width = 12,
             plotOutput("plot_interval_flank", height = "600px")
+          )
+        ), column(
+          width = 3,
+          bs4Card(
+            title = "Gene neighborhood architecture",
+            status = "warning",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. App Name:"),
+            br(),
+            tags$b("plot_interval_flank"),
+            br(),br(),
+            tags$b("2. Function Description"),
+            br(),
+            p("Plot gene neighborhood around a focal gene."),
+            tags$b("3. Demo Output"),
+            br(),br(),
+            imageOutput("example_plot_interval_flank", width = 300, height = NULL)
           ),
+          bs4Card(
+            title = "Example Datasets",
+            status = "info",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. Genomic Annotation (GFF3/GTF)"),
+            br(),
+            tags$b("Mus musculus: GRCm39.115"),
+            downloadButton("dl_gff_gtf_6", "Download GFF3", icon = icon("download")),
+            br(), br(),
+            tags$b("2. Differentially expressed genes (DESeq2)"),
+            br(),
 
+            downloadButton("dl_deg_deg_6", "Download DEG", icon = icon("download")),
+            br(), br(),
+            tags$b("3. Differentially methylated regions (MethylKit)"),
+            br(),
+
+            downloadButton("dl_dmr_dmg_6", "Download DMR", icon = icon("download")),
+            br(), br(),
+            tags$b("4. SNP mutation site (VCFtools)"),
+            br(),
+
+            downloadButton("dl_fst_snp_6", "Download SNP", icon = icon("download"))
+          )
         )
       )),
 
@@ -1097,7 +1492,7 @@ ui <- bs4DashPage(
             )
           )
         ), column(
-          width = 9,
+          width = 6,
           bs4Card(
             title = " Plot",
             icon = icon("chart-pie"),
@@ -1105,8 +1500,54 @@ ui <- bs4DashPage(
             solidHeader = FALSE,
             width = 12,
             plotOutput("plot_chrom_structure", height = "600px")
+          )
+        ), column(
+          width = 3,
+          bs4Card(
+            title = "Plot chromosome structures and gene stats",
+            status = "warning",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. App Name:"),
+            br(),
+            tags$b("plot_chrom_structure"),
+            br(),br(),
+            tags$b("2. Function Description"),
+            br(),
+            p("Plot chromosome structures and gene stats."),
+            tags$b("3. Demo Output"),
+            br(),br(),
+            imageOutput("example_plot_chrom_structure", width = 300, height = NULL)
           ),
+          bs4Card(
+            title = "Example Datasets",
+            status = "info",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. Genomic Annotation (GFF3/GTF)"),
+            br(),
+            tags$b("Mus musculus: GRCm39.115"),
+            downloadButton("dl_gff_gtf_7", "Download GFF3", icon = icon("download")),
+            br(), br(),
+            tags$b("2. Differentially expressed genes (DESeq2)"),
+            br(),
 
+            downloadButton("dl_deg_deg_7", "Download DEG", icon = icon("download")),
+            br(), br(),
+            tags$b("3. Differentially methylated regions (MethylKit)"),
+            br(),
+
+            downloadButton("dl_dmr_dmg_7", "Download DMR", icon = icon("download")),
+            br(), br(),
+            tags$b("4. SNP mutation site (VCFtools)"),
+            br(),
+
+            downloadButton("dl_fst_snp_7", "Download SNP", icon = icon("download"))
+          )
         )
       )),
 
@@ -1251,7 +1692,7 @@ ui <- bs4DashPage(
             )
           )
         ), column(
-          width = 9,
+          width = 6,
           bs4Card(
             title = " Plot",
             icon = icon("chart-pie"),
@@ -1259,8 +1700,54 @@ ui <- bs4DashPage(
             solidHeader = FALSE,
             width = 12,
             plotOutput("plot_chrom_genes", height = "600px")
+          )
+        ), column(
+          width = 3,
+          bs4Card(
+            title = "Plot chromosome structures and gene annotation",
+            status = "warning",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. App Name:"),
+            br(),
+            tags$b("plot_chrom_genes"),
+            br(),br(),
+            tags$b("2. Function Description"),
+            br(),
+            p("Plot chromosome structures and gene annotation."),
+            tags$b("3. Demo Output"),
+            br(),br(),
+            imageOutput("example_plot_chrom_genes", width = 300, height = NULL)
           ),
+          bs4Card(
+            title = "Example Datasets",
+            status = "info",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. Genomic Annotation (GFF3/GTF)"),
+            br(),
+            tags$b("Mus musculus: GRCm39.115"),
+            downloadButton("dl_gff_gtf_8", "Download GFF3", icon = icon("download")),
+            br(), br(),
+            tags$b("2. Differentially expressed genes (DESeq2)"),
+            br(),
 
+            downloadButton("dl_deg_deg_8", "Download DEG", icon = icon("download")),
+            br(), br(),
+            tags$b("3. Differentially methylated regions (MethylKit)"),
+            br(),
+
+            downloadButton("dl_dmr_dmg_8", "Download DMR", icon = icon("download")),
+            br(), br(),
+            tags$b("4. SNP mutation site (VCFtools)"),
+            br(),
+
+            downloadButton("dl_fst_snp_8", "Download SNP", icon = icon("download"))
+          )
         )
       )),
 
@@ -1361,7 +1848,7 @@ ui <- bs4DashPage(
             )
           )
         ), column(
-          width = 9,
+          width = 6,
           bs4Card(
             title = " Plot",
             icon = icon("chart-pie"),
@@ -1369,8 +1856,54 @@ ui <- bs4DashPage(
             solidHeader = FALSE,
             width = 12,
             plotOutput("plot_chrom_heatmap", height = "600px")
+          )
+        ), column(
+          width = 3,
+          bs4Card(
+            title = "Plot genomic feature density heatmap",
+            status = "warning",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. App Name:"),
+            br(),
+            tags$b("plot_chrom_heatmap"),
+            br(),br(),
+            tags$b("2. Function Description"),
+            br(),
+            p("Plot genomic feature density heatmap."),
+            tags$b("3. Demo Output"),
+            br(),br(),
+            imageOutput("example_plot_chrom_heatmap", width = 300, height = NULL)
           ),
+          bs4Card(
+            title = "Example Datasets",
+            status = "info",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. Genomic Annotation (GFF3/GTF)"),
+            br(),
+            tags$b("Mus musculus: GRCm39.115"),
+            downloadButton("dl_gff_gtf_9", "Download GFF3", icon = icon("download")),
+            br(), br(),
+            tags$b("2. Differentially expressed genes (DESeq2)"),
+            br(),
 
+            downloadButton("dl_deg_deg_9", "Download DEG", icon = icon("download")),
+            br(), br(),
+            tags$b("3. Differentially methylated regions (MethylKit)"),
+            br(),
+
+            downloadButton("dl_dmr_dmg_9", "Download DMR", icon = icon("download")),
+            br(), br(),
+            tags$b("4. SNP mutation site (VCFtools)"),
+            br(),
+
+            downloadButton("dl_fst_snp_9", "Download SNP", icon = icon("download"))
+          )
         )
       )),
 
@@ -1491,7 +2024,7 @@ ui <- bs4DashPage(
             )
           )
         ), column(
-          width = 9,
+          width = 6,
           bs4Card(
             title = " Plot",
             icon = icon("chart-pie"),
@@ -1499,8 +2032,54 @@ ui <- bs4DashPage(
             solidHeader = FALSE,
             width = 12,
             plotOutput("plot_deg_chrom", height = "600px")
+          )
+        ), column(
+          width = 3,
+          bs4Card(
+            title = "Plot DEGs hyper/hypo distributions",
+            status = "warning",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. App Name:"),
+            br(),
+            tags$b("plot_deg_chrom"),
+            br(),br(),
+            tags$b("2. Function Description"),
+            br(),
+            p("Plot differentially expressed genes (DEGs) hyper/hypo distributions by chromosomes."),
+            tags$b("3. Demo Output"),
+            br(),br(),
+            imageOutput("example_plot_deg_chrom", width = 300, height = NULL)
           ),
+          bs4Card(
+            title = "Example Datasets",
+            status = "info",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. Genomic Annotation (GFF3/GTF)"),
+            br(),
+            tags$b("Mus musculus: GRCm39.115"),
+            downloadButton("dl_gff_gtf_10", "Download GFF3", icon = icon("download")),
+            br(), br(),
+            tags$b("2. Differentially expressed genes (DESeq2)"),
+            br(),
 
+            downloadButton("dl_deg_deg_10", "Download DEG", icon = icon("download")),
+            br(), br(),
+            tags$b("3. Differentially methylated regions (MethylKit)"),
+            br(),
+
+            downloadButton("dl_dmr_dmg_10", "Download DMR", icon = icon("download")),
+            br(), br(),
+            tags$b("4. SNP mutation site (VCFtools)"),
+            br(),
+
+            downloadButton("dl_fst_snp_10", "Download SNP", icon = icon("download"))
+          )
         )
       )),
 
@@ -1646,7 +2225,7 @@ ui <- bs4DashPage(
             )
           )
         ), column(
-          width = 9,
+          width = 6,
           bs4Card(
             title = " Plot",
             icon = icon("chart-pie"),
@@ -1654,6 +2233,53 @@ ui <- bs4DashPage(
             solidHeader = FALSE,
             width = 12,
             plotOutput("plot_deg_exp", height = "600px")
+          )
+        ), column(
+          width = 3,
+          bs4Card(
+            title = "Plot DEGs up/down along chromosomes",
+            status = "warning",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. App Name:"),
+            br(),
+            tags$b("plot_deg_exp"),
+            br(),br(),
+            tags$b("2. Function Description"),
+            br(),
+            p("Plot DEGs up/down along chromosomes."),
+            tags$b("3. Demo Output"),
+            br(),br(),
+            imageOutput("example_plot_deg_exp", width = 300, height = NULL)
+          ),
+          bs4Card(
+            title = "Example Datasets",
+            status = "info",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. Genomic Annotation (GFF3/GTF)"),
+            br(),
+            tags$b("Mus musculus: GRCm39.115"),
+            downloadButton("dl_gff_gtf_11", "Download GFF3", icon = icon("download")),
+            br(), br(),
+            tags$b("2. Differentially expressed genes (DESeq2)"),
+            br(),
+
+            downloadButton("dl_deg_deg_11", "Download DEG", icon = icon("download")),
+            br(), br(),
+            tags$b("3. Differentially methylated regions (MethylKit)"),
+            br(),
+
+            downloadButton("dl_dmr_dmg_11", "Download DMR", icon = icon("download")),
+            br(), br(),
+            tags$b("4. SNP mutation site (VCFtools)"),
+            br(),
+
+            downloadButton("dl_fst_snp_11", "Download SNP", icon = icon("download"))
           )
         )
       )),
@@ -1772,7 +2398,7 @@ ui <- bs4DashPage(
             )
           )
         ), column(
-          width = 9,
+          width = 6,
           bs4Card(
             title = " Plot",
             icon = icon("chart-pie"),
@@ -1780,6 +2406,53 @@ ui <- bs4DashPage(
             solidHeader = FALSE,
             width = 12,
             plotOutput("plot_deg_volcano", height = "600px")
+          )
+        ), column(
+          width = 3,
+          bs4Card(
+            title = "Plot DEGs volcano",
+            status = "warning",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. App Name:"),
+            br(),
+            tags$b("plot_deg_volcano"),
+            br(),br(),
+            tags$b("2. Function Description"),
+            br(),
+            p("Plot differentially expressed genes (DEGs) volcano."),
+            tags$b("3. Demo Output"),
+            br(),br(),
+            imageOutput("example_plot_deg_volcano", width = 300, height = NULL)
+          ),
+          bs4Card(
+            title = "Example Datasets",
+            status = "info",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. Genomic Annotation (GFF3/GTF)"),
+            br(),
+            tags$b("Mus musculus: GRCm39.115"),
+            downloadButton("dl_gff_gtf_12", "Download GFF3", icon = icon("download")),
+            br(), br(),
+            tags$b("2. Differentially expressed genes (DESeq2)"),
+            br(),
+
+            downloadButton("dl_deg_deg_12", "Download DEG", icon = icon("download")),
+            br(), br(),
+            tags$b("3. Differentially methylated regions (MethylKit)"),
+            br(),
+
+            downloadButton("dl_dmr_dmg_12", "Download DMR", icon = icon("download")),
+            br(), br(),
+            tags$b("4. SNP mutation site (VCFtools)"),
+            br(),
+
+            downloadButton("dl_fst_snp_12", "Download SNP", icon = icon("download"))
           )
         )
       )),
@@ -1875,7 +2548,7 @@ ui <- bs4DashPage(
             )
           )
         ), column(
-          width = 9,
+          width = 6,
           bs4Card(
             title = " Plot",
             icon = icon("chart-pie"),
@@ -1883,8 +2556,54 @@ ui <- bs4DashPage(
             solidHeader = FALSE,
             width = 12,
             plotOutput("plot_snp_fst", height = "600px")
+          )
+        ), column(
+          width = 3,
+          bs4Card(
+            title = "Plot genomic weighted FST heatmap",
+            status = "warning",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. App Name:"),
+            br(),
+            tags$b("plot_snp_fst"),
+            br(),br(),
+            tags$b("2. Function Description"),
+            br(),
+            p("Plot genomic weighted FST heatmap."),
+            tags$b("3. Demo Output"),
+            br(),br(),
+            imageOutput("example_plot_snp_fst", width = 300, height = NULL)
           ),
+          bs4Card(
+            title = "Example Datasets",
+            status = "info",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. Genomic Annotation (GFF3/GTF)"),
+            br(),
+            tags$b("Mus musculus: GRCm39.115"),
+            downloadButton("dl_gff_gtf_13", "Download GFF3", icon = icon("download")),
+            br(), br(),
+            tags$b("2. Differentially expressed genes (DESeq2)"),
+            br(),
 
+            downloadButton("dl_deg_deg_13", "Download DEG", icon = icon("download")),
+            br(), br(),
+            tags$b("3. Differentially methylated regions (MethylKit)"),
+            br(),
+
+            downloadButton("dl_dmr_dmg_13", "Download DMR", icon = icon("download")),
+            br(), br(),
+            tags$b("4. SNP mutation site (VCFtools)"),
+            br(),
+
+            downloadButton("dl_fst_snp_13", "Download SNP", icon = icon("download"))
+          )
         )
       )),
 
@@ -2024,7 +2743,7 @@ ui <- bs4DashPage(
             )
           )
         ), column(
-          width = 9,
+          width = 6,
           bs4Card(
             title = " Plot",
             icon = icon("chart-pie"),
@@ -2032,8 +2751,54 @@ ui <- bs4DashPage(
             solidHeader = FALSE,
             width = 12,
             plotOutput("plot_snp_anno", height = "600px")
+          )
+        ), column(
+          width = 3,
+          bs4Card(
+            title = "Plot genomic FST with annotations",
+            status = "warning",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. App Name:"),
+            br(),
+            tags$b("plot_snp_anno"),
+            br(),br(),
+            tags$b("2. Function Description"),
+            br(),
+            p("Plot genomic FST with Top-N gene annotations."),
+            tags$b("3. Demo Output"),
+            br(),br(),
+            imageOutput("example_plot_snp_anno", width = 300, height = NULL)
           ),
+          bs4Card(
+            title = "Example Datasets",
+            status = "info",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. Genomic Annotation (GFF3/GTF)"),
+            br(),
+            tags$b("Mus musculus: GRCm39.115"),
+            downloadButton("dl_gff_gtf_14", "Download GFF3", icon = icon("download")),
+            br(), br(),
+            tags$b("2. Differentially expressed genes (DESeq2)"),
+            br(),
 
+            downloadButton("dl_deg_deg_14", "Download DEG", icon = icon("download")),
+            br(), br(),
+            tags$b("3. Differentially methylated regions (MethylKit)"),
+            br(),
+
+            downloadButton("dl_dmr_dmg_14", "Download DMR", icon = icon("download")),
+            br(), br(),
+            tags$b("4. SNP mutation site (VCFtools)"),
+            br(),
+
+            downloadButton("dl_fst_snp_14", "Download SNP", icon = icon("download"))
+          )
         )
       )),
 
@@ -2137,7 +2902,7 @@ ui <- bs4DashPage(
             )
           )
         ), column(
-          width = 9,
+          width = 6,
           bs4Card(
             title = " Plot",
             icon = icon("chart-pie"),
@@ -2145,8 +2910,54 @@ ui <- bs4DashPage(
             solidHeader = FALSE,
             width = 12,
             plotOutput("plot_dmg_chrom", height = "600px")
+          )
+        ), column(
+          width = 3,
+          bs4Card(
+            title = "Plot DMRs hyper/hypo distributions",
+            status = "warning",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. App Name:"),
+            br(),
+            tags$b("plot_dmg_chrom"),
+            br(),br(),
+            tags$b("2. Function Description"),
+            br(),
+            p("Plot differentially methylated regions (DMRs) hyper/hypo distributions by chromosome."),
+            tags$b("3. Demo Output"),
+            br(),br(),
+            imageOutput("example_plot_dmg_chrom", width = 300, height = NULL)
           ),
+          bs4Card(
+            title = "Example Datasets",
+            status = "info",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. Genomic Annotation (GFF3/GTF)"),
+            br(),
+            tags$b("Mus musculus: GRCm39.115"),
+            downloadButton("dl_gff_gtf_15", "Download GFF3", icon = icon("download")),
+            br(), br(),
+            tags$b("2. Differentially expressed genes (DESeq2)"),
+            br(),
 
+            downloadButton("dl_deg_deg_15", "Download DEG", icon = icon("download")),
+            br(), br(),
+            tags$b("3. Differentially methylated regions (MethylKit)"),
+            br(),
+
+            downloadButton("dl_dmr_dmg_15", "Download DMR", icon = icon("download")),
+            br(), br(),
+            tags$b("4. SNP mutation site (VCFtools)"),
+            br(),
+
+            downloadButton("dl_fst_snp_15", "Download SNP", icon = icon("download"))
+          )
         )
       )),
       bs4TabItem(tabName = "plot_dmg_exp", fluidRow(
@@ -2274,7 +3085,7 @@ ui <- bs4DashPage(
             )
           )
         ), column(
-          width = 9,
+          width = 6,
           bs4Card(
             title = " Plot",
             icon = icon("chart-pie"),
@@ -2282,6 +3093,53 @@ ui <- bs4DashPage(
             solidHeader = FALSE,
             width = 12,
             plotOutput("plot_dmg_exp", height = "600px")
+          )
+        ), column(
+          width = 3,
+          bs4Card(
+            title = "Plot DMGs hyper/hypo along chromosomes",
+            status = "warning",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. App Name:"),
+            br(),
+            tags$b("plot_dmg_exp"),
+            br(),br(),
+            tags$b("2. Function Description"),
+            br(),
+            p("Plot DMGs hyper/hypo along chromosomes."),
+            tags$b("3. Demo Output"),
+            br(),br(),
+            imageOutput("example_plot_dmg_exp", width = 300, height = NULL)
+          ),
+          bs4Card(
+            title = "Example Datasets",
+            status = "info",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. Genomic Annotation (GFF3/GTF)"),
+            br(),
+            tags$b("Mus musculus: GRCm39.115"),
+            downloadButton("dl_gff_gtf_16", "Download GFF3", icon = icon("download")),
+            br(), br(),
+            tags$b("2. Differentially expressed genes (DESeq2)"),
+            br(),
+
+            downloadButton("dl_deg_deg_16", "Download DEG", icon = icon("download")),
+            br(), br(),
+            tags$b("3. Differentially methylated regions (MethylKit)"),
+            br(),
+
+            downloadButton("dl_dmr_dmg_16", "Download DMR", icon = icon("download")),
+            br(), br(),
+            tags$b("4. SNP mutation site (VCFtools)"),
+            br(),
+
+            downloadButton("dl_fst_snp_16", "Download SNP", icon = icon("download"))
           )
         )
       ))
@@ -2366,7 +3224,7 @@ ui <- bs4DashPage(
             )
           )
         ), column(
-          width = 9,
+          width = 6,
           bs4Card(
             title = " Plot",
             icon = icon("chart-pie"),
@@ -2374,6 +3232,53 @@ ui <- bs4DashPage(
             solidHeader = FALSE,
             width = 12,
             plotOutput("plot_gene_stats", height = "600px")
+          )
+        ), column(
+          width = 3,
+          bs4Card(
+            title = "Plot gene stats",
+            status = "warning",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. App Name:"),
+            br(),
+            tags$b("plot_gene_stats"),
+            br(),br(),
+            tags$b("2. Function Description"),
+            br(),
+            p("Plot gene stats for chromosomes."),
+            tags$b("3. Demo Output"),
+            br(),br(),
+            imageOutput("example_plot_gene_stats", width = 300, height = NULL)
+          ),
+          bs4Card(
+            title = "Example Datasets",
+            status = "info",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. Genomic Annotation (GFF3/GTF)"),
+            br(),
+            tags$b("Mus musculus: GRCm39.115"),
+            downloadButton("dl_gff_gtf_17", "Download GFF3", icon = icon("download")),
+            br(), br(),
+            tags$b("2. Differentially expressed genes (DESeq2)"),
+            br(),
+
+            downloadButton("dl_deg_deg_17", "Download DEG", icon = icon("download")),
+            br(), br(),
+            tags$b("3. Differentially methylated regions (MethylKit)"),
+            br(),
+
+            downloadButton("dl_dmr_dmg_17", "Download DMR", icon = icon("download")),
+            br(), br(),
+            tags$b("4. SNP mutation site (VCFtools)"),
+            br(),
+
+            downloadButton("dl_fst_snp_17", "Download SNP", icon = icon("download"))
           )
         )
       )),
@@ -2458,7 +3363,7 @@ ui <- bs4DashPage(
             )
           )
         ), column(
-          width = 9,
+          width = 6,
           bs4Card(
             title = " Plot",
             icon = icon("chart-pie"),
@@ -2466,6 +3371,53 @@ ui <- bs4DashPage(
             solidHeader = FALSE,
             width = 12,
             plotOutput("plot_snp_density", height = "600px")
+          )
+        ), column(
+          width = 3,
+          bs4Card(
+            title = "Plot SNP density",
+            status = "warning",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. App Name:"),
+            br(),
+            tags$b("plot_snp_density"),
+            br(),br(),
+            tags$b("2. Function Description"),
+            br(),
+            p("Plot SNP density at chromosome level."),
+            tags$b("3. Demo Output"),
+            br(),br(),
+            imageOutput("example_plot_snp_density", width = 300, height = NULL)
+          ),
+          bs4Card(
+            title = "Example Datasets",
+            status = "info",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. Genomic Annotation (GFF3/GTF)"),
+            br(),
+            tags$b("Mus musculus: GRCm39.115"),
+            downloadButton("dl_gff_gtf_18", "Download GFF3", icon = icon("download")),
+            br(), br(),
+            tags$b("2. Differentially expressed genes (DESeq2)"),
+            br(),
+
+            downloadButton("dl_deg_deg_18", "Download DEG", icon = icon("download")),
+            br(), br(),
+            tags$b("3. Differentially methylated regions (MethylKit)"),
+            br(),
+
+            downloadButton("dl_dmr_dmg_18", "Download DMR", icon = icon("download")),
+            br(), br(),
+            tags$b("4. SNP mutation site (VCFtools)"),
+            br(),
+
+            downloadButton("dl_fst_snp_18", "Download SNP", icon = icon("download"))
           )
         )
       )),
@@ -2553,13 +3505,60 @@ ui <- bs4DashPage(
             )
           )
         ), column(
-          width = 9,
+          width = 6,
           bs4Card(
             title = "Data",
             status = "primary",
             solidHeader = FALSE,
             width = 12,
             DT::dataTableOutput("table_anno_fst_dmr")
+          )
+        ), column(
+          width = 3,
+          bs4Card(
+            title = "Annotate FST/DMR",
+            status = "warning",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. App Name:"),
+            br(),
+            tags$b("anno_fst_dmr"),
+            br(),br(),
+            tags$b("2. Function Description"),
+            br(),
+            p("Annotate FST/DMR windows with genomic features."),
+            tags$b("3. Demo Output"),
+            br(),br(),
+            imageOutput("example_anno_fst_dmr", width = 300, height = NULL)
+          ),
+          bs4Card(
+            title = "Example Datasets",
+            status = "info",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. Genomic Annotation (GFF3/GTF)"),
+            br(),
+            tags$b("Mus musculus: GRCm39.115"),
+            downloadButton("dl_gff_gtf_19", "Download GFF3", icon = icon("download")),
+            br(), br(),
+            tags$b("2. Differentially expressed genes (DESeq2)"),
+            br(),
+
+            downloadButton("dl_deg_deg_19", "Download DEG", icon = icon("download")),
+            br(), br(),
+            tags$b("3. Differentially methylated regions (MethylKit)"),
+            br(),
+
+            downloadButton("dl_dmr_dmg_19", "Download DMR", icon = icon("download")),
+            br(), br(),
+            tags$b("4. SNP mutation site (VCFtools)"),
+            br(),
+
+            downloadButton("dl_fst_snp_19", "Download SNP", icon = icon("download"))
           )
         )
       )),
@@ -2616,13 +3615,60 @@ ui <- bs4DashPage(
             )
           )
         ), column(
-          width = 9,
+          width = 6,
           bs4Card(
             title = "Data",
             status = "primary",
             solidHeader = FALSE,
             width = 12,
             DT::dataTableOutput("table_extract_promoters")
+          )
+        ), column(
+          width = 3,
+          bs4Card(
+            title = "Extract promoter ranges",
+            status = "warning",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. App Name:"),
+            br(),
+            tags$b("extract_promoters"),
+            br(),br(),
+            tags$b("2. Function Description"),
+            br(),
+            p("Extract promoter ranges from GFF or GTF."),
+            tags$b("3. Demo Output"),
+            br(),br(),
+            imageOutput("example_extract_promoters", width = 300, height = NULL)
+          ),
+          bs4Card(
+            title = "Example Datasets",
+            status = "info",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. Genomic Annotation (GFF3/GTF)"),
+            br(),
+            tags$b("Mus musculus: GRCm39.115"),
+            downloadButton("dl_gff_gtf_20", "Download GFF3", icon = icon("download")),
+            br(), br(),
+            tags$b("2. Differentially expressed genes (DESeq2)"),
+            br(),
+
+            downloadButton("dl_deg_deg_20", "Download DEG", icon = icon("download")),
+            br(), br(),
+            tags$b("3. Differentially methylated regions (MethylKit)"),
+            br(),
+
+            downloadButton("dl_dmr_dmg_20", "Download DMR", icon = icon("download")),
+            br(), br(),
+            tags$b("4. SNP mutation site (VCFtools)"),
+            br(),
+
+            downloadButton("dl_fst_snp_20", "Download SNP", icon = icon("download"))
           )
         )
       )),
@@ -2665,13 +3711,60 @@ ui <- bs4DashPage(
             )
           )
         ), column(
-          width = 9,
+          width = 6,
           bs4Card(
             title = "Data",
             status = "primary",
             solidHeader = FALSE,
             width = 12,
             DT::dataTableOutput("table_extract_utr5")
+          )
+        ), column(
+          width = 3,
+          bs4Card(
+            title = "Extract 5'UTR ranges",
+            status = "warning",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. App Name:"),
+            br(),
+            tags$b("extract_utr5"),
+            br(),br(),
+            tags$b("2. Function Description"),
+            br(),
+            p("Extract 5'UTR ranges from GFF or GTF."),
+            tags$b("3. Demo Output"),
+            br(),br(),
+            imageOutput("example_extract_utr5", width = 300, height = NULL)
+          ),
+          bs4Card(
+            title = "Example Datasets",
+            status = "info",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. Genomic Annotation (GFF3/GTF)"),
+            br(),
+            tags$b("Mus musculus: GRCm39.115"),
+            downloadButton("dl_gff_gtf_21", "Download GFF3", icon = icon("download")),
+            br(), br(),
+            tags$b("2. Differentially expressed genes (DESeq2)"),
+            br(),
+
+            downloadButton("dl_deg_deg_21", "Download DEG", icon = icon("download")),
+            br(), br(),
+            tags$b("3. Differentially methylated regions (MethylKit)"),
+            br(),
+
+            downloadButton("dl_dmr_dmg_21", "Download DMR", icon = icon("download")),
+            br(), br(),
+            tags$b("4. SNP mutation site (VCFtools)"),
+            br(),
+
+            downloadButton("dl_fst_snp_21", "Download SNP", icon = icon("download"))
           )
         )
       )),
@@ -2714,13 +3807,60 @@ ui <- bs4DashPage(
             )
           )
         ), column(
-          width = 9,
+          width = 6,
           bs4Card(
             title = "Data",
             status = "primary",
             solidHeader = FALSE,
             width = 12,
             DT::dataTableOutput("table_extract_genes")
+          )
+        ), column(
+          width = 3,
+          bs4Card(
+            title = "Extract genes information",
+            status = "warning",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. App Name:"),
+            br(),
+            tags$b("extract_genes"),
+            br(),br(),
+            tags$b("2. Function Description"),
+            br(),
+            p("Extract genes information from GFF or GTF."),
+            tags$b("3. Demo Output"),
+            br(),br(),
+            imageOutput("example_extract_genes", width = 300, height = NULL)
+          ),
+          bs4Card(
+            title = "Example Datasets",
+            status = "info",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. Genomic Annotation (GFF3/GTF)"),
+            br(),
+            tags$b("Mus musculus: GRCm39.115"),
+            downloadButton("dl_gff_gtf_22", "Download GFF3", icon = icon("download")),
+            br(), br(),
+            tags$b("2. Differentially expressed genes (DESeq2)"),
+            br(),
+
+            downloadButton("dl_deg_deg_22", "Download DEG", icon = icon("download")),
+            br(), br(),
+            tags$b("3. Differentially methylated regions (MethylKit)"),
+            br(),
+
+            downloadButton("dl_dmr_dmg_22", "Download DMR", icon = icon("download")),
+            br(), br(),
+            tags$b("4. SNP mutation site (VCFtools)"),
+            br(),
+
+            downloadButton("dl_fst_snp_22", "Download SNP", icon = icon("download"))
           )
         )
       )),
@@ -2763,13 +3903,60 @@ ui <- bs4DashPage(
             )
           )
         ), column(
-          width = 9,
+          width = 6,
           bs4Card(
             title = "Data",
             status = "primary",
             solidHeader = FALSE,
             width = 12,
             DT::dataTableOutput("table_extract_mrnas")
+          )
+        ), column(
+          width = 3,
+          bs4Card(
+            title = "Extract mRNA ranges",
+            status = "warning",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. App Name:"),
+            br(),
+            tags$b("extract_mrnas"),
+            br(),br(),
+            tags$b("2. Function Description"),
+            br(),
+            p("Extract mRNA ranges from GFF or GTF."),
+            tags$b("3. Demo Output"),
+            br(),br(),
+            imageOutput("example_extract_mrnas", width = 300, height = NULL)
+          ),
+          bs4Card(
+            title = "Example Datasets",
+            status = "info",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. Genomic Annotation (GFF3/GTF)"),
+            br(),
+            tags$b("Mus musculus: GRCm39.115"),
+            downloadButton("dl_gff_gtf_23", "Download GFF3", icon = icon("download")),
+            br(), br(),
+            tags$b("2. Differentially expressed genes (DESeq2)"),
+            br(),
+
+            downloadButton("dl_deg_deg_23", "Download DEG", icon = icon("download")),
+            br(), br(),
+            tags$b("3. Differentially methylated regions (MethylKit)"),
+            br(),
+
+            downloadButton("dl_dmr_dmg_23", "Download DMR", icon = icon("download")),
+            br(), br(),
+            tags$b("4. SNP mutation site (VCFtools)"),
+            br(),
+
+            downloadButton("dl_fst_snp_23", "Download SNP", icon = icon("download"))
           )
         )
       )),
@@ -2812,13 +3999,60 @@ ui <- bs4DashPage(
             )
           )
         ), column(
-          width = 9,
+          width = 6,
           bs4Card(
             title = "Data",
             status = "primary",
             solidHeader = FALSE,
             width = 12,
             DT::dataTableOutput("table_extract_cds")
+          )
+        ), column(
+          width = 3,
+          bs4Card(
+            title = "Extract CDS ranges",
+            status = "warning",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. App Name:"),
+            br(),
+            tags$b("extract_cds"),
+            br(),br(),
+            tags$b("2. Function Description"),
+            br(),
+            p("Extract CDS ranges from GFF or GTF."),
+            tags$b("3. Demo Output"),
+            br(),br(),
+            imageOutput("example_extract_cds", width = 300, height = NULL)
+          ),
+          bs4Card(
+            title = "Example Datasets",
+            status = "info",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. Genomic Annotation (GFF3/GTF)"),
+            br(),
+            tags$b("Mus musculus: GRCm39.115"),
+            downloadButton("dl_gff_gtf_24", "Download GFF3", icon = icon("download")),
+            br(), br(),
+            tags$b("2. Differentially expressed genes (DESeq2)"),
+            br(),
+
+            downloadButton("dl_deg_deg_24", "Download DEG", icon = icon("download")),
+            br(), br(),
+            tags$b("3. Differentially methylated regions (MethylKit)"),
+            br(),
+
+            downloadButton("dl_dmr_dmg_24", "Download DMR", icon = icon("download")),
+            br(), br(),
+            tags$b("4. SNP mutation site (VCFtools)"),
+            br(),
+
+            downloadButton("dl_fst_snp_24", "Download SNP", icon = icon("download"))
           )
         )
       )),
@@ -2861,13 +4095,60 @@ ui <- bs4DashPage(
             )
           )
         ), column(
-          width = 9,
+          width = 6,
           bs4Card(
             title = "Data",
             status = "primary",
             solidHeader = FALSE,
             width = 12,
             DT::dataTableOutput("table_extract_exons")
+          )
+        ), column(
+          width = 3,
+          bs4Card(
+            title = "Extract Exons ranges",
+            status = "warning",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. App Name:"),
+            br(),
+            tags$b("extract_exons"),
+            br(),br(),
+            tags$b("2. Function Description"),
+            br(),
+            p("Extract Exons ranges from GFF or GTF."),
+            tags$b("3. Demo Output"),
+            br(),br(),
+            imageOutput("example_extract_exons", width = 300, height = NULL)
+          ),
+          bs4Card(
+            title = "Example Datasets",
+            status = "info",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. Genomic Annotation (GFF3/GTF)"),
+            br(),
+            tags$b("Mus musculus: GRCm39.115"),
+            downloadButton("dl_gff_gtf_25", "Download GFF3", icon = icon("download")),
+            br(), br(),
+            tags$b("2. Differentially expressed genes (DESeq2)"),
+            br(),
+
+            downloadButton("dl_deg_deg_25", "Download DEG", icon = icon("download")),
+            br(), br(),
+            tags$b("3. Differentially methylated regions (MethylKit)"),
+            br(),
+
+            downloadButton("dl_dmr_dmg_25", "Download DMR", icon = icon("download")),
+            br(), br(),
+            tags$b("4. SNP mutation site (VCFtools)"),
+            br(),
+
+            downloadButton("dl_fst_snp_25", "Download SNP", icon = icon("download"))
           )
         )
       )),
@@ -2910,13 +4191,60 @@ ui <- bs4DashPage(
             )
           )
         ), column(
-          width = 9,
+          width = 6,
           bs4Card(
             title = "Data",
             status = "primary",
             solidHeader = FALSE,
             width = 12,
             DT::dataTableOutput("table_extract_utr3")
+          )
+        ), column(
+          width = 3,
+          bs4Card(
+            title = "Extract 3'UTR ranges",
+            status = "warning",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. App Name:"),
+            br(),
+            tags$b("extract_utr3"),
+            br(),br(),
+            tags$b("2. Function Description"),
+            br(),
+            p("Extract 3'UTR ranges from GFF or GTF."),
+            tags$b("3. Demo Output"),
+            br(),br(),
+            imageOutput("example_extract_utr3", width = 300, height = NULL)
+          ),
+          bs4Card(
+            title = "Example Datasets",
+            status = "info",
+            solidHeader = FALSE,
+            collapsible = FALSE,
+            width = 12,
+            style = "height: 390px; overflow-y: auto;",
+            tags$b("1. Genomic Annotation (GFF3/GTF)"),
+            br(),
+            tags$b("Mus musculus: GRCm39.115"),
+            downloadButton("dl_gff_gtf_26", "Download GFF3", icon = icon("download")),
+            br(), br(),
+            tags$b("2. Differentially expressed genes (DESeq2)"),
+            br(),
+
+            downloadButton("dl_deg_deg_26", "Download DEG", icon = icon("download")),
+            br(), br(),
+            tags$b("3. Differentially methylated regions (MethylKit)"),
+            br(),
+
+            downloadButton("dl_dmr_dmg_26", "Download DMR", icon = icon("download")),
+            br(), br(),
+            tags$b("4. SNP mutation site (VCFtools)"),
+            br(),
+
+            downloadButton("dl_fst_snp_26", "Download SNP", icon = icon("download"))
           )
         )
       ))
@@ -2981,6 +4309,132 @@ server <- function(input, output, session) {
       stringsAsFactors = FALSE
     )
   }
+
+  output$example_plot_gene_structure <- renderImage({
+    p <- exampleImageFile("plot_gene_structure")
+    list(src = p, contentType = "image/png", alt = "plot_gene_structure", width = 320)
+  }, deleteFile = FALSE)
+  output$example_plot_interval_structure <- renderImage({
+    p <- exampleImageFile("plot_interval_structure")
+    list(src = p, contentType = "image/png", alt = "plot_interval_structure", width = 320)
+  }, deleteFile = FALSE)
+  output$example_plot_interval_flank <- renderImage({
+    p <- exampleImageFile("plot_interval_flank")
+    list(src = p, contentType = "image/png", alt = "plot_interval_flank", width = 320)
+  }, deleteFile = FALSE)
+  output$example_plot_chrom_structure <- renderImage({
+    p <- exampleImageFile("plot_chrom_structure")
+    list(src = p, contentType = "image/png", alt = "plot_chrom_structure", width = 320)
+  }, deleteFile = FALSE)
+  output$example_plot_chrom_genes <- renderImage({
+    p <- exampleImageFile("plot_chrom_genes")
+    list(src = p, contentType = "image/png", alt = "plot_chrom_genes", width = 320)
+  }, deleteFile = FALSE)
+  output$example_plot_chrom_heatmap <- renderImage({
+    p <- exampleImageFile("plot_chrom_heatmap")
+    list(src = p, contentType = "image/png", alt = "plot_chrom_heatmap", width = 320)
+  }, deleteFile = FALSE)
+  output$example_plot_gene_domains <- renderImage({
+    p <- exampleImageFile("plot_gene_domains")
+    list(src = p, contentType = "image/png", alt = "plot_gene_domains", width = 320)
+  }, deleteFile = FALSE)
+  output$example_plot_gene_stats <- renderImage({
+    p <- exampleImageFile("plot_gene_stats")
+    list(src = p, contentType = "image/png", alt = "plot_gene_stats", width = 320)
+  }, deleteFile = FALSE)
+  output$example_plot_deg_exp <- renderImage({
+    p <- exampleImageFile("plot_deg_exp")
+    list(src = p, contentType = "image/png", alt = "plot_deg_exp", width = 320)
+  }, deleteFile = FALSE)
+  output$example_plot_snp_density <- renderImage({
+    p <- exampleImageFile("plot_snp_density")
+    list(src = p, contentType = "image/png", alt = "plot_snp_density", width = 320)
+  }, deleteFile = FALSE)
+  output$example_plot_dmg_trend <- renderImage({
+    p <- exampleImageFile("plot_dmg_trend")
+    list(src = p, contentType = "image/png", alt = "plot_dmg_trend", width = 320)
+  }, deleteFile = FALSE)
+
+  output$example_anno_deg_chrom <- renderImage({
+    p <- exampleImageFile("plot_deg_chrom")
+    list(src = p, contentType = "image/png", alt = "anno_deg_chrom", width = 320)
+  }, deleteFile = FALSE)
+  output$example_plot_deg_chrom <- renderImage({
+    p <- exampleImageFile("plot_deg_chrom")
+    list(src = p, contentType = "image/png", alt = "plot_deg_chrom", width = 320)
+  }, deleteFile = FALSE)
+  output$example_plot_deg_volcano <- renderImage({
+    p <- exampleImageFile("plot_deg_volcano")
+    list(src = p, contentType = "image/png", alt = "plot_deg_volcano", width = 320)
+  }, deleteFile = FALSE)
+  output$example_plot_dmg_chrom <- renderImage({
+    p <- exampleImageFile("plot_dmg_chrom")
+    list(src = p, contentType = "image/png", alt = "plot_dmg_chrom", width = 320)
+  }, deleteFile = FALSE)
+  output$example_plot_dmg_exp <- renderImage({
+    p <- exampleImageFile("plot_dmg_exp")
+    list(src = p, contentType = "image/png", alt = "plot_dmg_exp", width = 320)
+  }, deleteFile = FALSE)
+  output$example_anno_fst_dmr <- renderImage({
+    p <- exampleImageFile("plot_dmg_manhattan")
+    list(src = p, contentType = "image/png", alt = "anno_fst_dmr", width = 320)
+  }, deleteFile = FALSE)
+  output$example_plot_snp_anno <- renderImage({
+    p <- exampleImageFile("plot_snp_anno")
+    list(src = p, contentType = "image/png", alt = "plot_snp_anno", width = 320)
+  }, deleteFile = FALSE)
+  output$example_plot_snp_fst <- renderImage({
+    p <- exampleImageFile("plot_snp_fst")
+    list(src = p, contentType = "image/png", alt = "plot_snp_fst", width = 320)
+  }, deleteFile = FALSE)
+  output$example_extract_cds <- renderImage({
+    p <- placeholderImage()
+    list(src = p, contentType = "image/png", alt = "extract_cds", width = 320)
+  }, deleteFile = FALSE)
+  output$example_extract_exons <- renderImage({
+    p <- placeholderImage()
+    list(src = p, contentType = "image/png", alt = "extract_exons", width = 320)
+  }, deleteFile = FALSE)
+  output$example_extract_genes <- renderImage({
+    p <- placeholderImage()
+    list(src = p, contentType = "image/png", alt = "extract_genes", width = 320)
+  }, deleteFile = FALSE)
+  output$example_extract_mrnas <- renderImage({
+    p <- placeholderImage()
+    list(src = p, contentType = "image/png", alt = "extract_mrnas", width = 320)
+  }, deleteFile = FALSE)
+  output$example_extract_promoters <- renderImage({
+    p <- placeholderImage()
+    list(src = p, contentType = "image/png", alt = "extract_promoters", width = 320)
+  }, deleteFile = FALSE)
+  output$example_extract_utr3 <- renderImage({
+    p <- placeholderImage()
+    list(src = p, contentType = "image/png", alt = "extract_utr3", width = 320)
+  }, deleteFile = FALSE)
+  output$example_extract_utr5 <- renderImage({
+    p <- placeholderImage()
+    list(src = p, contentType = "image/png", alt = "extract_utr5", width = 320)
+  }, deleteFile = FALSE)
+
+
+  lapply(1:26, function(i) {
+    output[[paste0("dl_gff_gtf_", i)]] <- downloadHandler(
+      filename = function() "example.gff3.gz",
+      content = function(file) file.copy(sample_gff(), file, overwrite = TRUE)
+    )
+    output[[paste0("dl_deg_deg_", i)]] <- downloadHandler(
+      filename = function() "example.deg",
+      content = function(file) file.copy(sample_deg(), file, overwrite = TRUE)
+    )
+    output[[paste0("dl_fst_snp_", i)]] <- downloadHandler(
+      filename = function() "example.fst",
+      content = function(file) file.copy(sample_fst(), file, overwrite = TRUE)
+    )
+    output[[paste0("dl_dmr_dmg_", i)]] <- downloadHandler(
+      filename = function() "example.dmr",
+      content = function(file) file.copy(sample_dmr(), file, overwrite = TRUE)
+    )
+  })
 
   dfGeneFeatures <- function(gff_file,
                              format,
@@ -4011,3 +5465,4 @@ server <- function(input, output, session) {
 }
 
 shinyApp(ui, server)
+

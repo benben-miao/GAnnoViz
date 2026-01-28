@@ -17,36 +17,13 @@ GAnnoViz
 
 **GAnnoViz: a R package for genomic annotation and visualization.**
 
-**GAnnoViz (genomic annotation and visualization)** is an R ecosystem
-specialized for annotating and visualizing chromosome-level gene
-functional elements in multi-omics. It provides core analysis and
-visualization functions through an R package and drives an online
-platform to enable experimental data analysis through real-time
-interaction. Currently, GAnnoViz includes 26 functions and 3 datasets.
-These functions are mainly used to address analytical needs in the
-following four aspects: extraction of genomic functional elements,
-drawing of linear gene structures, multi-omics sliding window
-annotation, and visualization of chromosome-level gene expression.
-
-These functions are compatible with each other in terms of input and
-output results, collaborating freely and closely to complete complex
-analytical tasks. Although this project uses the genome of the model
-species mouse as a reference, it has been tested that standard
-structural annotations and omics data from any species are supported. It
-is worth noting that the results of transcriptome differential
-expression should be in the DESeq2 structure, while epigenome
-differential methylation data should refer to the MethylKit results as
-the standard.
-
-GAnnoViz prioritizes the use of `GRanges` objects for parsing gene
-structures and interval annotations, and uses `ggplot` objects as the
-standard for graph drawing, facilitating high customization and
-long-term maintenance. This ecosystem adopts an open-source approach for
-suggestion adoption, new function iteration, continuous community
-maintenance, and is supported by the Hiplot cloud platform. The complete
-local or online help documentation contains detailed parameter
-descriptions and runnable examples of all functions, as well as a
-streamlined tutorial protocol.
+GAnnoViz is a cloud-integrated framework for chromosome-level feature annotation 
+and visualization in multi-omics research. It provides analytical and 
+visualization capabilities through R packages, while integrating a cloud 
+platform to enable real-time interactive data analysis. The current release 
+consists of 26 functions and three datasets, collectively addressing four core 
+analytical requirements: genomic features extraction, gene structure drawing, 
+sliding-window annotation, and multi-omics chromosome-level visualization
 
 **Open Source Code:** <https://github.com/benben-miao/GAnnoViz/>
 
@@ -61,6 +38,12 @@ alt="Shinyapp UI" />
 </figure>
 
 ## 2. Installation
+
+``` r
+# R version >= 4.0.0
+
+
+```
 
 ## 3. Shiny App
 
