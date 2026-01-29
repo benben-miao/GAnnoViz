@@ -24,19 +24,23 @@ knitr::opts_chunk$set(
 
 **GAnnoViz: a R package for genomic annotation and visualization.**
 
-GAnnoViz is a cloud-integrated framework for chromosome-level feature annotation and visualization in multi-omics research. It provides analytical and visualization capabilities through R packages, while integrating a cloud platform to enable real-time interactive data analysis. The current release consists of 26 functions and three datasets, collectively addressing four core analytical requirements: genomic features extraction, gene structure drawing, sliding-window annotation, and multi-omics chromosome-level visualization.
+***GAnnoViz is a cloud-integrated framework for chromosome-level feature annotation and visualization in multi-omics research***. It provides analytical and visualization capabilities through R packages, while integrating a cloud platform to enable real-time interactive data analysis. The current release consists of **30+ functions** and three datasets, collectively addressing four core analytical requirements: genomic features extraction, gene structure drawing, sliding-window annotation, and multi-omics chromosome-level visualization.
 
-The source code and example datasets are available in the GitHub repository under an open-source license, facilitating reproducibility and community-driven development through issue reporting and pull requests.
+The **source code** and **example datasets** are available in the GitHub repository under an open-source license, facilitating reproducibility and community-driven development through issue reporting and pull requests.
 
-**Open Source Code:** <https://github.com/benben-miao/GAnnoViz/>
+**Open Source Code:** [***https://github.com/benben-miao/GAnnoViz/***](https://github.com/benben-miao/GAnnoViz/){.uri}
 
-**Documents API**: <https://benben-miao.github.io/GAnnoViz/>
+**Documents API**: [***https://benben-miao.github.io/GAnnoViz/***](https://benben-miao.github.io/GAnnoViz/){.uri}
 
-**Cloud Platform**: <https://shiny.hiplot.cn/gannoviz/>
+**Cloud Platform**: [***https://shiny.hiplot.cn/gannoviz/***](https://shiny.hiplot.cn/gannoviz/){.uri}
 
 ![Shinyapp UI](https://benben-miao.github.io/GAnnoViz/image/Shinyapp.png)
 
 ## 2. Install & Library
+
+**Requirement**: R version \> v4.0.0
+
+**Recommended**: R version \>= v4.5.0
 
 ```{r eval=FALSE}
 # Install from GitHub
@@ -61,9 +65,9 @@ GAnnoViz::GAnnoVizApp()
 
 ### 4.1 Reference genomic annotation
 
-The built-in example genomic annotations and multi-omics datasets in the GAnnoViz package and its accompanying cloud platform are provided for demonstration purposes, enabling users to rapidly prepare their own input data by reference. The structure of these example datasets can be inspected through dedicated functions, and the files are publicly accessible for download from both the source code repository and the cloud platform. 
+The **built-in** example genomic annotations and multi-omics datasets in the GAnnoViz package and its accompanying cloud platform are provided for demonstration purposes, enabling users to rapidly prepare their own input data by reference. The structure of these example datasets can be inspected through dedicated functions, and the files are publicly accessible for download from both the source code repository and the cloud platform.
 
-The default reference genomic annotation employed is the latest version of the **mouse (*Mus musculus*)** genome, GRCm39.115, sourced from the **Ensembl database v115** and formatted in standard GFF3. This annotation includes complete chromosomes, gene coordinate information, and well-defined hierarchical feature relationships. The current and historical genomic annotation versions for humans and other key species can be obtained directly from Ensembl, and GAnnoViz supports the parsing of newly assembled genomic annotation.
+The default reference genomic annotation employed is the latest version of the **mouse (*Mus musculus*)** genome, **GRCm39.115**, sourced from the **Ensembl database v115** and formatted in standard GFF3. This annotation includes complete chromosomes, gene coordinate information, and well-defined hierarchical feature relationships. The current and historical genomic annotation versions for **humans and other key species** can be obtained directly from Ensembl, and GAnnoViz supports the parsing of newly assembled genomic annotation.
 
 **Ensembl Genomic Annotation:** <https://ftp.ensembl.org/pub/release-115/gff3/>
 
@@ -71,7 +75,7 @@ The default reference genomic annotation employed is the latest version of the *
 
 ### 4.2 Multi-omics result datasets
 
-All multi-omics example datasets are simulated for illustrative purposes and adhere the widely adopted formats in the field. Standard gene differential expression matrices are generated using **DESeq2 v1.50.2**, with differentially expressed genes (DEGs) identified by |log2(FoldChange)| > 1 and padj < 0.05. Differential methylation results are generated using **MethylKit v1.36.0**, with differentially methylated regions (DMRs) identified by |meth.diff| > 25 and qvalue < 0.05. Data files can be directly loaded into standard R data objects via built-in reading functions or through the cloud platform’s data upload interface, eliminating the need for users to pre-process genome annotations or multi-omics results into tabular formats prior to analysis.
+All multi-omics example datasets are simulated for illustrative purposes and adhere the widely adopted formats in the field. Standard gene differential expression matrices are generated using **DESeq2 v1.50.2**, with differentially expressed genes (**DEGs**) identified by ***`|log2(FoldChange)| > 1`*** and ***`padj < 0.05`***. Differential methylation results are generated using **MethylKit v1.36.0**, with differentially methylated regions (**DMRs**) identified by ***`|meth.diff| > 25`*** and ***`qvalue < 0.05`***. Data files can be directly loaded into standard R data objects via built-in reading functions or through the cloud platform’s data upload interface, eliminating the need for users to pre-process genome annotations or multi-omics results into tabular formats prior to analysis.
 
 ## 5. Retrieve Ensembl
 

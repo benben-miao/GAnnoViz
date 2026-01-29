@@ -385,7 +385,7 @@ ui <- bs4DashPage(
             ),
             downloadButton(
               outputId = "session_download_plot_gene_structure",
-              label = "Session Info",
+              label = "Version, Parameter, MD5",
               icon = icon("circle-info"),
               style = "width: 100%",
               class = "btn-block"
@@ -597,7 +597,7 @@ ui <- bs4DashPage(
             ),
             downloadButton(
               outputId = "session_download_table_anno_deg_chrom",
-              label = "Session Info",
+              label = "Version, Parameter, MD5",
               icon = icon("circle-info"),
               style = "width: 100%",
               class = "btn-block"
@@ -716,7 +716,7 @@ ui <- bs4DashPage(
             ),
             downloadButton(
               outputId = "session_download_plot_gene_domains",
-              label = "Session Info",
+              label = "Version, Parameter, MD5",
               icon = icon("circle-info"),
               style = "width: 100%",
               class = "btn-block"
@@ -868,7 +868,7 @@ ui <- bs4DashPage(
             ),
             downloadButton(
               outputId = "session_download_plot_dmg_trend",
-              label = "Session Info",
+              label = "Version, Parameter, MD5",
               icon = icon("circle-info"),
               style = "width: 100%",
               class = "btn-block"
@@ -1026,7 +1026,7 @@ ui <- bs4DashPage(
             ),
             downloadButton(
               outputId = "session_download_plot_interval_structure",
-              label = "Session Info",
+              label = "Version, Parameter, MD5",
               icon = icon("circle-info"),
               style = "width: 100%",
               class = "btn-block"
@@ -1252,7 +1252,7 @@ ui <- bs4DashPage(
             ),
             downloadButton(
               outputId = "session_download_plot_interval_flank",
-              label = "Session Info",
+              label = "Version, Parameter, MD5",
               icon = icon("circle-info"),
               style = "width: 100%",
               class = "btn-block"
@@ -1446,7 +1446,7 @@ ui <- bs4DashPage(
             ),
             downloadButton(
               outputId = "session_download_plot_chrom_structure",
-              label = "Session Info",
+              label = "Version, Parameter, MD5",
               icon = icon("circle-info"),
               style = "width: 100%",
               class = "btn-block"
@@ -1625,7 +1625,7 @@ ui <- bs4DashPage(
             ),
             downloadButton(
               outputId = "session_download_plot_chrom_genes",
-              label = "Session Info",
+              label = "Version, Parameter, MD5",
               icon = icon("circle-info"),
               style = "width: 100%",
               class = "btn-block"
@@ -1832,7 +1832,7 @@ ui <- bs4DashPage(
             ),
             downloadButton(
               outputId = "session_download_plot_chrom_heatmap",
-              label = "Session Info",
+              label = "Version, Parameter, MD5",
               icon = icon("circle-info"),
               style = "width: 100%",
               class = "btn-block"
@@ -1995,7 +1995,7 @@ ui <- bs4DashPage(
             ),
             downloadButton(
               outputId = "session_download_plot_deg_chrom",
-              label = "Session Info",
+              label = "Version, Parameter, MD5",
               icon = icon("circle-info"),
               style = "width: 100%",
               class = "btn-block"
@@ -2178,7 +2178,7 @@ ui <- bs4DashPage(
             ),
             downloadButton(
               outputId = "session_download_plot_deg_exp",
-              label = "Session Info",
+              label = "Version, Parameter, MD5",
               icon = icon("circle-info"),
               style = "width: 100%",
               class = "btn-block"
@@ -2386,7 +2386,7 @@ ui <- bs4DashPage(
             ),
             downloadButton(
               outputId = "session_download_plot_deg_volcano",
-              label = "Session Info",
+              label = "Version, Parameter, MD5",
               icon = icon("circle-info"),
               style = "width: 100%",
               class = "btn-block"
@@ -2566,7 +2566,7 @@ ui <- bs4DashPage(
             ),
             downloadButton(
               outputId = "session_download_plot_snp_fst",
-              label = "Session Info",
+              label = "Version, Parameter, MD5",
               icon = icon("circle-info"),
               style = "width: 100%",
               class = "btn-block"
@@ -2723,7 +2723,7 @@ ui <- bs4DashPage(
             ),
             downloadButton(
               outputId = "session_download_plot_snp_anno",
-              label = "Session Info",
+              label = "Version, Parameter, MD5",
               icon = icon("circle-info"),
               style = "width: 100%",
               class = "btn-block"
@@ -2925,7 +2925,7 @@ ui <- bs4DashPage(
             ),
             downloadButton(
               outputId = "session_download_plot_dmg_chrom",
-              label = "Session Info",
+              label = "Version, Parameter, MD5",
               icon = icon("circle-info"),
               style = "width: 100%",
               class = "btn-block"
@@ -3090,7 +3090,7 @@ ui <- bs4DashPage(
             ),
             downloadButton(
               outputId = "session_download_plot_dmg_exp",
-              label = "Session Info",
+              label = "Version, Parameter, MD5",
               icon = icon("circle-info"),
               style = "width: 100%",
               class = "btn-block"
@@ -3281,7 +3281,7 @@ ui <- bs4DashPage(
             ),
             downloadButton(
               outputId = "session_download_plot_gene_stats",
-              label = "Session Info",
+              label = "Version, Parameter, MD5",
               icon = icon("circle-info"),
               style = "width: 100%",
               class = "btn-block"
@@ -3426,7 +3426,7 @@ ui <- bs4DashPage(
             ),
             downloadButton(
               outputId = "session_download_plot_snp_density",
-              label = "Session Info",
+              label = "Version, Parameter, MD5",
               icon = icon("circle-info"),
               style = "width: 100%",
               class = "btn-block"
@@ -3572,7 +3572,7 @@ ui <- bs4DashPage(
             ),
             downloadButton(
               outputId = "session_download_table_anno_fst_dmr",
-              label = "Session Info",
+              label = "Version, Parameter, MD5",
               icon = icon("circle-info"),
               style = "width: 100%",
               class = "btn-block"
@@ -3720,7 +3720,7 @@ ui <- bs4DashPage(
             ),
             downloadButton(
               outputId = "session_download_table_extract_promoters",
-              label = "Session Info",
+              label = "Version, Parameter, MD5",
               icon = icon("circle-info"),
               style = "width: 100%",
               class = "btn-block"
@@ -3837,7 +3837,7 @@ ui <- bs4DashPage(
             ),
             downloadButton(
               outputId = "session_download_table_extract_utr5",
-              label = "Session Info",
+              label = "Version, Parameter, MD5",
               icon = icon("circle-info"),
               style = "width: 100%",
               class = "btn-block"
@@ -3940,7 +3940,7 @@ ui <- bs4DashPage(
             ),
             downloadButton(
               outputId = "session_download_table_extract_genes",
-              label = "Session Info",
+              label = "Version, Parameter, MD5",
               icon = icon("circle-info"),
               style = "width: 100%",
               class = "btn-block"
@@ -4043,7 +4043,7 @@ ui <- bs4DashPage(
             ),
             downloadButton(
               outputId = "session_download_table_extract_mrnas",
-              label = "Session Info",
+              label = "Version, Parameter, MD5",
               icon = icon("circle-info"),
               style = "width: 100%",
               class = "btn-block"
@@ -4146,7 +4146,7 @@ ui <- bs4DashPage(
             ),
             downloadButton(
               outputId = "session_download_table_extract_cds",
-              label = "Session Info",
+              label = "Version, Parameter, MD5",
               icon = icon("circle-info"),
               style = "width: 100%",
               class = "btn-block"
@@ -4249,7 +4249,7 @@ ui <- bs4DashPage(
             ),
             downloadButton(
               outputId = "session_download_table_extract_exons",
-              label = "Session Info",
+              label = "Version, Parameter, MD5",
               icon = icon("circle-info"),
               style = "width: 100%",
               class = "btn-block"
@@ -4352,7 +4352,7 @@ ui <- bs4DashPage(
             ),
             downloadButton(
               outputId = "session_download_table_extract_utr3",
-              label = "Session Info",
+              label = "Version, Parameter, MD5",
               icon = icon("circle-info"),
               style = "width: 100%",
               class = "btn-block"
@@ -4618,11 +4618,76 @@ server <- function(input, output, session) {
     )
   })
 
-  lapply(c("download_plot_gene_structure", "download_table_anno_deg_chrom", "download_plot_gene_domains", "download_plot_dmg_trend", "download_plot_interval_structure", "download_plot_interval_flank", "download_plot_chrom_structure", "download_plot_chrom_genes", "download_plot_chrom_heatmap", "download_plot_deg_chrom", "download_plot_deg_exp", "download_plot_deg_volcano", "download_plot_snp_fst", "download_plot_snp_anno", "download_plot_dmg_chrom", "download_plot_dmg_exp", "download_plot_gene_stats", "download_plot_snp_density", "download_table_anno_fst_dmr", "download_table_extract_promoters", "download_table_extract_utr5", "download_table_extract_genes", "download_table_extract_mrnas", "download_table_extract_cds", "download_table_extract_exons", "download_table_extract_utr3"), function(id) {
+    param_map <- list(
+  "download_plot_gene_structure" = c("arrow_count", "arrow_length", "arrow_unit", "downstream", "exon_color", "feature_alpha", "gene_id", "gff_file_gene", "gff_format_gene", "intron_color", "intron_width", "promoter_color", "upstream", "utr3_color", "utr5_color", "x_breaks"),
+  "download_table_anno_deg_chrom" = c("deg_file_anno", "fc_col_anno", "gff_file_deg_anno", "gff_format_deg_anno", "id_col_anno", "upstream_anno", "downstream_anno"),
+  "download_plot_gene_domains" = c("gene_name_domains", "legend_ncol_domains", "palette_domains", "species_domains", "transcript_choice_domains", "transcript_id_domains"),
+  "download_plot_dmg_trend" = c("chrom_id_trend", "dmr_file_trend", "hyper_color_trend", "hypo_color_trend", "point_alpha_trend", "point_size_trend", "smooth_span_trend"),
+  "download_plot_interval_structure" = c("arrow_count_interval", "arrow_length_interval", "arrow_unit_interval", "chrom_id", "downstream_interval", "exon_color_interval", "feature_alpha_interval", "gff_file_interval", "gff_format_interval", "intron_color_interval", "intron_width_interval", "promoter_color_interval", "upstream_interval", "utr3_color_interval", "utr5_color_interval", "win_end", "win_start", "x_breaks_interval"),
+  "download_plot_interval_flank" = c("arrow_length_flank", "arrow_unit_flank", "downstream_flank", "flank_downstream", "flank_gene_id", "flank_upstream", "gene_color_flank", "gff_file_flank", "gff_format_flank", "label_size_flank", "promoter_color_flank", "show_promoters", "upstream_flank"),
+  "download_plot_chrom_structure" = c("bar_width", "chrom_alpha", "chrom_color", "chrom_orientation", "gene_color_chrom", "gene_width", "gff_file_chrom", "gff_format_chrom", "label_size_chrom", "telomere_color"),
+  "download_plot_chrom_genes" = c("annotate_mode", "bar_width_genes", "chrom_alpha_genes", "chrom_color_genes", "chrom_genes_orientation", "connector_dx1_genes", "connector_dx2_genes", "gene_color_genes", "gene_table_file", "gene_width_genes", "gff_file_chrom_genes", "gff_format_chrom_genes", "label_size_genes", "min_gap_frac", "telomere_color_genes"),
+  "download_plot_chrom_heatmap" = c("alpha_heatmap", "bin_size_heatmap", "feature_type", "gff_file_heatmap", "gff_format_heatmap", "orientation_heatmap", "palette_end", "palette_start"),
+  "download_plot_deg_chrom" = c("deg_file", "fc_col", "gff_file_deg", "gff_format_deg", "hyper_color_deg", "hypo_color_deg", "id_col", "jitter_width_deg", "point_shape_deg", "point_size_deg", "violin_border", "violin_scale"),
+  "download_plot_deg_exp" = c("bar_height_deg_exp", "chrom_alpha_deg_exp", "chrom_color_deg_exp", "deg_file_exp", "down_color_deg_exp", "fc_col_exp", "gff_file_deg_exp", "gff_format_deg_exp", "id_col_exp", "line_height_deg_exp", "line_width_deg_exp", "mark_style_deg_exp", "orientation_deg_exp", "point_alpha_deg_exp", "point_size_deg_exp", "up_color_deg_exp"),
+  "download_plot_deg_volcano" = c("deg_file_volcano", "down_color_volcano", "fc_col_volcano", "fc_threshold_volcano", "id_col_volcano", "ns_color_volcano", "point_alpha_volcano", "point_size_volcano", "sig_col_volcano", "sig_threshold_volcano", "up_color_volcano"),
+  "download_plot_snp_fst" = c("alpha_fst", "bin_size_fst", "fst_file_heat", "metric", "orientation_fst", "palette_end_fst", "palette_start_fst"),
+  "download_plot_snp_anno" = c("chrom_id_fst", "connector_dx1", "connector_dx2", "fst_color", "fst_file_anno", "gap_frac", "gff_file_fst", "gff_format_fst", "label_size_fst", "orientation_fst_anno", "point_alpha_fst", "point_size_fst", "smooth_span", "top_n"),
+  "download_plot_dmg_chrom" = c("dmr_file", "hyper_color_dmr", "hypo_color_dmr", "jitter_width_dmr", "point_shape_dmr", "point_size_dmr", "violin_border_dmr", "violin_scale_dmr"),
+  "download_plot_dmg_exp" = c("bar_height_dmg_exp", "chrom_alpha_dmg_exp", "chrom_color_dmg_exp", "dmr_file_exp", "hyper_color_dmg_exp", "hypo_color_dmg_exp", "line_height_dmg_exp", "line_width_dmg_exp", "mark_style_dmg_exp", "orientation_dmg_exp", "point_alpha_dmg_exp", "point_size_dmg_exp"),
+  "download_plot_gene_stats" = c("bar_color_gene_stats", "bar_width_gene_stats", "gff_file_gene_stats", "gff_format_gene_stats", "label_size_gene_stats"),
+  "download_plot_snp_density" = c("bin_size_density", "density_color1", "density_color2", "density_color3", "fst_file_density", "log10_density"),
+  "download_table_anno_fst_dmr" = c("chrom_col_ranges", "downstream_ranges", "end_col_ranges", "features_ranges", "genomic_ranges_file", "gff_file_anno_ranges", "gff_format_anno_ranges", "ignore_strand_ranges", "start_col_ranges", "upstream_ranges"),
+  "download_table_extract_promoters" = c("downstream_extract_promoters", "gff_file_extract_promoters", "gff_format_extract_promoters", "promoter_info", "upstream_extract_promoters"),
+  "download_table_extract_utr5" = c("gff_file_extract_utr5", "gff_format_extract_utr5", "utr5_info"),
+  "download_table_extract_genes" = c("gene_info_opt", "gff_file_extract_genes", "gff_format_extract_genes"),
+  "download_table_extract_mrnas" = c("gff_file_extract_mrnas", "gff_format_extract_mrnas", "mrna_info_opt"),
+  "download_table_extract_cds" = c("cds_info_opt", "gff_file_extract_cds", "gff_format_extract_cds"),
+  "download_table_extract_exons" = c("exon_info_opt", "gff_file_extract_exons", "gff_format_extract_exons"),
+  "download_table_extract_utr3" = c("gff_file_extract_utr3", "gff_format_extract_utr3", "utr3_info_opt")
+  )
+  lapply(names(param_map), function(id) {
     output[[paste0("session_", id)]] <- downloadHandler(
       filename = function() "sessionInfo.txt",
       content = function(file) {
-        writeLines(capture.output(sessionInfo()), file)
+        # 1. Version, Parameter, MD5
+        si <- capture.output(sessionInfo())
+
+        # 2. Parameters & 3. Files
+        params <- character(0)
+        files <- character(0)
+
+        input_ids <- param_map[[id]]
+        for (iid in input_ids) {
+          val <- input[[iid]]
+          if (is.null(val)) next
+
+          if (is.data.frame(val) && "datapath" %in% names(val)) {
+            # File input
+            # Calculate MD5
+            md5 <- tools::md5sum(val$datapath)
+            files <- c(files, sprintf("%s: %s (MD5: %s)", iid, val$name, md5))
+          } else {
+            # Regular parameter
+            # Convert vector to string if needed
+            val_str <- paste(val, collapse = ", ")
+            params <- c(params, sprintf("%s: %s", iid, val_str))
+          }
+        }
+
+        # Combine sections
+        out_text <- c(
+          "=== Version, Parameter, MD5 ===",
+          si,
+          "",
+          "=== Parameter Configuration ===",
+          if (length(params) > 0) params else "No parameters detected.",
+          "",
+          "=== File Checksums ===",
+          if (length(files) > 0) files else "No files uploaded."
+        )
+
+        writeLines(out_text, file)
       }
     )
   })
