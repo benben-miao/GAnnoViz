@@ -36,7 +36,7 @@ The source code and example datasets are available in the GitHub repository unde
 
 ![Shinyapp UI](https://benben-miao.github.io/GAnnoViz/image/Shinyapp.png)
 
-## 2. Install and Library
+## 2. Install & Library
 
 ```{r eval=FALSE}
 # Install from GitHub
@@ -50,18 +50,54 @@ library(GAnnoViz)
 library(ggplot2)
 ```
 
-## 3. Shiny App
+## 3. Local Shinyapp
 
 ```{r eval=FALSE}
 # Running GAnnoVizApp on Rstudio or Rconsole
 GAnnoViz::GAnnoVizApp()
 ```
 
-## 4. Reference genomic annotation and multi-omics result datasets
+## 4. Prepare Datasets
 
-The built-in example genomic annotations and multi-omics datasets in the GAnnoViz package and its accompanying cloud platform are provided for demonstration purposes, enabling users to rapidly prepare their own input data by reference. The structure of these example datasets can be inspected through dedicated functions, and the files are publicly accessible for download from both the source code repository and the cloud platform. The default reference genomic annotation employed is the latest version of the mouse (Mus musculus) genome, GRCm39.115, sourced from the Ensembl database (version 115) 7 and formatted in standard GFF3. This annotation includes complete chromosomes, gene coordinate information, and well-defined hierarchical feature relationships. The current and historical genomic annotation versions for humans and other key species can be obtained directly from Ensembl, and GAnnoViz supports the parsing of newly assembled genomic annotation. All multi-omics example datasets are simulated for illustrative purposes and adhere the widely adopted formats in the field. Standard gene differential expression matrices are generated using DESeq2, with differentially expressed genes (DEGs) identified by |log2(FoldChange)| > 1 and padj < 0.05. Differential methylation results are generated using MethylKit 8, with differentially methylated regions (DMRs) identified by |meth.diff| > 25 and qvalue < 0.05. Data files can be directly loaded into standard R data objects via built-in reading functions or through the cloud platform’s data upload interface, eliminating the need for users to pre-process genome annotations or multi-omics results into tabular formats prior to analysis.
+### 4.1 Reference genomic annotation
 
-## 4. Extract Features
+The built-in example genomic annotations and multi-omics datasets in the GAnnoViz package and its accompanying cloud platform are provided for demonstration purposes, enabling users to rapidly prepare their own input data by reference. The structure of these example datasets can be inspected through dedicated functions, and the files are publicly accessible for download from both the source code repository and the cloud platform. 
+
+The default reference genomic annotation employed is the latest version of the **mouse (*Mus musculus*)** genome, GRCm39.115, sourced from the **Ensembl database v115** and formatted in standard GFF3. This annotation includes complete chromosomes, gene coordinate information, and well-defined hierarchical feature relationships. The current and historical genomic annotation versions for humans and other key species can be obtained directly from Ensembl, and GAnnoViz supports the parsing of newly assembled genomic annotation.
+
+**Ensembl Genomic Annotation:** <https://ftp.ensembl.org/pub/release-115/gff3/>
+
+**Ensembl release 115: Species GFF3 349**
+
+### 4.2 Multi-omics result datasets
+
+All multi-omics example datasets are simulated for illustrative purposes and adhere the widely adopted formats in the field. Standard gene differential expression matrices are generated using **DESeq2 v1.50.2**, with differentially expressed genes (DEGs) identified by |log2(FoldChange)| > 1 and padj < 0.05. Differential methylation results are generated using **MethylKit v1.36.0**, with differentially methylated regions (DMRs) identified by |meth.diff| > 25 and qvalue < 0.05. Data files can be directly loaded into standard R data objects via built-in reading functions or through the cloud platform’s data upload interface, eliminating the need for users to pre-process genome annotations or multi-omics results into tabular formats prior to analysis.
+
+## 5. Retrieve Ensembl
+
+### Retrieve Ensembl Species
+
+```{r spretrieve_ensembl_species}
+species_list <- spretrieve_ensembl_species(
+  release = 115)
+
+head(species_list)
+```
+
+### Retrieve Ensembl Species
+
+```{r eval=FALSE}
+mmu_gff3_file <- retrieve_ensembl_gff3(
+  species = "mus_musculus",
+  release = 115,
+  only_chr = TRUE,
+  dest_dir = "."
+)
+
+mmu_gff3_file
+```
+
+## 6. Extract Features
 
 ### Extract Genes
 
@@ -145,7 +181,7 @@ utr5_range <- extract_utr5(
 head(utr5_range)
 ```
 
-## 5. Plot Structure
+## 7. Plot Structure
 
 ### Plot gene stats for chromosomes
 
@@ -294,7 +330,7 @@ plot_chrom_heatmap(
 )
 ```
 
-## 6. DEG Anno & Viz
+## 8. DEG Anno & Viz
 
 ### Annotate differentially expressed genes (DEGs) with chromosome positions
 
@@ -390,7 +426,7 @@ plot_deg_exp(
   line_height = 0.8)
 ```
 
-## 7. SNP Anno & Plot
+## 9. SNP Anno & Plot
 
 ### Annotate FST slide windows with genomic features
 
@@ -510,7 +546,7 @@ plot_snp_anno(
 )
 ```
 
-## 8. DMG Anno & Plot
+## 10. DMG Anno & Plot
 
 ### Plot differentially methylated regions (DMRs) hyper/hypo distributions by chromosome
 
@@ -621,4 +657,10 @@ plot_dmg_trend(
   point_size = 3,
   point_alpha = 0.5
 )
+```
+
+## 11. Session Information
+
+```{r}
+sessionInfo()
 ```

@@ -383,6 +383,13 @@ ui <- bs4DashPage(
               style = "width: 100%",
               class = "btn-block"
             ),
+            downloadButton(
+              outputId = "session_download_plot_gene_structure",
+              label = "Session Info",
+              icon = icon("circle-info"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
             br(),
             fileInput(inputId = "gff_file_gene", label = "GFF/GTF file"),
             selectInput(
@@ -588,6 +595,13 @@ ui <- bs4DashPage(
               style = "width: 100%",
               class = "btn-block"
             ),
+            downloadButton(
+              outputId = "session_download_table_anno_deg_chrom",
+              label = "Session Info",
+              icon = icon("circle-info"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
             br(),
             fileInput(inputId = "deg_file_anno", label = "DEG table"),
             fileInput(inputId = "gff_file_deg_anno", label = "GFF/GTF file"),
@@ -697,6 +711,13 @@ ui <- bs4DashPage(
               outputId = "download_plot_gene_domains",
               label = "Download",
               icon = icon("cloud-arrow-down"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            downloadButton(
+              outputId = "session_download_plot_gene_domains",
+              label = "Session Info",
+              icon = icon("circle-info"),
               style = "width: 100%",
               class = "btn-block"
             ),
@@ -842,6 +863,13 @@ ui <- bs4DashPage(
               outputId = "download_plot_dmg_trend",
               label = "Download",
               icon = icon("cloud-arrow-down"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            downloadButton(
+              outputId = "session_download_plot_dmg_trend",
+              label = "Session Info",
+              icon = icon("circle-info"),
               style = "width: 100%",
               class = "btn-block"
             ),
@@ -993,6 +1021,13 @@ ui <- bs4DashPage(
               outputId = "download_plot_interval_structure",
               label = "Download",
               icon = icon("cloud-arrow-down"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            downloadButton(
+              outputId = "session_download_plot_interval_structure",
+              label = "Session Info",
+              icon = icon("circle-info"),
               style = "width: 100%",
               class = "btn-block"
             ),
@@ -1215,6 +1250,13 @@ ui <- bs4DashPage(
               style = "width: 100%",
               class = "btn-block"
             ),
+            downloadButton(
+              outputId = "session_download_plot_interval_flank",
+              label = "Session Info",
+              icon = icon("circle-info"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
             br(),
             fileInput(inputId = "gff_file_flank", label = "GFF/GTF file"),
             selectInput(
@@ -1402,6 +1444,13 @@ ui <- bs4DashPage(
               style = "width: 100%",
               class = "btn-block"
             ),
+            downloadButton(
+              outputId = "session_download_plot_chrom_structure",
+              label = "Session Info",
+              icon = icon("circle-info"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
             br(),
             fileInput(inputId = "gff_file_chrom", label = "GFF/GTF file"),
             selectInput(
@@ -1571,6 +1620,13 @@ ui <- bs4DashPage(
               outputId = "download_plot_chrom_genes",
               label = "Download",
               icon = icon("cloud-arrow-down"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            downloadButton(
+              outputId = "session_download_plot_chrom_genes",
+              label = "Session Info",
+              icon = icon("circle-info"),
               style = "width: 100%",
               class = "btn-block"
             ),
@@ -1774,6 +1830,13 @@ ui <- bs4DashPage(
               style = "width: 100%",
               class = "btn-block"
             ),
+            downloadButton(
+              outputId = "session_download_plot_chrom_heatmap",
+              label = "Session Info",
+              icon = icon("circle-info"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
             br(),
             fileInput(inputId = "gff_file_heatmap", label = "GFF/GTF file"),
             selectInput(
@@ -1927,6 +1990,13 @@ ui <- bs4DashPage(
               outputId = "download_plot_deg_chrom",
               label = "Download",
               icon = icon("cloud-arrow-down"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            downloadButton(
+              outputId = "session_download_plot_deg_chrom",
+              label = "Session Info",
+              icon = icon("circle-info"),
               style = "width: 100%",
               class = "btn-block"
             ),
@@ -2103,6 +2173,13 @@ ui <- bs4DashPage(
               outputId = "download_plot_deg_exp",
               label = "Download",
               icon = icon("cloud-arrow-down"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            downloadButton(
+              outputId = "session_download_plot_deg_exp",
+              label = "Session Info",
+              icon = icon("circle-info"),
               style = "width: 100%",
               class = "btn-block"
             ),
@@ -2307,6 +2384,13 @@ ui <- bs4DashPage(
               style = "width: 100%",
               class = "btn-block"
             ),
+            downloadButton(
+              outputId = "session_download_plot_deg_volcano",
+              label = "Session Info",
+              icon = icon("circle-info"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
             br(),
             fileInput(inputId = "deg_file_volcano", label = "DEG table"),
             textInput(
@@ -2480,6 +2564,13 @@ ui <- bs4DashPage(
               style = "width: 100%",
               class = "btn-block"
             ),
+            downloadButton(
+              outputId = "session_download_plot_snp_fst",
+              label = "Session Info",
+              icon = icon("circle-info"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
             br(),
             fileInput(inputId = "fst_file_heat", label = "FST table"),
             numericInput(
@@ -2627,6 +2718,13 @@ ui <- bs4DashPage(
               outputId = "download_plot_snp_anno",
               label = "Download",
               icon = icon("cloud-arrow-down"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            downloadButton(
+              outputId = "session_download_plot_snp_anno",
+              label = "Session Info",
+              icon = icon("circle-info"),
               style = "width: 100%",
               class = "btn-block"
             ),
@@ -2825,6 +2923,13 @@ ui <- bs4DashPage(
               style = "width: 100%",
               class = "btn-block"
             ),
+            downloadButton(
+              outputId = "session_download_plot_dmg_chrom",
+              label = "Session Info",
+              icon = icon("circle-info"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
             br(),
             fileInput(inputId = "dmr_file", label = "DMR table"),
             selectInput(
@@ -2980,6 +3085,13 @@ ui <- bs4DashPage(
               outputId = "download_plot_dmg_exp",
               label = "Download",
               icon = icon("cloud-arrow-down"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            downloadButton(
+              outputId = "session_download_plot_dmg_exp",
+              label = "Session Info",
+              icon = icon("circle-info"),
               style = "width: 100%",
               class = "btn-block"
             ),
@@ -3167,6 +3279,13 @@ ui <- bs4DashPage(
               style = "width: 100%",
               class = "btn-block"
             ),
+            downloadButton(
+              outputId = "session_download_plot_gene_stats",
+              label = "Session Info",
+              icon = icon("circle-info"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
             br(),
             fileInput(inputId = "gff_file_gene_stats", label = "GFF/GTF file"),
             selectInput(
@@ -3302,6 +3421,13 @@ ui <- bs4DashPage(
               outputId = "download_plot_snp_density",
               label = "Download",
               icon = icon("cloud-arrow-down"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            downloadButton(
+              outputId = "session_download_plot_snp_density",
+              label = "Session Info",
+              icon = icon("circle-info"),
               style = "width: 100%",
               class = "btn-block"
             ),
@@ -3441,6 +3567,13 @@ ui <- bs4DashPage(
               outputId = "download_table_anno_fst_dmr",
               label = "Download",
               icon = icon("cloud-arrow-down"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            downloadButton(
+              outputId = "session_download_table_anno_fst_dmr",
+              label = "Session Info",
+              icon = icon("circle-info"),
               style = "width: 100%",
               class = "btn-block"
             ),
@@ -3585,6 +3718,13 @@ ui <- bs4DashPage(
               style = "width: 100%",
               class = "btn-block"
             ),
+            downloadButton(
+              outputId = "session_download_table_extract_promoters",
+              label = "Session Info",
+              icon = icon("circle-info"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
             br(),
             fileInput(inputId = "gff_file_extract_promoters", label = "GFF/GTF file"),
             selectInput(
@@ -3695,6 +3835,13 @@ ui <- bs4DashPage(
               style = "width: 100%",
               class = "btn-block"
             ),
+            downloadButton(
+              outputId = "session_download_table_extract_utr5",
+              label = "Session Info",
+              icon = icon("circle-info"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
             br(),
             fileInput(inputId = "gff_file_extract_utr5", label = "GFF/GTF file"),
             selectInput(
@@ -3788,6 +3935,13 @@ ui <- bs4DashPage(
               outputId = "download_table_extract_genes",
               label = "Download",
               icon = icon("cloud-arrow-down"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            downloadButton(
+              outputId = "session_download_table_extract_genes",
+              label = "Session Info",
+              icon = icon("circle-info"),
               style = "width: 100%",
               class = "btn-block"
             ),
@@ -3887,6 +4041,13 @@ ui <- bs4DashPage(
               style = "width: 100%",
               class = "btn-block"
             ),
+            downloadButton(
+              outputId = "session_download_table_extract_mrnas",
+              label = "Session Info",
+              icon = icon("circle-info"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
             br(),
             fileInput(inputId = "gff_file_extract_mrnas", label = "GFF/GTF file"),
             selectInput(
@@ -3980,6 +4141,13 @@ ui <- bs4DashPage(
               outputId = "download_table_extract_cds",
               label = "Download",
               icon = icon("cloud-arrow-down"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            downloadButton(
+              outputId = "session_download_table_extract_cds",
+              label = "Session Info",
+              icon = icon("circle-info"),
               style = "width: 100%",
               class = "btn-block"
             ),
@@ -4079,6 +4247,13 @@ ui <- bs4DashPage(
               style = "width: 100%",
               class = "btn-block"
             ),
+            downloadButton(
+              outputId = "session_download_table_extract_exons",
+              label = "Session Info",
+              icon = icon("circle-info"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
             br(),
             fileInput(inputId = "gff_file_extract_exons", label = "GFF/GTF file"),
             selectInput(
@@ -4172,6 +4347,13 @@ ui <- bs4DashPage(
               outputId = "download_table_extract_utr3",
               label = "Download",
               icon = icon("cloud-arrow-down"),
+              style = "width: 100%",
+              class = "btn-block"
+            ),
+            downloadButton(
+              outputId = "session_download_table_extract_utr3",
+              label = "Session Info",
+              icon = icon("circle-info"),
               style = "width: 100%",
               class = "btn-block"
             ),
@@ -4433,6 +4615,15 @@ server <- function(input, output, session) {
     output[[paste0("dl_dmr_dmg_", i)]] <- downloadHandler(
       filename = function() "example.dmr",
       content = function(file) file.copy(sample_dmr(), file, overwrite = TRUE)
+    )
+  })
+
+  lapply(c("download_plot_gene_structure", "download_table_anno_deg_chrom", "download_plot_gene_domains", "download_plot_dmg_trend", "download_plot_interval_structure", "download_plot_interval_flank", "download_plot_chrom_structure", "download_plot_chrom_genes", "download_plot_chrom_heatmap", "download_plot_deg_chrom", "download_plot_deg_exp", "download_plot_deg_volcano", "download_plot_snp_fst", "download_plot_snp_anno", "download_plot_dmg_chrom", "download_plot_dmg_exp", "download_plot_gene_stats", "download_plot_snp_density", "download_table_anno_fst_dmr", "download_table_extract_promoters", "download_table_extract_utr5", "download_table_extract_genes", "download_table_extract_mrnas", "download_table_extract_cds", "download_table_extract_exons", "download_table_extract_utr3"), function(id) {
+    output[[paste0("session_", id)]] <- downloadHandler(
+      filename = function() "sessionInfo.txt",
+      content = function(file) {
+        writeLines(capture.output(sessionInfo()), file)
+      }
     )
   })
 

@@ -37,6 +37,10 @@ reference:
   - title: Shinyapp
     contents:
       - GAnnoVizApp
+  - title: Retrieve Ensembl
+    contents:
+      - retrieve_ensembl_species
+      - retrieve_ensembl_gff3
   - title: Extract Features
     contents:
       - extract_promoters
