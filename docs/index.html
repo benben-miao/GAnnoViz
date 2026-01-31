@@ -25,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="index.html">GAnnoViz</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,6 +42,7 @@
 <li><a class="dropdown-item" href="articles/Tutorial.html"><span class="fa fa-file-code"></span> Tutorial</a></li>
   </ul>
 </li>
+<li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -63,13 +64,16 @@
 <a href="#gannoviz">GAnnoViz</a>
 <ul>
 <li><a href="#id_1-introduction">1. Introduction</a></li>
-<li><a href="#id_2-installation">2. Installation</a></li>
-<li><a href="#id_3-shiny-app">3. Shiny App</a></li>
-<li><a href="#id_4-extract-features">4. Extract Features</a></li>
-<li><a href="#id_5-plot-structure">5. Plot Structure</a></li>
-<li><a href="#id_6-deg-anno--viz">6. DEG Anno &amp; Viz</a></li>
-<li><a href="#id_7-snp-anno--plot">7. SNP Anno &amp; Plot</a></li>
-<li><a href="#id_8-dmg-anno--plot">8. DMG Anno &amp; Plot</a></li>
+<li><a href="#id_2-install--library">2. Install &amp; Library</a></li>
+<li><a href="#id_3-local-shinyapp">3. Local Shinyapp</a></li>
+<li><a href="#id_4-prepare-datasets">4. Prepare Datasets</a></li>
+<li><a href="#id_5-retrieve-ensembl">5. Retrieve Ensembl</a></li>
+<li><a href="#id_6-extract-features">6. Extract Features</a></li>
+<li><a href="#id_7-plot-structure">7. Plot Structure</a></li>
+<li><a href="#id_8-deg-anno--viz">8. DEG Anno &amp; Viz</a></li>
+<li><a href="#id_9-snp-anno--plot">9. SNP Anno &amp; Plot</a></li>
+<li><a href="#id_10-dmg-anno--plot">10. DMG Anno &amp; Plot</a></li>
+<li><a href="#id_11-session-information">11. Session Information</a></li>
 </ul>
 </li>
 </ul>
@@ -81,33 +85,89 @@
 <h2 id="id_1-introduction">1. Introduction<a class="anchor" aria-label="anchor" href="#id_1-introduction"></a>
 </h2>
 <p><strong>GAnnoViz: a R package for genomic annotation and visualization.</strong></p>
-<p><strong>GAnnoViz (genomic annotation and visualization)</strong> is an R ecosystem specialized for annotating and visualizing chromosome-level gene functional elements in multi-omics. It provides core analysis and visualization functions through an R package and drives an online platform to enable experimental data analysis through real-time interaction. Currently, GAnnoViz includes 26 functions and 3 datasets. These functions are mainly used to address analytical needs in the following four aspects: extraction of genomic functional elements, drawing of linear gene structures, multi-omics sliding window annotation, and visualization of chromosome-level gene expression.</p>
-<p>These functions are compatible with each other in terms of input and output results, collaborating freely and closely to complete complex analytical tasks. Although this project uses the genome of the model species mouse as a reference, it has been tested that standard structural annotations and omics data from any species are supported. It is worth noting that the results of transcriptome differential expression should be in the DESeq2 structure, while epigenome differential methylation data should refer to the MethylKit results as the standard.</p>
-<p>GAnnoViz prioritizes the use of <code>GRanges</code> objects for parsing gene structures and interval annotations, and uses <code>ggplot</code> objects as the standard for graph drawing, facilitating high customization and long-term maintenance. This ecosystem adopts an open-source approach for suggestion adoption, new function iteration, continuous community maintenance, and is supported by the Hiplot cloud platform. The complete local or online help documentation contains detailed parameter descriptions and runnable examples of all functions, as well as a streamlined tutorial protocol.</p>
-<p><strong>Open Source Code:</strong> <a href="https://github.com/benben-miao/GAnnoViz/" class="uri">https://github.com/benben-miao/GAnnoViz/</a></p>
-<p><strong>Documents API</strong>: <a href="https://benben-miao.github.io/GAnnoViz/" class="external-link uri">https://benben-miao.github.io/GAnnoViz/</a></p>
-<p><strong>Cloud Platform</strong>: <a href="https://shiny.hiplot.cn/gannoviz/" class="external-link uri">https://shiny.hiplot.cn/gannoviz/</a></p>
+<p><strong><em>GAnnoViz is a cloud-integrated framework for chromosome-level feature annotation and visualization in multi-omics research</em></strong>. It provides analytical and visualization capabilities through R packages, while integrating a cloud platform to enable real-time interactive data analysis. The current release consists of <strong>30+ functions</strong> and three datasets, collectively addressing four core analytical requirements: genomic features extraction, gene structure drawing, sliding-window annotation, and multi-omics chromosome-level visualization.</p>
+<p>The <strong>source code</strong> and <strong>example datasets</strong> are available in the GitHub repository under an open-source license, facilitating reproducibility and community-driven development through issue reporting and pull requests.</p>
+<p><strong>Open Source Code:</strong> <a href="https://github.com/benben-miao/GAnnoViz/" class="uri"><strong><em><a href="https://github.com/benben-miao/GAnnoViz/" class="uri">https://github.com/benben-miao/GAnnoViz/</a></em></strong></a></p>
+<p><strong>Documents API</strong>: <a href="https://benben-miao.github.io/GAnnoViz/" class="external-link uri"><strong><em><a href="https://benben-miao.github.io/GAnnoViz/" class="external-link uri">https://benben-miao.github.io/GAnnoViz/</a></em></strong></a></p>
+<p><strong>Cloud Platform</strong>: <a href="https://shiny.hiplot.cn/gannoviz/" class="external-link uri"><strong><em><a href="https://shiny.hiplot.cn/gannoviz/" class="external-link uri">https://shiny.hiplot.cn/gannoviz/</a></em></strong></a></p>
 <figure><img src="https://benben-miao.github.io/GAnnoViz/image/Shinyapp.png" alt="Shinyapp UI"><figcaption aria-hidden="true">
 Shinyapp UI
 </figcaption></figure>
 </div>
 <div class="section level2">
-<h2 id="id_2-installation">2. Installation<a class="anchor" aria-label="anchor" href="#id_2-installation"></a>
+<h2 id="id_2-install--library">2. Install &amp; Library<a class="anchor" aria-label="anchor" href="#id_2-install--library"></a>
 </h2>
-</div>
-<div class="section level2">
-<h2 id="id_3-shiny-app">3. Shiny App<a class="anchor" aria-label="anchor" href="#id_3-shiny-app"></a>
-</h2>
+<p><strong>Requirement</strong>: R version &gt; v4.0.0</p>
+<p><strong>Recommended</strong>: R version &gt;= v4.5.0</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># GAnnoVizApp()</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Install from GitHub</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"benben-miao/GAnnoViz"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="id_4-extract-features">4. Extract Features<a class="anchor" aria-label="anchor" href="#id_4-extract-features"></a>
+<h2 id="id_3-local-shinyapp">3. Local Shinyapp<a class="anchor" aria-label="anchor" href="#id_3-local-shinyapp"></a>
+</h2>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Running GAnnoVizApp on Rstudio or Rconsole</span></span>
+<span><span class="fu">GAnnoViz</span><span class="fu">::</span><span class="fu"><a href="reference/GAnnoVizApp.html">GAnnoVizApp</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="id_4-prepare-datasets">4. Prepare Datasets<a class="anchor" aria-label="anchor" href="#id_4-prepare-datasets"></a>
+</h2>
+<div class="section level3">
+<h3 id="id_41-reference-genomic-annotation">4.1 Reference genomic annotation<a class="anchor" aria-label="anchor" href="#id_41-reference-genomic-annotation"></a>
+</h3>
+<p>The <strong>built-in</strong> example genomic annotations and multi-omics datasets in the GAnnoViz package and its accompanying cloud platform are provided for demonstration purposes, enabling users to rapidly prepare their own input data by reference. The structure of these example datasets can be inspected through dedicated functions, and the files are publicly accessible for download from both the source code repository and the cloud platform.</p>
+<p>The default reference genomic annotation employed is the latest version of the <strong>mouse (<em>Mus musculus</em>)</strong> genome, <strong>GRCm39.115</strong>, sourced from the <strong>Ensembl database v115</strong> and formatted in standard GFF3. This annotation includes complete chromosomes, gene coordinate information, and well-defined hierarchical feature relationships. The current and historical genomic annotation versions for <strong>humans and other key species</strong> can be obtained directly from Ensembl, and GAnnoViz supports the parsing of newly assembled genomic annotation.</p>
+<p><strong>Ensembl Genomic Annotation:</strong> <a href="https://ftp.ensembl.org/pub/release-115/gff3/" class="external-link uri">https://ftp.ensembl.org/pub/release-115/gff3/</a></p>
+<p><strong>Ensembl release 115: Species GFF3 349</strong></p>
+</div>
+<div class="section level3">
+<h3 id="id_42-multi-omics-result-datasets">4.2 Multi-omics result datasets<a class="anchor" aria-label="anchor" href="#id_42-multi-omics-result-datasets"></a>
+</h3>
+<p>All multi-omics example datasets are simulated for illustrative purposes and adhere the widely adopted formats in the field. Standard gene differential expression matrices are generated using <strong>DESeq2 v1.50.2</strong>, with differentially expressed genes (<strong>DEGs</strong>) identified by <strong><em><code>|log2(FoldChange)| &gt; 1</code></em></strong> and <strong><em><code>padj &lt; 0.05</code></em></strong>. Differential methylation results are generated using <strong>MethylKit v1.36.0</strong>, with differentially methylated regions (<strong>DMRs</strong>) identified by <strong><em><code>|meth.diff| &gt; 25</code></em></strong> and <strong><em><code>qvalue &lt; 0.05</code></em></strong>. Data files can be directly loaded into standard R data objects via built-in reading functions or through the cloud platform’s data upload interface, eliminating the need for users to pre-process genome annotations or multi-omics results into tabular formats prior to analysis.</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="id_5-retrieve-ensembl">5. Retrieve Ensembl<a class="anchor" aria-label="anchor" href="#id_5-retrieve-ensembl"></a>
+</h2>
+<div class="section level3">
+<h3 id="retrieve-ensembl-species">Retrieve Ensembl Species<a class="anchor" aria-label="anchor" href="#retrieve-ensembl-species"></a>
+</h3>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">species_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/retrieve_ensembl_species.html">retrieve_ensembl_species</a></span><span class="op">(</span></span>
+<span>  release <span class="op">=</span> <span class="fl">115</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">species_list</span><span class="op">)</span></span>
+<span><span class="co">#&gt;                       Species                          ID</span></span>
+<span><span class="co">#&gt; 1 Acanthochromis Polyacanthus acanthochromis_polyacanthus</span></span>
+<span><span class="co">#&gt; 2             Accipiter Nisus             accipiter_nisus</span></span>
+<span><span class="co">#&gt; 3      Ailuropoda Melanoleuca      ailuropoda_melanoleuca</span></span>
+<span><span class="co">#&gt; 4            Amazona Collaria            amazona_collaria</span></span>
+<span><span class="co">#&gt; 5     Amphilophus Citrinellus     amphilophus_citrinellus</span></span>
+<span><span class="co">#&gt; 6        Amphiprion Ocellaris        amphiprion_ocellaris</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="retrieve-ensembl-species-1">Retrieve Ensembl Species<a class="anchor" aria-label="anchor" href="#retrieve-ensembl-species-1"></a>
+</h3>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mmu_gff3_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/retrieve_ensembl_gff3.html">retrieve_ensembl_gff3</a></span><span class="op">(</span></span>
+<span>  species <span class="op">=</span> <span class="st">"mus_musculus"</span>,</span>
+<span>  release <span class="op">=</span> <span class="fl">115</span>,</span>
+<span>  only_chr <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  dest_dir <span class="op">=</span> <span class="st">"."</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">mmu_gff3_file</span></span></code></pre></div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="id_6-extract-features">6. Extract Features<a class="anchor" aria-label="anchor" href="#id_6-extract-features"></a>
 </h2>
 <div class="section level3">
 <h3 id="extract-genes">Extract Genes<a class="anchor" aria-label="anchor" href="#extract-genes"></a>
 </h3>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Example GFF3 file in GAnnoViz</span></span>
 <span><span class="va">gff_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
 <span>  <span class="st">"extdata"</span>,</span>
@@ -140,7 +200,7 @@ Shinyapp UI
 <div class="section level3">
 <h3 id="extract-cds">Extract CDS<a class="anchor" aria-label="anchor" href="#extract-cds"></a>
 </h3>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Extract CDS</span></span>
 <span><span class="co"># cds &lt;- extract_cds(</span></span>
 <span><span class="co">#   gff_file = gff_file,</span></span>
@@ -161,7 +221,7 @@ Shinyapp UI
 <div class="section level3">
 <h3 id="extract-promoters">Extract Promoters<a class="anchor" aria-label="anchor" href="#extract-promoters"></a>
 </h3>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Extract Promoters</span></span>
 <span><span class="co"># promoters &lt;- extract_promoters(</span></span>
 <span><span class="co">#   gff_file = gff_file,</span></span>
@@ -192,7 +252,7 @@ Shinyapp UI
 <div class="section level3">
 <h3 id="extract-5utr">Extract 5’UTR<a class="anchor" aria-label="anchor" href="#extract-5utr"></a>
 </h3>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Extract 5'UTR</span></span>
 <span><span class="co"># utr5 &lt;- extract_utr5(</span></span>
 <span><span class="co">#   gff_file = gff_file,</span></span>
@@ -212,12 +272,12 @@ Shinyapp UI
 </div>
 </div>
 <div class="section level2">
-<h2 id="id_5-plot-structure">5. Plot Structure<a class="anchor" aria-label="anchor" href="#id_5-plot-structure"></a>
+<h2 id="id_7-plot-structure">7. Plot Structure<a class="anchor" aria-label="anchor" href="#id_7-plot-structure"></a>
 </h2>
 <div class="section level3">
 <h3 id="plot-gene-stats-for-chromosomes">Plot gene stats for chromosomes<a class="anchor" aria-label="anchor" href="#plot-gene-stats-for-chromosomes"></a>
 </h3>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Plot gene stats</span></span>
 <span><span class="fu"><a href="reference/plot_gene_stats.html">plot_gene_stats</a></span><span class="op">(</span></span>
 <span>    gff_file <span class="op">=</span> <span class="va">gff_file</span>,</span>
@@ -230,7 +290,7 @@ Shinyapp UI
 <div class="section level3">
 <h3 id="plot-gene-structure-promoter-3utr-exon-intron-5utr">Plot gene structure (Promoter, 3’UTR, Exon, Intron, 5’UTR)<a class="anchor" aria-label="anchor" href="#plot-gene-structure-promoter-3utr-exon-intron-5utr"></a>
 </h3>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Plot gene structure</span></span>
 <span><span class="fu"><a href="reference/plot_gene_structure.html">plot_gene_structure</a></span><span class="op">(</span></span>
 <span>  gff_file <span class="op">=</span> <span class="va">gff_file</span>,</span>
@@ -255,7 +315,7 @@ Shinyapp UI
 <div class="section level3">
 <h3 id="plot-protein-domains-from-ensembl">Plot protein domains from Ensembl<a class="anchor" aria-label="anchor" href="#plot-protein-domains-from-ensembl"></a>
 </h3>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Plot TP53 domian</span></span>
 <span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/plot_gene_domains.html">plot_gene_domains</a></span><span class="op">(</span></span>
 <span>  gene_name <span class="op">=</span> <span class="st">"TP53"</span>,</span>
@@ -272,7 +332,7 @@ Shinyapp UI
 <div class="section level3">
 <h3 id="plot-gene-structures-for-a-genomic-interval">Plot gene structures for a genomic interval<a class="anchor" aria-label="anchor" href="#plot-gene-structures-for-a-genomic-interval"></a>
 </h3>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Plot interval structure</span></span>
 <span><span class="fu"><a href="reference/plot_interval_structure.html">plot_interval_structure</a></span><span class="op">(</span></span>
 <span>  gff_file <span class="op">=</span> <span class="va">gff_file</span>,</span>
@@ -299,7 +359,7 @@ Shinyapp UI
 <div class="section level3">
 <h3 id="plot-interval-flank-structure-around-a-focal-gene">Plot interval flank structure around a focal gene<a class="anchor" aria-label="anchor" href="#plot-interval-flank-structure-around-a-focal-gene"></a>
 </h3>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Neighborhood around a focal gene on its chromosome</span></span>
 <span><span class="fu"><a href="reference/plot_interval_flank.html">plot_interval_flank</a></span><span class="op">(</span></span>
 <span>  gff_file <span class="op">=</span> <span class="va">gff_file</span>,</span>
@@ -321,7 +381,7 @@ Shinyapp UI
 <div class="section level3">
 <h3 id="plot-chromosome-structures-and-gene-stats">Plot chromosome structures and gene stats<a class="anchor" aria-label="anchor" href="#plot-chromosome-structures-and-gene-stats"></a>
 </h3>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Plot chrom structure</span></span>
 <span><span class="fu"><a href="reference/plot_chrom_structure.html">plot_chrom_structure</a></span><span class="op">(</span></span>
 <span>  gff_file <span class="op">=</span> <span class="va">gff_file</span>,</span>
@@ -340,7 +400,7 @@ Shinyapp UI
 <div class="section level3">
 <h3 id="plot-chromosome-structures-and-gene-annotation">Plot chromosome structures and gene annotation<a class="anchor" aria-label="anchor" href="#plot-chromosome-structures-and-gene-annotation"></a>
 </h3>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  gene_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ENSMUSG00000042414"</span>, <span class="st">"ENSMUSG00000025935"</span>, <span class="st">"ENSMUSG00000048701"</span>, <span class="st">"ENSMUSG00000035385"</span><span class="op">)</span>,</span>
 <span>  gene_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Prdm14"</span>, <span class="st">"Tram1"</span>, <span class="st">"Ccdc6"</span>, <span class="st">"Ccl2"</span><span class="op">)</span><span class="op">)</span></span>
@@ -356,7 +416,7 @@ Shinyapp UI
 <div class="section level3">
 <h3 id="plot-genomic-feature-density-heatmap">Plot genomic feature density heatmap<a class="anchor" aria-label="anchor" href="#plot-genomic-feature-density-heatmap"></a>
 </h3>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Gene density heatmap</span></span>
 <span><span class="fu"><a href="reference/plot_chrom_heatmap.html">plot_chrom_heatmap</a></span><span class="op">(</span></span>
 <span>  gff_file <span class="op">=</span> <span class="va">gff_file</span>,</span>
@@ -371,12 +431,12 @@ Shinyapp UI
 </div>
 </div>
 <div class="section level2">
-<h2 id="id_6-deg-anno--viz">6. DEG Anno &amp; Viz<a class="anchor" aria-label="anchor" href="#id_6-deg-anno--viz"></a>
+<h2 id="id_8-deg-anno--viz">8. DEG Anno &amp; Viz<a class="anchor" aria-label="anchor" href="#id_8-deg-anno--viz"></a>
 </h2>
 <div class="section level3">
 <h3 id="annotate-differentially-expressed-genes-degs-with-chromosome-positions">Annotate differentially expressed genes (DEGs) with chromosome positions<a class="anchor" aria-label="anchor" href="#annotate-differentially-expressed-genes-degs-with-chromosome-positions"></a>
 </h3>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Example DEGs GAnnoViz</span></span>
 <span><span class="va">deg_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
 <span>  <span class="st">"extdata"</span>,</span>
@@ -398,7 +458,7 @@ Shinyapp UI
 <span><span class="co">#&gt; 4 ENSMUSG00000046432    55113       6.000000 0.3230247  18.57443 5.17e-52 1e-40</span></span>
 <span><span class="co">#&gt; 5 ENSMUSG00000102989    28945       5.953063 0.3218916  18.49400 2.31e-51 1e-40</span></span>
 <span><span class="co">#&gt; 6 ENSMUSG00000103364    13437       4.987586 0.2709416  18.40835 1.13e-50 1e-40</span></span></code></pre></div>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Annotate DEGs with chromosome positions</span></span>
 <span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/anno_deg_chrom.html">anno_deg_chrom</a></span><span class="op">(</span></span>
 <span>  deg_file <span class="op">=</span> <span class="va">deg_file</span>,</span>
@@ -421,7 +481,7 @@ Shinyapp UI
 <div class="section level3">
 <h3 id="plot-differentially-expressed-genes-degs-volcano">Plot differentially expressed genes (DEGs) volcano<a class="anchor" aria-label="anchor" href="#plot-differentially-expressed-genes-degs-volcano"></a>
 </h3>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Volcano plot</span></span>
 <span><span class="fu"><a href="reference/plot_deg_volcano.html">plot_deg_volcano</a></span><span class="op">(</span></span>
 <span>  deg_file <span class="op">=</span> <span class="va">deg_file</span>,</span>
@@ -441,7 +501,7 @@ Shinyapp UI
 <div class="section level3">
 <h3 id="plot-differentially-expressed-genes-degs-hyperhypo-distributions-by-chromosome">Plot differentially expressed genes (DEGs) hyper/hypo distributions by chromosome<a class="anchor" aria-label="anchor" href="#plot-differentially-expressed-genes-degs-hyperhypo-distributions-by-chromosome"></a>
 </h3>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Plot chrom DEGs</span></span>
 <span><span class="fu"><a href="reference/plot_deg_chrom.html">plot_deg_chrom</a></span><span class="op">(</span></span>
 <span>  deg_file <span class="op">=</span> <span class="va">deg_file</span>,</span>
@@ -462,7 +522,7 @@ Shinyapp UI
 <div class="section level3">
 <h3 id="plot-degs-updown-along-chromosomes">Plot DEGs up/down along chromosomes<a class="anchor" aria-label="anchor" href="#plot-degs-updown-along-chromosomes"></a>
 </h3>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/plot_deg_exp.html">plot_deg_exp</a></span><span class="op">(</span></span>
 <span>  deg_file <span class="op">=</span> <span class="va">deg_file</span>,</span>
 <span>  gff_file <span class="op">=</span> <span class="va">gff_file</span>,</span>
@@ -484,12 +544,12 @@ Shinyapp UI
 </div>
 </div>
 <div class="section level2">
-<h2 id="id_7-snp-anno--plot">7. SNP Anno &amp; Plot<a class="anchor" aria-label="anchor" href="#id_7-snp-anno--plot"></a>
+<h2 id="id_9-snp-anno--plot">9. SNP Anno &amp; Plot<a class="anchor" aria-label="anchor" href="#id_9-snp-anno--plot"></a>
 </h2>
 <div class="section level3">
 <h3 id="annotate-fst-slide-windows-with-genomic-features">Annotate FST slide windows with genomic features<a class="anchor" aria-label="anchor" href="#annotate-fst-slide-windows-with-genomic-features"></a>
 </h3>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Annotate FST</span></span>
 <span><span class="va">fst_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
 <span>    <span class="st">"extdata"</span>,</span>
@@ -511,7 +571,7 @@ Shinyapp UI
 <span><span class="co">#&gt; 4  chr1     60001   70000        256  0.036700847  0.027643440</span></span>
 <span><span class="co">#&gt; 5  chr1     80001   90000        842  0.020847846  0.011547497</span></span>
 <span><span class="co">#&gt; 6  chr1    100001  110000        892  0.001750007  0.002121159</span></span></code></pre></div>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/anno_fst_dmr.html">anno_fst_dmr</a></span><span class="op">(</span></span>
 <span>  gff_file <span class="op">=</span> <span class="va">gff_file</span>,</span>
 <span>  format <span class="op">=</span> <span class="st">"auto"</span>,</span>
@@ -543,7 +603,7 @@ Shinyapp UI
 <div class="section level3">
 <h3 id="annotate-dmr-slide-windows-with-genomic-features">Annotate DMR slide windows with genomic features<a class="anchor" aria-label="anchor" href="#annotate-dmr-slide-windows-with-genomic-features"></a>
 </h3>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Annotate DMR</span></span>
 <span><span class="va">dmr_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
 <span>    <span class="st">"extdata"</span>,</span>
@@ -565,7 +625,7 @@ Shinyapp UI
 <span><span class="co">#&gt; 4 chr1 5914001 5916000      *  1e-09 0.001782   -93.310</span></span>
 <span><span class="co">#&gt; 5 chr1 8576001 8578000      *  1e-08 0.009556   -68.589</span></span>
 <span><span class="co">#&gt; 6 chr1 9098001 9100000      *  1e-07 0.009733   -68.756</span></span></code></pre></div>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/anno_fst_dmr.html">anno_fst_dmr</a></span><span class="op">(</span></span>
 <span>  gff_file <span class="op">=</span> <span class="va">gff_file</span>,</span>
 <span>  format <span class="op">=</span> <span class="st">"auto"</span>,</span>
@@ -597,7 +657,7 @@ Shinyapp UI
 <div class="section level3">
 <h3 id="plot-snp-density-at-chromosome-level">Plot SNP density at chromosome level<a class="anchor" aria-label="anchor" href="#plot-snp-density-at-chromosome-level"></a>
 </h3>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Plot SNP density</span></span>
 <span><span class="fu"><a href="reference/plot_snp_density.html">plot_snp_density</a></span><span class="op">(</span></span>
 <span>  fst_file <span class="op">=</span> <span class="va">fst_file</span>,</span>
@@ -610,7 +670,7 @@ Shinyapp UI
 <div class="section level3">
 <h3 id="plot-genomic-weighted-fst-heatmap">Plot genomic weighted FST heatmap<a class="anchor" aria-label="anchor" href="#plot-genomic-weighted-fst-heatmap"></a>
 </h3>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Plot weighted FST</span></span>
 <span><span class="fu"><a href="reference/plot_snp_fst.html">plot_snp_fst</a></span><span class="op">(</span></span>
 <span>  fst_file <span class="op">=</span> <span class="va">fst_file</span>,</span>
@@ -625,7 +685,7 @@ Shinyapp UI
 <div class="section level3">
 <h3 id="plot-genomic-fst-with-top-n-gene-annotations">Plot genomic FST with Top-N gene annotations<a class="anchor" aria-label="anchor" href="#plot-genomic-fst-with-top-n-gene-annotations"></a>
 </h3>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Chromosome FST with Top-20 gene annotations on chr11</span></span>
 <span><span class="fu"><a href="reference/plot_snp_anno.html">plot_snp_anno</a></span><span class="op">(</span></span>
 <span>  fst_file <span class="op">=</span> <span class="va">fst_file</span>,</span>
@@ -647,12 +707,12 @@ Shinyapp UI
 </div>
 </div>
 <div class="section level2">
-<h2 id="id_8-dmg-anno--plot">8. DMG Anno &amp; Plot<a class="anchor" aria-label="anchor" href="#id_8-dmg-anno--plot"></a>
+<h2 id="id_10-dmg-anno--plot">10. DMG Anno &amp; Plot<a class="anchor" aria-label="anchor" href="#id_10-dmg-anno--plot"></a>
 </h2>
 <div class="section level3">
 <h3 id="plot-differentially-methylated-regions-dmrs-hyperhypo-distributions-by-chromosome">Plot differentially methylated regions (DMRs) hyper/hypo distributions by chromosome<a class="anchor" aria-label="anchor" href="#plot-differentially-methylated-regions-dmrs-hyperhypo-distributions-by-chromosome"></a>
 </h3>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Plot chrom DMRs</span></span>
 <span><span class="fu"><a href="reference/plot_dmg_chrom.html">plot_dmg_chrom</a></span><span class="op">(</span></span>
 <span>  dmr_file <span class="op">=</span> <span class="va">dmr_file</span>,</span>
@@ -669,7 +729,7 @@ Shinyapp UI
 <div class="section level3">
 <h3 id="plot-dmgs-hyperhypo-along-chromosomes">Plot DMGs hyper/hypo along chromosomes<a class="anchor" aria-label="anchor" href="#plot-dmgs-hyperhypo-along-chromosomes"></a>
 </h3>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Plot DMG expression</span></span>
 <span><span class="fu"><a href="reference/plot_dmg_exp.html">plot_dmg_exp</a></span><span class="op">(</span></span>
 <span>  dmr_file <span class="op">=</span> <span class="va">dmr_file</span>,</span>
@@ -688,7 +748,7 @@ Shinyapp UI
 <div class="section level3">
 <h3 id="plot-dmgs-circos-across-chromosomes">Plot DMGs circos across chromosomes<a class="anchor" aria-label="anchor" href="#plot-dmgs-circos-across-chromosomes"></a>
 </h3>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Plot DMG circos</span></span>
 <span><span class="fu"><a href="reference/plot_dmg_circos.html">plot_dmg_circos</a></span><span class="op">(</span></span>
 <span>  dmr_file <span class="op">=</span> <span class="va">dmr_file</span>,</span>
@@ -724,7 +784,7 @@ Shinyapp UI
 <div class="section level3">
 <h3 id="plot-dmgs-manhattan-plot-across-chromosomes">Plot DMGs manhattan plot across chromosomes<a class="anchor" aria-label="anchor" href="#plot-dmgs-manhattan-plot-across-chromosomes"></a>
 </h3>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Plot DMG Manhattan</span></span>
 <span><span class="fu"><a href="reference/plot_dmg_manhattan.html">plot_dmg_manhattan</a></span><span class="op">(</span></span>
 <span>  dmr_file <span class="op">=</span> <span class="va">dmr_file</span>,</span>
@@ -751,7 +811,7 @@ Shinyapp UI
 <div class="section level3">
 <h3 id="plot-chromosomal-dmgs-trend">Plot chromosomal DMGs trend<a class="anchor" aria-label="anchor" href="#plot-chromosomal-dmgs-trend"></a>
 </h3>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Plot DMR trend</span></span>
 <span><span class="fu"><a href="reference/plot_dmg_trend.html">plot_dmg_trend</a></span><span class="op">(</span></span>
 <span>  chrom_id <span class="op">=</span> <span class="st">"chr1"</span>,</span>
@@ -764,6 +824,88 @@ Shinyapp UI
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-plot_dmg_trend-1.png" style="display: block; margin: auto;"></p>
 </div>
+</div>
+<div class="section level2">
+<h2 id="id_11-session-information">11. Session Information<a class="anchor" aria-label="anchor" href="#id_11-session-information"></a>
+</h2>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; R version 4.5.2 (2025-10-31 ucrt)</span></span>
+<span><span class="co">#&gt; Platform: x86_64-w64-mingw32/x64</span></span>
+<span><span class="co">#&gt; Running under: Windows 11 x64 (build 26220)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Matrix products: default</span></span>
+<span><span class="co">#&gt;   LAPACK version 3.12.1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; locale:</span></span>
+<span><span class="co">#&gt; [1] LC_COLLATE=Chinese (Simplified)_China.utf8 </span></span>
+<span><span class="co">#&gt; [2] LC_CTYPE=Chinese (Simplified)_China.utf8   </span></span>
+<span><span class="co">#&gt; [3] LC_MONETARY=Chinese (Simplified)_China.utf8</span></span>
+<span><span class="co">#&gt; [4] LC_NUMERIC=C                               </span></span>
+<span><span class="co">#&gt; [5] LC_TIME=Chinese (Simplified)_China.utf8    </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; time zone: Etc/GMT-8</span></span>
+<span><span class="co">#&gt; tzcode source: internal</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; attached base packages:</span></span>
+<span><span class="co">#&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; other attached packages:</span></span>
+<span><span class="co">#&gt; [1] ggplot2_4.0.1  GAnnoViz_0.1.0</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
+<span><span class="co">#&gt;   [1] tidyselect_1.2.1            dplyr_1.1.4                </span></span>
+<span><span class="co">#&gt;   [3] farver_2.1.2                blob_1.2.4                 </span></span>
+<span><span class="co">#&gt;   [5] filelock_1.0.3              Biostrings_2.78.0          </span></span>
+<span><span class="co">#&gt;   [7] S7_0.2.1                    bitops_1.0-9               </span></span>
+<span><span class="co">#&gt;   [9] fastmap_1.2.0               RCurl_1.98-1.17            </span></span>
+<span><span class="co">#&gt;  [11] BiocFileCache_3.0.0         GenomicAlignments_1.46.0   </span></span>
+<span><span class="co">#&gt;  [13] XML_3.99-0.20               digest_0.6.39              </span></span>
+<span><span class="co">#&gt;  [15] lifecycle_1.0.4             KEGGREST_1.50.0            </span></span>
+<span><span class="co">#&gt;  [17] RSQLite_2.4.5               magrittr_2.0.4             </span></span>
+<span><span class="co">#&gt;  [19] compiler_4.5.2              progress_1.2.3             </span></span>
+<span><span class="co">#&gt;  [21] rlang_1.1.6                 tools_4.5.2                </span></span>
+<span><span class="co">#&gt;  [23] CMplot_4.5.1                yaml_2.3.11                </span></span>
+<span><span class="co">#&gt;  [25] rtracklayer_1.70.0          knitr_1.50                 </span></span>
+<span><span class="co">#&gt;  [27] labeling_0.4.3              prettyunits_1.2.0          </span></span>
+<span><span class="co">#&gt;  [29] S4Arrays_1.10.0             bit_4.6.0                  </span></span>
+<span><span class="co">#&gt;  [31] curl_7.0.0                  DelayedArray_0.36.0        </span></span>
+<span><span class="co">#&gt;  [33] xml2_1.5.1                  RColorBrewer_1.1-3         </span></span>
+<span><span class="co">#&gt;  [35] abind_1.4-8                 BiocParallel_1.44.0        </span></span>
+<span><span class="co">#&gt;  [37] purrr_1.2.0                 txdbmaker_1.6.0            </span></span>
+<span><span class="co">#&gt;  [39] withr_3.0.2                 BiocGenerics_0.56.0        </span></span>
+<span><span class="co">#&gt;  [41] grid_4.5.2                  stats4_4.5.2               </span></span>
+<span><span class="co">#&gt;  [43] colorspace_2.1-2            scales_1.4.0               </span></span>
+<span><span class="co">#&gt;  [45] dichromat_2.0-0.1           biomaRt_2.66.0             </span></span>
+<span><span class="co">#&gt;  [47] SummarizedExperiment_1.40.0 cli_3.6.5                  </span></span>
+<span><span class="co">#&gt;  [49] rmarkdown_2.30              crayon_1.5.3               </span></span>
+<span><span class="co">#&gt;  [51] generics_0.1.4              otel_0.2.0                 </span></span>
+<span><span class="co">#&gt;  [53] rstudioapi_0.17.1           httr_1.4.7                 </span></span>
+<span><span class="co">#&gt;  [55] rjson_0.2.23                DBI_1.2.3                  </span></span>
+<span><span class="co">#&gt;  [57] cachem_1.1.0                stringr_1.6.0              </span></span>
+<span><span class="co">#&gt;  [59] splines_4.5.2               parallel_4.5.2             </span></span>
+<span><span class="co">#&gt;  [61] AnnotationDbi_1.72.0        XVector_0.50.0             </span></span>
+<span><span class="co">#&gt;  [63] restfulr_0.0.16             matrixStats_1.5.0          </span></span>
+<span><span class="co">#&gt;  [65] vctrs_0.6.5                 Matrix_1.7-4               </span></span>
+<span><span class="co">#&gt;  [67] jsonlite_2.0.0              hms_1.1.4                  </span></span>
+<span><span class="co">#&gt;  [69] IRanges_2.44.0              S4Vectors_0.48.0           </span></span>
+<span><span class="co">#&gt;  [71] bit64_4.6.0-1               GenomicFeatures_1.62.0     </span></span>
+<span><span class="co">#&gt;  [73] glue_1.8.0                  codetools_0.2-20           </span></span>
+<span><span class="co">#&gt;  [75] shape_1.4.6.1               stringi_1.8.7              </span></span>
+<span><span class="co">#&gt;  [77] gtable_0.3.6                GenomeInfoDb_1.46.2        </span></span>
+<span><span class="co">#&gt;  [79] BiocIO_1.20.0               GenomicRanges_1.62.0       </span></span>
+<span><span class="co">#&gt;  [81] UCSC.utils_1.6.0            tibble_3.3.0               </span></span>
+<span><span class="co">#&gt;  [83] pillar_1.11.1               rappdirs_0.3.3             </span></span>
+<span><span class="co">#&gt;  [85] htmltools_0.5.9             Seqinfo_1.0.0              </span></span>
+<span><span class="co">#&gt;  [87] circlize_0.4.17             R6_2.6.1                   </span></span>
+<span><span class="co">#&gt;  [89] dbplyr_2.5.1                httr2_1.2.2                </span></span>
+<span><span class="co">#&gt;  [91] evaluate_1.0.5              Biobase_2.70.0             </span></span>
+<span><span class="co">#&gt;  [93] lattice_0.22-7              png_0.1-8                  </span></span>
+<span><span class="co">#&gt;  [95] Rsamtools_2.26.0            cigarillo_1.0.0            </span></span>
+<span><span class="co">#&gt;  [97] memoise_2.0.1               nlme_3.1-168               </span></span>
+<span><span class="co">#&gt;  [99] SparseArray_1.10.2          mgcv_1.9-4                 </span></span>
+<span><span class="co">#&gt; [101] xfun_0.54                   GlobalOptions_0.1.3        </span></span>
+<span><span class="co">#&gt; [103] MatrixGenerics_1.22.0       pkgconfig_2.0.3</span></span></code></pre></div>
 </div>
 </div>
 

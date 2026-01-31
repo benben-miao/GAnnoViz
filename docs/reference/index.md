@@ -5,6 +5,13 @@
 - [`GAnnoVizApp()`](https://github.com/benben-miao/GAnnoViz/reference/GAnnoVizApp.md)
   : Launch GAnnoViz Shiny application
 
+## Retrieve Ensembl
+
+- [`retrieve_ensembl_species()`](https://github.com/benben-miao/GAnnoViz/reference/retrieve_ensembl_species.md)
+  : List Supported Species from Ensembl
+- [`retrieve_ensembl_gff3()`](https://github.com/benben-miao/GAnnoViz/reference/retrieve_ensembl_gff3.md)
+  : Download GFF3 Annotation from Ensembl
+
 ## Extract Features
 
 - [`extract_promoters()`](https://github.com/benben-miao/GAnnoViz/reference/extract_promoters.md)

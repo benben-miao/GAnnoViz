@@ -5,6 +5,7 @@
 <url><loc>https://github.com/benben-miao/GAnnoViz/authors.html</loc></url>
 <url><loc>https://github.com/benben-miao/GAnnoViz/index.html</loc></url>
 <url><loc>https://github.com/benben-miao/GAnnoViz/LICENSE-text.html</loc></url>
+<url><loc>https://github.com/benben-miao/GAnnoViz/news/index.html</loc></url>
 <url><loc>https://github.com/benben-miao/GAnnoViz/reference/anno_deg_chrom.html</loc></url>
 <url><loc>https://github.com/benben-miao/GAnnoViz/reference/anno_fst_dmr.html</loc></url>
 <url><loc>https://github.com/benben-miao/GAnnoViz/reference/extract_cds.html</loc></url>
@@ -37,5 +38,7 @@
 <url><loc>https://github.com/benben-miao/GAnnoViz/reference/plot_snp_anno.html</loc></url>
 <url><loc>https://github.com/benben-miao/GAnnoViz/reference/plot_snp_density.html</loc></url>
 <url><loc>https://github.com/benben-miao/GAnnoViz/reference/plot_snp_fst.html</loc></url>
+<url><loc>https://github.com/benben-miao/GAnnoViz/reference/retrieve_ensembl_gff3.html</loc></url>
+<url><loc>https://github.com/benben-miao/GAnnoViz/reference/retrieve_ensembl_species.html</loc></url>
 </urlset>
 

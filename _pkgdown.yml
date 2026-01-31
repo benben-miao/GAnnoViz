@@ -14,7 +14,7 @@ destination: docs
 
 navbar:
   structure:
-    left: [home, reference, articles]
+    left: [home, reference, articles, news]
     right: [search, github]
   components:
     home:
