@@ -82,7 +82,7 @@ All multi-omics example datasets are simulated for illustrative purposes and adh
 ### Retrieve Ensembl Species
 
 ```{r spretrieve_ensembl_species}
-species_list <- spretrieve_ensembl_species(
+species_list <- retrieve_ensembl_species(
   release = 115)
 
 head(species_list)

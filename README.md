@@ -3,13 +3,16 @@ GAnnoViz
 
 - [GAnnoViz](#gannoviz)
   - [1. Introduction](#1-introduction)
-  - [2. Installation](#2-installation)
-  - [3. Shiny App](#3-shiny-app)
-  - [4. Extract Features](#4-extract-features)
-  - [5. Plot Structure](#5-plot-structure)
-  - [6. DEG Anno & Viz](#6-deg-anno--viz)
-  - [7. SNP Anno & Plot](#7-snp-anno--plot)
-  - [8. DMG Anno & Plot](#8-dmg-anno--plot)
+  - [2. Install & Library](#2-install--library)
+  - [3. Local Shinyapp](#3-local-shinyapp)
+  - [4. Prepare Datasets](#4-prepare-datasets)
+  - [5. Retrieve Ensembl](#5-retrieve-ensembl)
+  - [6. Extract Features](#6-extract-features)
+  - [7. Plot Structure](#7-plot-structure)
+  - [8. DEG Anno & Viz](#8-deg-anno--viz)
+  - [9. SNP Anno & Plot](#9-snp-anno--plot)
+  - [10. DMG Anno & Plot](#10-dmg-anno--plot)
+  - [11. Session Information](#11-session-information)
 
 # GAnnoViz
 
@@ -17,19 +20,28 @@ GAnnoViz
 
 **GAnnoViz: a R package for genomic annotation and visualization.**
 
-GAnnoViz is a cloud-integrated framework for chromosome-level feature annotation 
-and visualization in multi-omics research. It provides analytical and 
-visualization capabilities through R packages, while integrating a cloud 
-platform to enable real-time interactive data analysis. The current release 
-consists of 26 functions and three datasets, collectively addressing four core 
-analytical requirements: genomic features extraction, gene structure drawing, 
-sliding-window annotation, and multi-omics chromosome-level visualization
+***GAnnoViz is a cloud-integrated framework for chromosome-level feature
+annotation and visualization in multi-omics research***. It provides
+analytical and visualization capabilities through R packages, while
+integrating a cloud platform to enable real-time interactive data
+analysis. The current release consists of **30+ functions** and three
+datasets, collectively addressing four core analytical requirements:
+genomic features extraction, gene structure drawing, sliding-window
+annotation, and multi-omics chromosome-level visualization.
 
-**Open Source Code:** <https://github.com/benben-miao/GAnnoViz/>
+The **source code** and **example datasets** are available in the GitHub
+repository under an open-source license, facilitating reproducibility
+and community-driven development through issue reporting and pull
+requests.
 
-**Documents API**: <https://benben-miao.github.io/GAnnoViz/>
+**Open Source Code:** <a href="https://github.com/benben-miao/GAnnoViz/"
+class="uri"><strong><em>https://github.com/benben-miao/GAnnoViz/</em></strong></a>
 
-**Cloud Platform**: <https://shiny.hiplot.cn/gannoviz/>
+**Documents API**: <a href="https://benben-miao.github.io/GAnnoViz/"
+class="uri"><strong><em>https://benben-miao.github.io/GAnnoViz/</em></strong></a>
+
+**Cloud Platform**: <a href="https://shiny.hiplot.cn/gannoviz/"
+class="uri"><strong><em>https://shiny.hiplot.cn/gannoviz/</em></strong></a>
 
 <figure>
 <img src="https://benben-miao.github.io/GAnnoViz/image/Shinyapp.png"
@@ -37,21 +49,98 @@ alt="Shinyapp UI" />
 <figcaption aria-hidden="true">Shinyapp UI</figcaption>
 </figure>
 
-## 2. Installation
+## 2. Install & Library
+
+**Requirement**: R version \> v4.0.0
+
+**Recommended**: R version \>= v4.5.0
 
 ``` r
-# R version >= 4.0.0
-
-
+# Install from GitHub
+install.packages("remotes")
+remotes::install_github("benben-miao/GAnnoViz")
 ```
 
-## 3. Shiny App
+## 3. Local Shinyapp
 
 ``` r
-# GAnnoVizApp()
+# Running GAnnoVizApp on Rstudio or Rconsole
+GAnnoViz::GAnnoVizApp()
 ```
 
-## 4. Extract Features
+## 4. Prepare Datasets
+
+### 4.1 Reference genomic annotation
+
+The **built-in** example genomic annotations and multi-omics datasets in
+the GAnnoViz package and its accompanying cloud platform are provided
+for demonstration purposes, enabling users to rapidly prepare their own
+input data by reference. The structure of these example datasets can be
+inspected through dedicated functions, and the files are publicly
+accessible for download from both the source code repository and the
+cloud platform.
+
+The default reference genomic annotation employed is the latest version
+of the **mouse (*Mus musculus*)** genome, **GRCm39.115**, sourced from
+the **Ensembl database v115** and formatted in standard GFF3. This
+annotation includes complete chromosomes, gene coordinate information,
+and well-defined hierarchical feature relationships. The current and
+historical genomic annotation versions for **humans and other key
+species** can be obtained directly from Ensembl, and GAnnoViz supports
+the parsing of newly assembled genomic annotation.
+
+**Ensembl Genomic Annotation:**
+<https://ftp.ensembl.org/pub/release-115/gff3/>
+
+**Ensembl release 115: Species GFF3 349**
+
+### 4.2 Multi-omics result datasets
+
+All multi-omics example datasets are simulated for illustrative purposes
+and adhere the widely adopted formats in the field. Standard gene
+differential expression matrices are generated using **DESeq2 v1.50.2**,
+with differentially expressed genes (**DEGs**) identified by
+***`|log2(FoldChange)| > 1`*** and ***`padj < 0.05`***. Differential
+methylation results are generated using **MethylKit v1.36.0**, with
+differentially methylated regions (**DMRs**) identified by
+***`|meth.diff| > 25`*** and ***`qvalue < 0.05`***. Data files can be
+directly loaded into standard R data objects via built-in reading
+functions or through the cloud platform’s data upload interface,
+eliminating the need for users to pre-process genome annotations or
+multi-omics results into tabular formats prior to analysis.
+
+## 5. Retrieve Ensembl
+
+### Retrieve Ensembl Species
+
+``` r
+species_list <- retrieve_ensembl_species(
+  release = 115)
+
+head(species_list)
+#>                       Species                          ID
+#> 1 Acanthochromis Polyacanthus acanthochromis_polyacanthus
+#> 2             Accipiter Nisus             accipiter_nisus
+#> 3      Ailuropoda Melanoleuca      ailuropoda_melanoleuca
+#> 4            Amazona Collaria            amazona_collaria
+#> 5     Amphilophus Citrinellus     amphilophus_citrinellus
+#> 6        Amphiprion Ocellaris        amphiprion_ocellaris
+```
+
+### Retrieve Ensembl Species
+
+``` r
+mmu_gff3_file <- retrieve_ensembl_gff3(
+  species = "mus_musculus",
+  release = 115,
+  only_chr = TRUE,
+  dest_dir = "."
+)
+
+mmu_gff3_file
+```
+
+## 6. Extract Features
 
 ### Extract Genes
 
@@ -159,7 +248,7 @@ head(utr5_range)
 #>    <integer> <integer> <integer>
 ```
 
-## 5. Plot Structure
+## 7. Plot Structure
 
 ### Plot gene stats for chromosomes
 
@@ -324,7 +413,7 @@ plot_chrom_heatmap(
 
 <img src="man/figures/README-plot_chrom_heatmap-1.png" style="display: block; margin: auto;" />
 
-## 6. DEG Anno & Viz
+## 8. DEG Anno & Viz
 
 ### Annotate differentially expressed genes (DEGs) with chromosome positions
 
@@ -440,7 +529,7 @@ plot_deg_exp(
 
 <img src="man/figures/README-plot_deg_exp-1.png" style="display: block; margin: auto;" />
 
-## 7. SNP Anno & Plot
+## 9. SNP Anno & Plot
 
 ### Annotate FST slide windows with genomic features
 
@@ -608,7 +697,7 @@ plot_snp_anno(
 
 <img src="man/figures/README-plot_snp_anno-1.png" style="display: block; margin: auto;" />
 
-## 8. DMG Anno & Plot
+## 10. DMG Anno & Plot
 
 ### Plot differentially methylated regions (DMRs) hyper/hypo distributions by chromosome
 
@@ -729,3 +818,85 @@ plot_dmg_trend(
 ```
 
 <img src="man/figures/README-plot_dmg_trend-1.png" style="display: block; margin: auto;" />
+
+## 11. Session Information
+
+``` r
+sessionInfo()
+#> R version 4.5.2 (2025-10-31 ucrt)
+#> Platform: x86_64-w64-mingw32/x64
+#> Running under: Windows 11 x64 (build 26220)
+#> 
+#> Matrix products: default
+#>   LAPACK version 3.12.1
+#> 
+#> locale:
+#> [1] LC_COLLATE=Chinese (Simplified)_China.utf8 
+#> [2] LC_CTYPE=Chinese (Simplified)_China.utf8   
+#> [3] LC_MONETARY=Chinese (Simplified)_China.utf8
+#> [4] LC_NUMERIC=C                               
+#> [5] LC_TIME=Chinese (Simplified)_China.utf8    
+#> 
+#> time zone: Etc/GMT-8
+#> tzcode source: internal
+#> 
+#> attached base packages:
+#> [1] stats     graphics  grDevices utils     datasets  methods   base     
+#> 
+#> other attached packages:
+#> [1] ggplot2_4.0.1  GAnnoViz_0.1.0
+#> 
+#> loaded via a namespace (and not attached):
+#>   [1] tidyselect_1.2.1            dplyr_1.1.4                
+#>   [3] farver_2.1.2                blob_1.2.4                 
+#>   [5] filelock_1.0.3              Biostrings_2.78.0          
+#>   [7] S7_0.2.1                    bitops_1.0-9               
+#>   [9] fastmap_1.2.0               RCurl_1.98-1.17            
+#>  [11] BiocFileCache_3.0.0         GenomicAlignments_1.46.0   
+#>  [13] XML_3.99-0.20               digest_0.6.39              
+#>  [15] lifecycle_1.0.4             KEGGREST_1.50.0            
+#>  [17] RSQLite_2.4.5               magrittr_2.0.4             
+#>  [19] compiler_4.5.2              progress_1.2.3             
+#>  [21] rlang_1.1.6                 tools_4.5.2                
+#>  [23] CMplot_4.5.1                yaml_2.3.11                
+#>  [25] rtracklayer_1.70.0          knitr_1.50                 
+#>  [27] labeling_0.4.3              prettyunits_1.2.0          
+#>  [29] S4Arrays_1.10.0             bit_4.6.0                  
+#>  [31] curl_7.0.0                  DelayedArray_0.36.0        
+#>  [33] xml2_1.5.1                  RColorBrewer_1.1-3         
+#>  [35] abind_1.4-8                 BiocParallel_1.44.0        
+#>  [37] purrr_1.2.0                 txdbmaker_1.6.0            
+#>  [39] withr_3.0.2                 BiocGenerics_0.56.0        
+#>  [41] grid_4.5.2                  stats4_4.5.2               
+#>  [43] colorspace_2.1-2            scales_1.4.0               
+#>  [45] dichromat_2.0-0.1           biomaRt_2.66.0             
+#>  [47] SummarizedExperiment_1.40.0 cli_3.6.5                  
+#>  [49] rmarkdown_2.30              crayon_1.5.3               
+#>  [51] generics_0.1.4              otel_0.2.0                 
+#>  [53] rstudioapi_0.17.1           httr_1.4.7                 
+#>  [55] rjson_0.2.23                DBI_1.2.3                  
+#>  [57] cachem_1.1.0                stringr_1.6.0              
+#>  [59] splines_4.5.2               parallel_4.5.2             
+#>  [61] AnnotationDbi_1.72.0        XVector_0.50.0             
+#>  [63] restfulr_0.0.16             matrixStats_1.5.0          
+#>  [65] vctrs_0.6.5                 Matrix_1.7-4               
+#>  [67] jsonlite_2.0.0              hms_1.1.4                  
+#>  [69] IRanges_2.44.0              S4Vectors_0.48.0           
+#>  [71] bit64_4.6.0-1               GenomicFeatures_1.62.0     
+#>  [73] glue_1.8.0                  codetools_0.2-20           
+#>  [75] shape_1.4.6.1               stringi_1.8.7              
+#>  [77] gtable_0.3.6                GenomeInfoDb_1.46.2        
+#>  [79] BiocIO_1.20.0               GenomicRanges_1.62.0       
+#>  [81] UCSC.utils_1.6.0            tibble_3.3.0               
+#>  [83] pillar_1.11.1               rappdirs_0.3.3             
+#>  [85] htmltools_0.5.9             Seqinfo_1.0.0              
+#>  [87] circlize_0.4.17             R6_2.6.1                   
+#>  [89] dbplyr_2.5.1                httr2_1.2.2                
+#>  [91] evaluate_1.0.5              Biobase_2.70.0             
+#>  [93] lattice_0.22-7              png_0.1-8                  
+#>  [95] Rsamtools_2.26.0            cigarillo_1.0.0            
+#>  [97] memoise_2.0.1               nlme_3.1-168               
+#>  [99] SparseArray_1.10.2          mgcv_1.9-4                 
+#> [101] xfun_0.54                   GlobalOptions_0.1.3        
+#> [103] MatrixGenerics_1.22.0       pkgconfig_2.0.3
+```
